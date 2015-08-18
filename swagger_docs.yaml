@@ -1,0 +1,809 @@
+# This is the Swagger documentation on the Bitely API
+# To see this documentation in action you have two options:
+# 1) Use the Swagger UI and upload this file as source.
+#    It might be tricky because you need to dowmload the tool.
+# 2) Us the Swagger Editor and upload this file as source.
+#    This option might be easier, though not as pretty.
+#    Find the editor here: http://editor.swagger.io/#/
+
+swagger: '2.0'
+info:
+  title: Bitely API
+  description: Enhance you dining experience with Bitely
+  version: "1.0.0"
+# the domain of the service
+# host: sound-helper-87921.appspot.com
+host: bitely.io
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /bitely/api/v3.0
+produces:
+  - application/json
+paths:
+  /menu:
+    get:
+      summary: Full menu
+      description: |
+        The Menu endpoint is used to retrieve a menu given a restaurant ID and its name.
+      parameters:
+        - name: rest_id
+          in: query
+          description: ID of this restaurant venue in Locu (See locu.com).
+          required: true
+          type: integer
+        - name: name_id
+          in: query
+          description: Name of the restaurant
+          required: true
+          type: string
+      tags:
+        - Menu
+      responses:
+        default:
+          description: A restaurant Menu instance.
+          schema:
+            $ref: '#/definitions/MenuArray'
+  /items:
+    get:
+      summary: Search for plate Items (ItemSearchAPI)
+      description: |
+        The Items endpoint is used to search for different plates available through Bitely.
+      parameters:
+        - name: qtype
+          in: query
+          description: Query type for this search. Use 'product' as default.
+          required: false
+          type: string
+        - name: querystr
+          in: query
+          description: Query string for this search.
+          required: false
+          type: string
+        - name: price
+          in: query
+          description: Search for plates with price lower than this.
+          required: false
+          type: string
+        - name: less_than_distance
+          in: query
+          description: Search for plates within this distance. Units in meters.
+          required: false
+          type: string
+        - name: offset
+          in: query
+          description: Position in pagination. Default '0'.
+          required: false
+          type: string
+        - name: cur_location
+          in: query
+          description: Current location for the user. Format "lat,long".
+          required: true
+          type: string
+      tags:
+        - Items
+      responses:
+        default:
+          description: A list of Item plates.
+          schema:
+            $ref: '#/definitions/ItemArray'
+  /venues:
+    get:
+      summary: Search for venues (VenueSearchAPI)
+      description: |
+        The Venues enpoint is used to search for different venue restaurants through Bitely.
+      parameters:
+        - name: querystr
+          in: query
+          description: Query string for this search.
+          required: false
+          type: string
+        - name: less_than_distance
+          in: query
+          description: Search for venues within this distance. Units in meters.
+          required: false
+          type: string
+        - name: offset
+          in: query
+          description: Position in pagination. Default '0'.
+          required: false
+          type: string
+        - name: cur_location
+          in: query
+          description: Current location for the user. Format "lat,long".
+          required: true
+          type: string
+      tags:
+        - Venues
+      responses:
+        default:
+          description: A list of restaurant Venues.
+          schema:
+            $ref: '#/definitions/VenueArray'
+  /venue:
+    get:
+      summary: Fetch one specific restaurant venue (VenueAPI)
+      description: |
+        The Venues enpoint is used to fetch a single instance of a restaurant. The information is fetched from the Bitely databases.
+      parameters:
+        - name: rest_id
+          in: query
+          description: ID of this restaurant venue in Locu (See locu.com).
+          required: true
+          type: integer
+      tags:
+        - Venues
+      responses:
+        default:
+          description: A restaurant Venue instance.
+          schema:
+            $ref: '#/definitions/Venue'
+    put:
+      summary: Create one database instance for a given restaurant venue.
+      description: |
+        This endpoint is used to create and register a restaurant venue in Bitely. This method parses the information from the Locu API and it creates a corresponding instance in the Bitely databases.
+      parameters:
+        - name: rest_id
+          in: query
+          description: ID of this restaurant venue in Locu (See locu.com).
+          required: true
+          type: integer
+        - name: name_id
+          in: query
+          description: Name of the restaurant venue.
+          required: true
+          type: string
+      tags:
+        - Venues
+      responses:
+        default:
+          description: A restaurant Venue instance.
+          schema:
+            $ref: '#/definitions/Venue'
+  /rating:
+    get:
+      summary: Get the rating for all items in Bitely (RatingAPI).
+      description: |
+        This Rating enpoint is used to fetch the ratings of an item. Notice that as a prerequisite the user must be logged-in.
+      tags:
+        - Ratings
+      responses:
+        default:
+          description: An array of tuples. Each tuple consists of an item Key and a rating for such item.
+          schema:
+            $ref: '#/definitions/RatingArray'
+    put:
+      summary: Add a rating to a given Bitely item (RatingAPI).
+      description: |
+        This Rating enpoint is used to add the ratings of an item. Notice that as a prerequisite the user must be logged-in.
+      parameters:
+        - name: rating
+          in: query
+          description: Rating to be set for this item.
+          required: true
+          type: integer
+        - name: key
+          in: query
+          description: Database Key for this item.
+          required: true
+          type: string
+      tags:
+        - Ratings
+      responses:
+        default:
+          description: An array of tuples. Each tuple consists of an item Key and a rating for such item.
+          schema:
+            $ref: '#/definitions/RatingArray'
+  /review:
+    put:
+      summary: User reviews of plates (ReviewAPI)
+      description: |
+        The Review endpoint is used to store the comments made by a user about a plate he or she ate. Notice that the user must be logged in to make this call.
+      parameters:
+        - name: review
+          in: query
+          description: Text entered by the user describing this item.
+          required: true
+          type: string
+        - name: id
+          in: query
+          description: Database Key for this item.
+          required: true
+          type: string
+      tags:
+        - Reviews
+      responses:
+        default:
+          description: A boolean which confirms whether the review was saved in the Bitely datastore.
+          schema:
+            $ref: '#/definitions/Confirm'
+  /pay:
+    post:
+      summary: Make a payment (PayAPI)
+      description: |
+        The Pay endpoint is used to let the user make a payment to Bitely. Notice that as a prerequisite the user must be logged in to Bitely.
+      parameters:
+        - name: tip
+          in: query
+          description: The tip that the user would like to pay to the restaurant.
+          required: false
+          type: number
+          format: float
+        - name: pay_to
+          in: query
+          description: Set to "all" if the user would like to pay for their entire table. Otherwise, pay for itself.
+          required: false
+          type: string
+      tags:
+        - Payments
+      responses:
+        default:
+          description: The payment schema fields. Results from processing the online payment.
+          schema:
+            $ref: '#/definitions/PaymentSchema'
+  /tip:
+    post:
+      summary: Make a payment of a tip for a restaurant venue (TipAPI)
+      description: |
+        The Tip endpoint can be used to charge a user for the tip or gratuity they would like to pae to a restaurant venue. Notice that the Pay enpoint can also handle the Tip as the order payment is being processed. Notice that as a prerequisite the user should be logged in to Bitely.
+      parameters:
+        - name: tip
+          in: query
+          description: The tip that the user would like to pay to the restaurant.
+          required: true
+          type: number
+          format: float
+        - name: order_id
+          in: query
+          description: The Bitely database key corresponding to the order that has this Tip.
+          required: true
+          type: string
+      tags:
+        - Payments
+      responses:
+        default:
+          description: The payment schema fields. Results from processing the online payment.
+          schema:
+            $ref: '#/definitions/PaymentSchema'
+  /location:
+    get:
+      summary: Get the current location for a user.
+      description: |
+        The Location endpoint is used to fetch and obtain the current location of a user.
+      tags:
+        - Location
+      responses:
+        default:
+          description: The current location of a user.
+          schema:
+            $ref: '#/definitions/LocationSchema'
+    put:
+      summary: Set the current location for a user.
+      description: |
+        The Location enpoint is used to set and save the current location of a user.
+      tags:
+        - Location
+      responses:
+        default:
+          description: The current location of a user.
+          schema:
+            $ref: '#/definitions/LocationSchema'
+  /order:
+    get:
+      summary: Get the current (last) order for a user.
+      description: |
+        This enpoint can be used to fetch the current (last) order for a user.
+      tags:
+        - Orders
+      responses:
+        default:
+          description: The order for the user.
+          schema:
+            $ref: '#/definitions/OrderSchema'
+    post:
+      summary: Post the last order to the kitchen.
+      description: |
+        This enpoint lets the user post their order to the kitchen. Complete the order so the kitchen can start cooking the items. Notice the prerequisite that the user must be logged in to Bitely.
+      tags:
+        - Orders
+      responses:
+        default:
+          description: The order for the user.
+          schema:
+            $ref: '#/definitions/OrderSchema'
+    put:
+      summary: Add a plate item to a users order.
+      description: |
+        This endpoint lets the user add the specified plate item to the users current open order.
+      parameters:
+        - name: action
+          in: query
+          required: true
+          description: Use "add" to add a plate, or "remove" to remove it from the order.
+          type: string
+        - name: itemkey
+          in: query
+          required: true
+          description: The databse key for thie item being added to the order.
+          type: string
+        - name: itemprice
+          in: query
+          required: true
+          description: Price of the item being added to the order.
+          type: string
+        - name: itemname
+          in: query
+          required: true
+          description: Name of the item being added to the order.
+          type: string
+      tags:
+        - Orders
+      responses:
+        default:
+          description: The order for the user.
+          schema:
+            $ref: '#/definitions/OrderSchema'
+  /venue_order_list:
+    get:
+      summary: Get all orders that have been posted to the kitchen.
+      description: |
+        The venue_order_list endpoint is used to retrieve all the open orders for a given restaurant. Notice the prerequisite that a user must be a venue administrator to call this method.
+      tags:
+        - Orders
+      responses:
+        default:
+          description: This is currently incorrect. Please contact Bitely for details about the return format.
+          schema:
+            $ref: '#/definitions/OrderSchema'
+  /recommendations:
+    get:
+      summary: Plate recommendations for a given restaurant venue
+      description: |
+        The Recommendations endpoint is used to get the plate item recommendations of a given restaurant. Notice that these recommendations are tailored to the current user.
+      parameters:
+        - name: rest_id
+          in: query
+          description: The databse key ID for the restaurant object. If not present, then the call returns the recommendations tailored to the current user accross all restaurants.
+          required: false
+          type: string
+      tags:
+        - User
+        - Venues
+      responses:
+        default:
+          description: An array containing all the items being recommended.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ItemSchema'
+  /venue_serve:
+    put:
+      summary: Mark an item or order as served.
+      description: |
+        The Venue_serve enpoint is used by the kitchen cheff to mark a plate or order as served to the user. Notice the prerequisite that the user must be a restaurant venue administrator.
+      parameters:
+        - name: action
+          in: query
+          description: Action to be performed to the item or order. Set it as "serve" to serve it.
+          required: true
+          type: string
+        - name: plate_key
+          in: query
+          description: The databse key ID of the plate item being served.
+          required: false
+          type: string
+        - name: order_key
+          in: query
+          description: The database key ID of the order being served.
+          required: false
+          type: string
+      tags:
+        - Venues
+      responses:
+        default:
+          description: Confirmation message that the item or order was served.
+          schema:
+            $ref: '#/definitions/Confirm'
+  /user:
+    get:
+      summary: Get the current user.
+      description: |
+        The User enpoint is used to fetch the identity of the current user.
+      tags:
+        - User
+      responses:
+        default:
+          description: The identity of the current user.
+          schema:
+            $ref: '#/definitions/UserSchema'
+    post:
+      summary: Save the Stripe customer token for the current user.
+      description: |
+        The User enpoint can be used to add and save the customers Stripe token in the Bitely databases.
+      parameters:
+        - name: stripeToken
+          in: query
+          description: The customer token acquired through calls to the Stripe API.
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        default:
+          description: The identity of the current user.
+          schema:
+            $ref: '#/definitions/UserSchema'
+  /admin_login:
+    post:
+      summary: Login of venue administrator.
+      description: |
+        The Admin_login endpoint can be used by a venue administrator to login to the Bitely restaurants portal.
+      parameters:
+        - name: email
+          in: query
+          description: The email account of the user being logged in.
+          required: true
+          type: string
+        - name: password
+          in: query
+          description: The password of the user being logged in.
+          required: true
+          type: string
+        - name: remember_me
+          in: query
+          description: Whether the system should remember the current user.
+          required: false
+          type: boolean
+      tags:
+        - Venues
+      responses:
+        default:
+          description: The identity of the adminstrator user
+          schema:
+            $ref: '#/definitions/UserSchema'
+  /venue_edit:
+    get:
+      summary: Get restaurant administrators
+      description: |
+        The venue_edit endpoint can be used to fetch a list of all the administrators for the specified restaurant. Notice the prerequisite that the user must be a restaurant venue administrator.
+      parameters:
+        - name: venue_id
+          in: query
+          description:  The Locu ID of the restaurant venue.
+          required: true
+          type: string
+      tags:
+        - Venues
+      responses:
+        default:
+          description:  A list of all the administrators for this restaurant venue.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserSchema'
+    post:
+      summary: Change restaurant properties.
+      description: |
+        The Venue_edit enpoint can be used to add or modify all the properties of a venue restaurant, including (i) create a restaurant administrator, (ii) set a given user as venue administrator, (iii) changing an administrators password, (iv) adding the restaurants checking account information.
+      parameters:
+        - name: venue_id
+          in: query
+          description:  The Locu ID of the restaurant venue.
+          required: true
+          type: string
+        - name: stripeToken
+          in: query
+          description:  If present, it adds/modifies the checking account information for this restaurant venue.
+          required: false
+          type: string
+        - name: email
+          in: query
+          description:  If present, it can set a user as venue administrator. If the email is new to Bitely, it creates a user and sets it as administrator.
+          required: false
+          type: string
+        - name: password
+          in: query
+          description:  If present, it sets/modifies the password of the venue admin -- email is required.
+          required: false
+          type: string
+      tags:
+        - Venues
+      responses:
+        default:
+          description: A list of all the administrators for this restaurant venue.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserSchema'
+  /radius:
+    put:
+      summary: Set search radius.
+      description: |
+        The Radius endpoint can be used to set the search radius for the current user.
+      parameters:
+        - name: radius
+          in: query
+          description: The radius being set for the current user.
+          required: true
+          type: string
+      responses:
+        default:
+          description: A confirmation that the radius was set correctly.
+          schema:
+            $ref: '#/definitions/Confirm'
+definitions:
+  Confirm:
+    description: Described whether an action was completed successfully.
+    properties:
+      stored:
+        type: boolean
+  LocationSchema:
+    description: Describes a geographical point.
+    properties:
+      lat:
+        description: Latitude
+        type: number
+      lon:
+        description: Longitude
+        type: number
+  ItemArray:
+    description: Array of plate Items.
+    properties:
+      item_list:
+        type: array
+        items:
+          $ref: '#/definitions/ItemSchema'
+  VenueArray:
+    description: Array of restaurant Venues.
+    properties:
+      restaurant_list:
+        type: array
+        items:
+          $ref: '#/definitions/VenueSchema'
+  Venue:
+    description: A single instance of a restaurant Venue.
+    properties:
+      venue:
+        $ref: '#/definitions/VenueSchema'
+  Rating:
+    description: A tuple of a key and a rating for an item in the Bitely databases.
+    properties:
+      rating:
+        type: integer
+        description: The rating for a given item.
+      key:
+        description: Database Key for the rated item.
+        type: string
+  RatingArray:
+    description: An array of tuples, where each tuple has the key and rating for an item.
+    properties:
+      ratings:
+        type: array
+        items:
+          $ref: '#/definitions/Rating'
+  OrderPlateSchema:
+    description: Describes a plate that belongs to an order.
+    properties:
+      plate_name:
+        type: string
+        description: Name of the plate.
+      plate_price:
+        type: number
+        description: Price of the plate.
+      is_posted:
+        type: boolean
+        description: Describes whether the plate has been sent to the kitchen.
+      is_served:
+        type: boolean
+        description: Describes whether the plate has been served to the user.
+      menu_item:
+        $ref: '#/definitions/ItemSchema'
+        description: The menu item corresponding to this plate. (only "key", "name", and "price" are returned).
+      item:
+        type: number
+        description: Backend database key of the item corresponding to this plate.
+  VenueSchema:
+    description: Describes a restaurant venue and its properties.
+    properties:
+      pid:
+        type: number
+        description: Backend database key of the venue.
+      name:
+        type: string
+        description: Name of the venue.
+      num_tables:
+        type: number
+        description: Number of tables in the venue.
+      street_address:
+        type: string
+        description: Street address of the venue.
+      distance_to:
+        type: number
+        description: Distance that separates the user from the venue.
+      coordinates:
+        $ref: '#/definitions/LocationSchema'
+  ItemSchema:
+    description: Describes a restaurant plate.
+    properties:
+      pid:
+        type: number
+        description: Backend database key of the item.
+      name:
+        type: string
+        description: Name of the item.
+      description:
+        type: string
+        description: Description of the item and its ingredients.
+      price:
+        type: number
+        description: Price of the item in dollars.
+      rating_average:
+        type: number
+        description: Average ratings for this item.
+      score:
+        type: number
+        description: Score for this item.
+      distance_to:
+        type: number
+        description: Distance that separates the user from the item.
+      location:
+        $ref: '#/definitions/LocationSchema'
+        description: Location of the venue where this item is served.
+      restaurant:
+        $ref: '#/definitions/VenueSchema'
+        description: Venue restaurant that owns and serves this item. (only "name" is returned).
+      key:
+        type: string
+        description: Key to make this item url_safe.
+  OrderSchema:
+    description: Describes a restaurant order of plates.
+    properties:
+      pid:
+        type: number
+        description: Backend database key of the order.
+      total:
+        type: number
+        description: Total amount for this order in dollars.
+      total_table:
+        type: number
+        description: Total amount for all orders in the table, in dollars.
+      order_plates:
+        type: array
+        description: Array with the OrderPlates for this order.
+        items:
+          $ref: '#/definitions/OrderPlateSchema'
+      is_paid:
+        type: boolean
+        description: Describes whether this order has been paid.
+      is_served:
+        type: boolean
+        description: Describes whether this order has been served to the user.
+      is_posted:
+        type: boolean
+        description: Describes whether the user has sent this order to the kitchen.
+      table:
+        type: integer
+        description: Tables in which this order is being served.
+      tax_rate:
+        type: number
+        description: Tax rate for this venue.
+  UserSchema:
+    description: Describes a Bitely user.
+    properties:
+      nickname:
+        type: string
+        description: Nickname for this user.
+      email:
+        type: string
+        description: Email for thi suser.
+      fullname:
+        type: string
+        description: Full name for this user.
+      customertoken:
+        type: string
+        description: Stripe customer token for this user.
+  PaymentSchema:
+    description: Stripe payment response fields.
+    properties:
+      amount:
+        type: string
+      amount_refunded:
+        type: string
+      application_fee:
+        type: string
+      balance_transaction:
+        type: string
+      captured:
+        type: string
+      created:
+        type: string
+      currency:
+        type: string
+      customer:
+        type: string
+      description:
+        type: string
+      destination:
+        type: string
+      dispute:
+        type: string
+      failure_code:
+        type: string
+      failure_message:
+        type: string
+      fraud_details:
+        type: string
+      id:
+        type: string
+      invoice:
+        type: string
+      livemode:
+        type: string
+      object:
+        type: string
+      paid:
+        type: string
+      receipt_email:
+        type: string
+      receipt_number:
+        type: string
+      refunded:
+        type: string
+      status:
+        type: string
+  MenuArray:
+    description: An array of menus.
+    properties:
+      menu:
+        type: array
+        items:
+          $ref: '#/definitions/Menu'
+  Menu:
+    description: Information regarding a specific menu for this restaurant.
+    properties:
+      currency_symbol:
+        type: string
+        description: Currency used by this menu (typically '$').
+      sections:
+        type: array
+        items:
+          $ref: '#/definitions/Section'
+  Section:
+    description: A section in a given menu of a restaurant.
+    properties:
+      section_name:
+        type: string
+        description: Name of this section
+      subsections:
+        type: array
+        items:
+          $ref: '#/definitions/Subsection'
+  Subsection:
+    description: A subsection in a given section menu for a restaurant.
+    properties:
+      subsection_name:
+        type: string
+        description: Name of this subsection
+      contents:
+        type: array
+        items:
+          $ref: '#/definitions/MenuContent'
+  MenuContent:
+    description: An item in the menu of the restaurant.
+    properties:
+      name:
+        type: string
+        description: Name of this item.
+      price:
+        type: string
+        description: Price of the item.
+      description:
+        type: string
+        description: Wording that describes this item.
+      type:
+        type: string
+        description: Type of item (typically 'ITEM').
+      key:
+        type: string
+        description: This property is very important. If it exists, it indicates that the plate is in the Bitely database and the menu is allowed to receive orders.
