@@ -1,6 +1,6 @@
-angular.module('bitely.controllers',[])
-.controller('AppCtrl', function($http, $cordovaOauth, $localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $ionicSideMenuDelegate) {
-	$rootScope.globals.currentUser ={};
+angular.module('bitely.controllers',['ngOpenFB'])
+.controller('AppCtrl', function($localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $ionicSideMenuDelegate, ngFB) {
+
 	$rootScope.orderTotal = 0;
 
 	$scope.login = function(){
@@ -9,49 +9,30 @@ angular.module('bitely.controllers',[])
       		template: '<ion-spinner class="color_white"></ion-spinner>'
     	});
 
+		//CAMBIAR EL URL A https://www.facebook.com/connect/login_success.html
+		//http://localhost:8100/oauthcallback.html
+	    ngFB.login({scope: 'email'}).then(
+    	    function (response) {
+        	    if (response.status === 'connected') {
+            	    console.log('Facebook login succeeded');
+                	//$scope.closeLogin();
+                	ngFB.api({
+        				path: '/me',
+        				params: {fields: 'id,name,email,picture.width(200).height(200)'}
+    				}).then(
+        			function (user) {
+            			$rootScope.globals.currentUser = user;
+            			$location.path('/app/home');
+						$ionicLoading.hide();
+        			},
+        			function (error) {
+            			alert('Facebook error: ' + error.error_description);
+        			});
 
-		$cordovaOauth.facebook("1646690858946373", ["email"], {"auth_type": "rerequest"}).then(function(result) {
-            console.log(JSON.stringify(result));
-            $rootScope.globals.currentUser.access_token = result.access_token;
-	            $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: result.access_token, fields: "id,name,email,picture.width(200).height(200)", format: "json" }}).then(function(user) {
-	                console.log(user);
-	                $rootScope.globals.currentUser = user.data;
-            		$location.path('/app/home');
-		 			$ionicLoading.hide();
-	            }, function(error) {
-	                alert("There was a problem getting your profile.  Check the logs for details.");
-	                console.log(error);
-	            });
-        }, function(error) {
-            console.log(JSON.stringify(error));
-		 	$ionicLoading.hide();
+            	} else {
+                	alert('Facebook login failed');
+            	}
         });
-
-
-
-
-	    // ngFB.login({scope: 'email'}).then(
-    	//     function (response) {
-     //    	    if (response.status === 'connected') {
-     //        	    console.log('Facebook login succeeded');
-     //            	//$scope.closeLogin();
-     //            	ngFB.api({
-     //    				path: '/me',
-     //    				params: {fields: 'id,name,email,picture.width(200).height(200)'}
-    	// 			}).then(
-     //    			function (user) {
-     //        			$rootScope.globals.currentUser = user;
-     //        			$location.path('/app/home');
-					// 	$ionicLoading.hide();
-     //    			},
-     //    			function (error) {
-     //        			alert('Facebook error: ' + error.error_description);
-     //    			});
-
-     //        	} else {
-     //            	alert('Facebook login failed');
-     //        	}
-     //    });
 
 
 		// $timeout(function(){
