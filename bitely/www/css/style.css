@@ -1,0 +1,276 @@
+/* Empty. Add your own CSS if you like */
+
+/* naranja: fb7d00 */
+@font-face {
+    font-family: 'sourcesans';
+    src:url('../fonts/SourceSansPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+ion-content .scroll {
+	background: url('../img/bg.png');
+	min-height: 100%;
+}
+/*.fila {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 0 0;
+  width: 100%; 
+}
+.fila .coli {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: block;
+  padding: 0px 0;
+  width: 100%; 	
+}
+.fila .col70 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 80%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 80%;
+  -ms-flex: 0 0 80%;
+  flex: 0 0 80%;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;  
+}
+.fila .col30 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 20%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 20%;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+  text-align: right;
+}*/
+.cardvenue .row{
+	padding: 5px 0 0 !important
+}
+.cardvenue .row .col{
+	padding: 0 !important;
+}
+.cardvenue .row .col-80{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}
+
+.item h2 {
+	font-family: 'sourcesans';
+	font-size: 19px;
+	color:#828282;
+}
+.cardvenue .row .col {
+	font-size: 14px;
+	color:#828282;
+}
+.titulo-near{
+	font-family: 'sourcesans';
+	text-align: center;
+	font-size: 17px;
+	color:#828282;
+	text-transform: uppercase;
+	font-weight: normal;
+	margin:0;
+    padding-top: 20px;
+}
+
+.color-naranja {
+	color:#eeac26;
+}
+.fuente-total {
+	font-family: 'sourcesans';
+	font-size: 13px !important;
+}
+#venue header .row{
+	padding: 0;
+}
+#venue header .row .col{
+	padding: 0;
+}
+#venue header h1 {
+	font-family: 'sourcesans';
+	font-size: 30px;
+	font-weight: normal;
+	color:#828282;
+	line-height: 1.1;
+	margin-bottom: 2px;
+}
+#venue header p.address {
+	font-family: 'sourcesans';
+	font-size: 22px;
+	font-weight: normal;
+	color:#828282;
+	line-height: 1.1
+}
+#venue header .distance p{
+	font-family: 'sourcesans';
+	font-size: 17px;
+	margin-top: 5px;
+	color:#828282;
+}
+#venue p.description {
+	font-family: 'sourcesans';
+	color:#b2b2b2;
+	font-size: 17px
+}
+.text-alig-right {
+	text-align: right
+}
+#venue #menu {
+
+}
+#venue #menu h2 {
+	font-family: 'sourcesans';
+	color:#828282;
+	font-size: 22px;
+}
+#venue #menu h3 {
+	font-family: 'sourcesans';
+	color:#828282;
+	font-size: 19px;
+}
+
+.venue-img {
+	width: 100%;
+}
+.row.sinpadd{
+	padding: 5px 0 !important;
+}
+.row.sinpadd .col:nth-child(1n+0){
+	padding:0 10px 0 0;
+	/*background: #c00*/
+}
+.row.sinpadd .col:nth-child(2n+0){
+	padding:0 0 0 10px;
+	/*background: #0c0*/
+}
+.row.sinpadd .item {
+	color:#666666;
+	font-family: 'sourcesans';
+}
+
+
+.rowvenue .card {
+	margin-top: 0;
+	margin-bottom: 20px !important;
+}
+.rowvenue .item.itemmenospadding {
+	padding:8px;
+}
+.sinpadd .col a {
+	text-decoration: none;
+}
+
+#plate header .row{
+	padding: 0;
+}
+#plate header .row .col{
+	padding: 0;
+}
+#plate header h1 {
+	font-family: 'sourcesans';
+	font-size: 30px;
+	font-weight: normal;
+	color:#828282;
+	line-height: 1.1;
+	margin-bottom: 2px;
+	color:#fb7d00;
+}
+#plate header h2 {
+	font-family: 'sourcesans';
+	font-size: 22px;
+	font-weight: normal;
+	color:#828282;
+	line-height: 1.1;
+	margin-top: 0;
+}
+#plate header h2 a{
+	color:#828282;
+	text-decoration: none;
+}
+#plate header h3 {
+	text-align: right;
+	font-family: 'sourcesans';
+	font-size: 26px;
+	color:#b2b2b2;
+	text-decoration: none;
+}
+#plate p.description {
+	font-family: 'sourcesans';
+	color:#b2b2b2;
+	font-size: 17px
+}
+
+#plate a.order {
+    display: block;
+    margin: 40px auto 0;
+    width: 186px;
+}
+.loader {
+}
+.loader ion-spinner {
+	display: block;
+	text-align: center;
+	min-height: 100%;
+}
+
+.loader ion-spinner svg {
+	position: absolute;
+	top:50%;
+	margin-top:-24px;
+}
+
+#splash {
+	background: url('../img/splash_bg.png');
+}
+
+#splash .logo_splash {
+	margin: 100px 0 40px;
+}
+#splash img {
+	width: 100%;
+	height: auto;
+}
+p.asguest {
+
+}
+p.asguest a.button {
+	color: #fff;
+	margin-top: 30px;
+	font-family: 'sourcesans';
+}
+.color_white {
+	color: #fff;
+}
+.side-menu ion-content .scroll{
+	background: url('../img/side_bg.png')
+}
+.side-menu .avatar {
+	padding-top: 50px;
+}
+.side-menu .avatar img {
+	display: block;
+	border-radius: 50%;
+	width: 150px;
+	height:150px;
+	margin: 0 auto 0;
+}
+.side-menu .avatar h1 {
+	color: #828282;
+	font-family: 'sourcesans';
+	font-size: 27px;
+	text-align: center;
+	padding: 0 20px
+}
