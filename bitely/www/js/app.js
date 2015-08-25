@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('bitely', ['ionic','bitely.controllers','ngOpenFB'])
+angular.module('bitely', ['ionic','ionic.service.core','bitely.controllers','ngOpenFB'])
 
 .run(function($ionicPlatform, $rootScope, $location, $localstorage, ngFB) {
 

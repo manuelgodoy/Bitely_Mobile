@@ -11,38 +11,45 @@ angular.module('bitely.controllers',['ngOpenFB'])
 
 		//CAMBIAR EL URL A https://www.facebook.com/connect/login_success.html
 		//http://localhost:8100/oauthcallback.html
-	    ngFB.login({scope: 'email'}).then(
-    	    function (response) {
-        	    if (response.status === 'connected') {
-            	    console.log('Facebook login succeeded');
-                	//$scope.closeLogin();
-                	ngFB.api({
-        				path: '/me',
-        				params: {fields: 'id,name,email,picture.width(200).height(200)'}
-    				}).then(
-        			function (user) {
-            			$rootScope.globals.currentUser = user;
-            			$location.path('/app/home');
-						$ionicLoading.hide();
-        			},
-        			function (error) {
-            			alert('Facebook error: ' + error.error_description);
-        			});
+	    // ngFB.login({scope: 'email'}).then(
+    	//     function (response) {
+     //    	    if (response.status === 'connected') {
+     //        	    console.log('Facebook login succeeded');
+     //            	//$scope.closeLogin();
+     //            	ngFB.api({
+     //    				path: '/me',
+     //    				params: {fields: 'id,name,email,picture.width(200).height(200)'}
+    	// 			}).then(
+     //    			function (user) {
+     //        			$rootScope.globals.currentUser = user;
+     //        			$location.path('/app/home');
+					// 	$ionicLoading.hide();
+     //    			},
+     //    			function (error) {
+     //        			alert('Facebook error: ' + error.error_description);
+     //    			});
 
-            	} else {
-                	alert('Facebook login failed');
-            	}
-        });
+     //        	} else {
+     //            	alert('Facebook login failed');
+     //        	}
+     //    });
 
 
-		// $timeout(function(){
-		// 	$rootScope.globals.currentUser = {
-		// 		name: 'Becky Noriega',
-		// 		image: 'img/avatar.jpg'
-		// 	};
-		// 	$location.path('/app/home');
-		// 	$ionicLoading.hide();
-		// }, 2000);
+		$timeout(function(){
+			$rootScope.globals.currentUser = {
+			  "id": "10154225207801393",
+			  "name": "Gian F. Olivieri",
+			  "email": "gian.olivieri@gmail.com",
+			  "picture": {
+			    "data": {
+			      "is_silhouette": false,
+			      "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c6.0.50.50/p50x50/9771_10153577592966393_7987985602653327226_n.jpg?oh=b992903c85f9ca760556c179277939a1&oe=563C4327&__gda__=1450369685_31fb6f8bfc4bbcdac1e649af04c66784"
+			    }
+			  }
+			};
+			$location.path('/app/home');
+			$ionicLoading.hide();
+		}, 2000);
 		
 	};
 	$scope.asGuest = function(){
@@ -76,6 +83,13 @@ angular.module('bitely.controllers',['ngOpenFB'])
 	$scope.moreDataCanBeLoaded = true;
 
 	$scope.loaded = false;
+
+	$scope.location = {
+		lat : "29.7377136",
+        lon : "-95.58918089999997",
+        radius : 200
+    }
+
 	$scope.places = {};
 
     $timeout(function() {
@@ -198,20 +212,47 @@ angular.module('bitely.controllers',['ngOpenFB'])
    							'section_name': 'Section name',
    							'subsections': [{ 
    									'subsection_name': 'Subsection name',
-   									'contents' :[{
-   											'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum nobis tempore omnis excepturi! Animi, a minima culpa suscipit rerum libero.',
-   											'key':	'tacos',
-   											'image': 'img/plato.jpg',
-   											'name': 'Tacos Lorem ipsum dolor sit.',
-   											'price': 20,
-   											'type': 'ITEM'
-   										},{
+   									'contents' :[
+   									{
+   										'description': 'A rib-eye\u200f steak cooked with assorted vegetables in a special sauce and served on a hot sizzling platter.',
+   										'key': 'ahRzfnNvdW5kLWhlbHBlci04NzkyMXIRCxIESXRlbRiAgICA16X9Cgw',
+   										'name': 'ADD Oriental Sizzling Steak',
+   										'option_groups': [
+   										{
+   											'options': [
+   											{
+   												'name': 'Shrimp',
+   												'price': '+3.00'
+   											}],
+   											'text': 'Meat',
+   											'type': 'OPTION_ADD'
+   										}],
+   										'price': '16.95',
+                                        'type': 'ITEM'
+                                    },
+                                    {
    											'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum nobis tempore omnis excepturi! Animi, a minima culpa suscipit rerum libero.',
    											'key':	'burrito',
    											'image': 'img/no_image.jpg',
-   											'name': 'Burrito',
+   											'name': 'CHOOSE Burrito',
    											'price': 24,
-   											'type': 'ITEM'
+   											'type': 'ITEM',
+   											'option_groups': [
+   											{
+   												'options': [
+   												{
+   													'name': 'Hot and sour'
+   												},
+   												{
+   													'name': 'Wonton'
+   												},
+   												{
+   													'name': 'Egg drop soup'
+   												}],
+   												'text': 'Soup',
+   												'type': 'OPTION_CHOOSE'
+   											}]
+
    									},{
    											'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum nobis tempore omnis excepturi! Animi, a minima culpa suscipit rerum libero.',
    											'key':	'burrito-otro',
