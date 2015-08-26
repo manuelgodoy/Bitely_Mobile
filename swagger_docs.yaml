@@ -603,6 +603,9 @@ definitions:
       item:
         type: number
         description: Backend database key of the item corresponding to this plate.
+      options:
+        type: string
+        description: String formatted as a dictionary that contains the following: {'options': ..., 'text': ..., 'type': (OPTION_CHOOSE or OPTION_ADD), 'price', (if available)}
   VenueSchema:
     description: Describes a restaurant venue and its properties.
     properties:
