@@ -1,0 +1,60 @@
+<ion-view>
+	<ion-nav-title>
+      <img src="img/logo_header.png" alt="">
+    </ion-nav-title>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear icon-right ion-ios-cart fuente-total" menu-toggle="right">
+	      {{orderTotal}}$
+		</button>
+	</ion-nav-buttons>
+	
+	<ion-pane class="loader" ng-if="!loaded">
+	  	<ion-spinner></ion-spinner>
+	</ion-pane>
+
+  <ion-content>
+  <div ng-if="loaded">
+  <img ng-src="{{venue.image}}" alt="" class="venue-img">
+  <div class="padding" id="venue">
+  	<header>
+  		<div class="row">
+  			<div class="col col-80">
+				<h1>{{venue.name}}</h1>
+				<p class="address">{{venue.street_address}}</p>
+  			</div>
+  			<div class="col col-20 text-alig-right distance">
+				<p><i class="icon ion-navigate color-naranja"></i>
+	   			{{venue.distance_to}}m</p>
+  			</div>
+  		</div>
+  	</header>		
+  	<p class="description">{{venue.description}}</p>
+		<div ng-repeat="menu in venue.menus" id="menu">
+			<div ng-repeat="section in menu.sections">
+				<h2>{{section.section_name}}</h2>
+				<div ng-repeat="subsection in section.subsections">
+					<h3>{{subsection.subsection_name}}</h3>
+				<div class="row sinpadd rowvenue" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
+					
+					<div class="col col-50" 
+				       ng-repeat="i in [$index, $index + 1]" 
+				       ng-if="subsection.contents[i] != null">
+				       <a href="#/app/plate/{{subsection.contents[i].key}}">
+				        <div class="list card">
+							<div class="item item-image">
+								<img ng-src="{{subsection.contents[i].image}}">
+							</div>
+							<div class="item itemmenospadding">
+								{{subsection.contents[i].name}}
+							</div>
+						</div>
+						</a>
+					</div>
+				</div>  			
+				</div>
+			</div>
+		</div>
+  	</div>
+  	</div>
+  </ion-content>
+</ion-view>
