@@ -1,7 +1,13 @@
-<ion-view view-title="Near places">
+<ion-view view-title="Near places" hide-back-button="true">
 	<ion-nav-title>
-		<img src="img/logo_header.png" alt="">
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
 	</ion-nav-title>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>	
 	<ion-content>
 		<ion-pane class="loader" ng-if="!loaded">
 			<ion-spinner></ion-spinner>
@@ -13,6 +19,7 @@
 		</ion-refresher>
 		<div ng-if="loaded">
 			<h2 class="titulo-near">Places near you <i class="icon ion-navigate color-naranja"></i></h2>
+			<pre>loc: {{user_loc}}</pre>
 			<div class="list card cardvenue" ng-repeat="place in places">
 				<a class="item item-image" href="#/app/venue/{{place.pid}}">
 					<img ng-src="{{place.image}}">

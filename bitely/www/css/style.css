@@ -57,6 +57,12 @@ ion-content .scroll {
 .cardvenue .row{
 	padding: 5px 0 0 !important
 }
+.hlogo {
+}
+.hlogo img {
+	width: 71px;
+	height:auto;
+}
 .cardvenue .row .col{
 	padding: 0 !important;
 }
@@ -135,18 +141,26 @@ ion-content .scroll {
 	font-family: 'sourcesans';
 	color:#828282;
 	font-size: 22px;
+	padding: 0 10px;
 }
 #venue #menu h3 {
 	font-family: 'sourcesans';
 	color:#828282;
 	font-size: 19px;
+	padding: 0 10px 15px;
 }
 
 .venue-img {
 	width: 100%;
 }
-.row.sinpadd{
-	padding: 5px 0 !important;
+.sinpadd{
+	padding: 0 0 0 5px!important;
+}
+.sinpadd .row {
+	padding: 0;
+}
+.sinpadd .row .col {
+	padding: 0 00px 0 0;
 }
 .row.sinpadd .col:nth-child(1n+0){
 	padding:0 10px 0 0;
@@ -156,7 +170,7 @@ ion-content .scroll {
 	padding:0 0 0 10px;
 	/*background: #0c0*/
 }
-.row.sinpadd .item {
+.sinpadd .item {
 	color:#666666;
 	font-family: 'sourcesans';
 }
@@ -168,6 +182,9 @@ ion-content .scroll {
 }
 .rowvenue .item.itemmenospadding {
 	padding:8px;
+}
+.rowvenue .item.itemmenospadding a{
+    color: #666666;
 }
 .sinpadd .col a {
 	text-decoration: none;
@@ -257,6 +274,9 @@ p.asguest a.button {
 .side-menu ion-content .scroll{
 	background: url('../img/side_bg.png')
 }
+#menu .scroll{
+	background: none !important;
+}
 .side-menu .avatar {
 	padding-top: 50px;
 }
@@ -273,4 +293,121 @@ p.asguest a.button {
 	font-size: 27px;
 	text-align: center;
 	padding: 0 20px
+}
+.boton-order-venue {
+	position: absolute;
+	top:0;
+	right:0;
+	z-index:10;
+}
+.col-45 {    
+	flex: 0 0 45%;
+    max-width: 45%;
+}
+.plataform-android ion-spinner svg, .spinner-android{
+	stroke: #fb7d00 !important
+}
+header.title h1 {
+	font-family: 'sourcesans';
+	font-size: 20px;
+	color:#666666;
+	margin-bottom: 0;
+}
+header.title h2 {
+	font-family: 'sourcesans';
+	font-size: 15px;
+	color: #b2b2b2;
+	margin-top: 0;
+}
+#edit-profile form {
+	background: #fff;
+}
+.opa50 {
+	opacity: .5;
+}
+.pasos {
+	padding-top: 10px;
+}
+span.circle {
+	background: #cdcdcd;
+	border-radius: 50%;
+	display: block;
+	margin:0 auto;
+	text-align: center;
+	color: #666666;
+	font-family: 'sourcesans';
+	font-size: 20px;
+	line-height: 40px;
+	width: 50px;
+	border: 5px solid #cdcdcd
+}
+span.circle i{
+	font-size: 20px;
+}
+span.circle.active {
+	border:5px solid #fb7d00;
+	background: #fff;
+	color: #666666;
+}
+span.circle.checked{
+	background: #fb7d00;
+	border:5px solid #fb7d00;
+	color: #fff;
+}
+.pasos .col {
+	font-family: 'sourcesans';
+	text-align: center;
+}
+#whitebg {
+	background: #fff;
+}
+.plates .plate {
+	border-bottom:1px solid #eee;
+	color: #444;
+}
+.price {
+	/*text-align: right;*/
+}
+
+.order {
+	font-family: 'sourcesans';
+	font-size: 16px;
+}
+.order .restaurant h1{
+	font-family: 'sourcesans';
+	text-align: center;
+	color: #444;
+	font-size: 25px;
+	margin-bottom: 0;
+}
+.order .restaurant h2{
+	text-align: center;
+	font-family: 'sourcesans';
+	color: #444;
+	font-size: 20px;
+	margin-top: 0;
+}
+.totals {
+	padding-top: 50px;
+}
+
+.plate .list {
+	width: 120px !important;
+}
+.plate .list .item{
+	background: none;
+	border:0;
+	padding:0;
+}
+.plate .input-label{
+	padding: 0;
+	color: #fb7d00
+}
+.plate .item-select select {
+	padding: 0 30px 0 0;
+	background:transparent;
+	color: #fb7d00
+}
+.order .options {
+	color: #fb7d00
 }

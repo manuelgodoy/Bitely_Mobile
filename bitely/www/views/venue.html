@@ -1,6 +1,8 @@
 <ion-view>
 	<ion-nav-title>
-      <img src="img/logo_header.png" alt="">
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
     </ion-nav-title>
 	<ion-nav-buttons side="right">
 		<button class="button button-icon button-clear icon-right ion-ios-cart fuente-total" menu-toggle="right">
@@ -15,7 +17,8 @@
   <ion-content>
   <div ng-if="loaded">
   <img ng-src="{{venue.image}}" alt="" class="venue-img">
-  <div class="padding" id="venue">
+  <div id="venue">
+  	<div class="padding">
   	<header>
   		<div class="row">
   			<div class="col col-80">
@@ -29,28 +32,31 @@
   		</div>
   	</header>		
   	<p class="description">{{venue.description}}</p>
+  	</div>
 		<div ng-repeat="menu in venue.menus" id="menu">
 			<div ng-repeat="section in menu.sections">
 				<h2>{{section.section_name}}</h2>
 				<div ng-repeat="subsection in section.subsections">
 					<h3>{{subsection.subsection_name}}</h3>
-				<div class="row sinpadd rowvenue" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
-					
-					<div class="col col-50" 
-				       ng-repeat="i in [$index, $index + 1]" 
-				       ng-if="subsection.contents[i] != null">
-				       <a href="#/app/plate/{{subsection.contents[i].key}}">
-				        <div class="list card">
-							<div class="item item-image">
-								<img ng-src="{{subsection.contents[i].image}}">
-							</div>
-							<div class="item itemmenospadding">
-								{{subsection.contents[i].name}}
+				  	<ion-scroll class="sinpadd rowvenue" zooming="false" direction="x" style="width: 100%;" scrollbar-x="false">
+				  		<div class="row">
+				 			<div class="col col-45" ng-repeat="plate in subsection.contents">
+			        			<div class="list card">
+									<div class="item item-image">
+			       						<a href="#/app/plate/{{plate.key}}">
+											<img ng-src="{{plate.image}}">
+										</a>
+										<button class="button icon ion-android-send boton-order-venue" ng-click="sendOrder(plate.key, plate.option_groups)"></button>
+									</div>
+									<div class="item itemmenospadding">
+			       						<a href="#/app/plate/{{plate.key}}">
+											{{plate.name}}
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
-						</a>
-					</div>
-				</div>  			
+						</ion-scroll>		
 				</div>
 			</div>
 		</div>
