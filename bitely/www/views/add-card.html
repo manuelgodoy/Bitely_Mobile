@@ -1,0 +1,35 @@
+<ion-view>
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+    </ion-nav-title>
+	  <ion-nav-buttons side="right">
+	    <button class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-class="{'opa50': card.addCard.$invalid}" ng-click="card.addCard.$invalid || saveCard()" menu-toggle="right">
+	    </button>
+	  </ion-nav-buttons>
+  <ion-content>
+	<div id="edit-profile">
+		<header class="title padding">
+			<h1>Card Details</h1>
+			<h2>Enter your debit or credit card details below:</h2>
+		</header>
+		<form name="card.addCard">
+			<div class="list">
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Card Number</span>
+			    <input type="text" required ng-model="card.data.number" pattern="[0-9]*">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Exp.</span>
+			    <input type="month" required ng-model="card.data.exp">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">CVC Code</span>
+			    <input type="number" required ng-model="card.data.cvc">
+			  </label>
+			</div>
+		</form>
+	</div>
+  </ion-content>
+</ion-view>

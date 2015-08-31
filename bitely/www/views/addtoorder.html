@@ -1,0 +1,31 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-royal">
+  <button class="button" ng-click="closeAddModal()">Close</button>
+  <div class="h1 title">Add to Order</div>
+  <button class="button button-icon button-clear icon-right ion-checkmark "></button>
+  </ion-header-bar>
+  <ion-content class="totoalto">
+  <div ng-repeat="group in addModal.options">
+    <div class="item item-divider">
+    {{group.text}}
+    </div>
+    <ul class="list" ng-if="group.type==='OPTION_ADD'">
+      <li class="item item-checkbox checkbox-royal" ng-repeat="item in group.options">
+        <label class="checkbox">
+          <input type="checkbox">
+        </label>
+        {{item.name}} <span class="item-note">{{item.price}}$</span>
+      </li>
+    </ul>
+    <div class="list" ng-if="group.type==='OPTION_CHOOSE'">
+      <label class="item item-radio" ng-repeat="item in group.options">
+        <input type="radio" name="group">
+        <div class="item-content">
+          {{item.name}}
+        </div>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+    </div>
+  </div>
+  </ion-content>
+</ion-modal-view>

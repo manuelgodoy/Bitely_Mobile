@@ -1,0 +1,39 @@
+<ion-view view-title="Card" hide-back-button="true">
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+	</ion-nav-title>
+	  <ion-nav-buttons side="right">
+	    <button class="button button-icon button-clear icon-right ion-arrow-right-c fuente-total" ng-click="goPayment()">
+	    </button>
+	  </ion-nav-buttons>	
+	<ion-content>
+		<div class="row pasos">
+			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Personal</div>
+			<div class="col-25 col"><span class="circle active">2</span>Card</div>
+			<div class="col-25 col"><span class="circle">3</span>Payment</div>
+			<div class="col-25 col"><span class="circle">4</span>Review</div>
+		</div>
+		<header class="title padding">
+			<h1>Card Details</h1>
+			<h2>Enter your debit or credit card details below:</h2>
+		</header>
+		<form name="card.addCard" id="whitebg">
+			<div class="list">
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Card Number</span>
+			    <input type="text" required ng-model="card.data.number" pattern="[0-9]*">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Exp.</span>
+			    <input type="month" required ng-model="card.data.exp">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">CVC Code</span>
+			    <input type="number" required ng-model="card.data.cvc">
+			  </label>
+			</div>
+		</form>		
+	</ion-content>
+</ion-view>

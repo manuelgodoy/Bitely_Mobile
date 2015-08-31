@@ -22,19 +22,19 @@ basePath: /bitely/api/v3.0
 produces:
   - application/json
 paths:
-  /menu:
+  /menu/{rest_id}/{name_id}:
     get:
       summary: Full menu
       description: |
         The Menu endpoint is used to retrieve a menu given a restaurant ID and its name.
       parameters:
         - name: rest_id
-          in: query
+          in: path
           description: ID of this restaurant venue in Locu (See locu.com).
           required: true
-          type: integer
+          type: string
         - name: name_id
-          in: query
+          in: path
           description: Name of the restaurant
           required: true
           type: string
@@ -532,6 +532,41 @@ paths:
           description: A confirmation that the radius was set correctly.
           schema:
             $ref: '#/definitions/Confirm'
+  /venue_list:
+    get:
+      summary: Make a search of a list of restaurants.
+      description: |
+        The venue_list enpoint can be used to search for different restaurant venues. This endpoint is usefull furing the first access to the app. The search can be made (a) on the coordinates 'lat,long', (b) on the radius surrounding the current location of a user, or (c) on a given zip code. The three options are mutually exclusive, and (a) is done when no arguments are given.
+      parameters:
+        - name: lat
+          in: query
+          description: Latitude coordinate.
+          required: false
+          type: string
+        - name: lon
+          in: query
+          description: Longitude coordinate.
+          required: false
+          type: string
+        - name: rad
+          in: query
+          description: Search restaurants in this radius (meters).
+          required: false
+          type: string
+        - name: zip
+          in: query
+          description: Search for restaurants in this 5-digit zip code.
+          required: false
+          type: string
+      tags:
+        - Venues
+      responses:
+        default:
+          description: A list of restaurant venues after the search.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VenueSearchResultSchema'
 definitions:
   Confirm:
     description: Described whether an action was completed successfully.
@@ -605,7 +640,7 @@ definitions:
         description: Backend database key of the item corresponding to this plate.
       options:
         type: string
-        description: String formatted as a dictionary that contains the following: {'options': ..., 'text': ..., 'type': (OPTION_CHOOSE or OPTION_ADD), 'price', (if available)}
+        description: String formatted as a dictionary that contains the following {'options'= ..., 'text'= ..., 'type'= (OPTION_CHOOSE or OPTION_ADD), 'price', (if available)}
   VenueSchema:
     description: Describes a restaurant venue and its properties.
     properties:
@@ -810,3 +845,21 @@ definitions:
       key:
         type: string
         description: This property is very important. If it exists, it indicates that the plate is in the Bitely database and the menu is allowed to receive orders.
+  VenueSearchResultSchema:
+      description: One restaurant entry produced when doing a venue search.
+      properties:
+        name:
+          type: string
+          description: Name of the venue.
+        rest_id:
+          type: string
+          description: ID of this restaurant venue in Locu (See locu.com).
+        distance_to:
+          type: number
+          description: Distance that separates the coordinates/user/zip from the venue.
+        restaurant_picture:
+          type: number
+          description: URL with the picture for this restaurant.
+        menu_url:
+          type: number
+          description: Bitely URL to access the (webpage) menu of this venue.
