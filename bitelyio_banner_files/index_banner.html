@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<!--
+	Eventually by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Bitely</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets_eventually/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'assets_eventually/css/main.css' )}}" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets_eventually/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets_eventually/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+
+				<h1> <img src="{{ url_for('static', filename = 'images/Bitely-logo.png' )}}"/></h1>
+				<p>Stay tuned for the future of restaurant ordering.</p>
+			</header>
+
+		<!-- Signup Form -->
+			<form id="signup-form" method="post" action="">
+				<input type="email" name="email" id="email" placeholder="Email Address" />
+				<input type="submit" value="Sign Up" />
+			</form>
+
+			<p>Are you a restaurant owner who doesn't want to be left behind? Go <a href="{{ url_for('venues_login')}}">here</a>.</p>
+		<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="https://twitter.com/getbitely" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="https://instagram.com/getbitely" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Bitely.</li>
+				</ul>
+			</footer>
+
+		<!-- Scripts -->
+			<!--[if lte IE 8]><script src="assets_eventually/js/ie/respond.min.js"></script><![endif]-->
+			<script src="{{ url_for('static', filename = 'assets_eventually/js/main.js' )}}"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	    <script type="text/javascript">
+				// function Send() {
+					$("#signup-form").submit(function() {
+						var url = window.location.origin;
+						$.ajax({
+							type: 'POST',
+							url: url+'/bitely/api/v3.0/email_registration',
+							data: $("#signup-form").serialize(),
+						});
+					});
+				// }
+			</script>
+
+	</body>
+
+</html>
