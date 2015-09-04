@@ -126,7 +126,7 @@ angular.module('bitely.controllers',[])
  	}
 
 })
-.controller('HomeCtrl', function( $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
+.controller('HomeCtrl', function($cordovaToast, $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
 
 	$scope.moreDataCanBeLoaded = false;
 
@@ -163,6 +163,13 @@ angular.module('bitely.controllers',[])
   		.$promise.then(function(data) {
     		$scope.places = data.venue_list;
 			$scope.loaded = true;
+  		}, function(){
+  			$cordovaToast.show('Using test locations', 'short', 'bottom');
+  			Venues.get(test_location)
+  			.$promise.then(function(data) {
+    			$scope.places = data.venue_list;
+				$scope.loaded = true;
+			})
   		});
 	 // 	$timeout(function() {
 
@@ -173,7 +180,7 @@ angular.module('bitely.controllers',[])
 		// 	 });
 		// }, 2000);  	
     }, function(err) {
-    	$scope.errorloc ='no geoloc :(';
+  		$cordovaToast.show('No geolocation found', 'short', 'bottom');
     });
 
 
@@ -192,7 +199,7 @@ angular.module('bitely.controllers',[])
 	  			$scope.$broadcast('scroll.refreshComplete');
 	  		});	  		
     	}, function(err) {
-    		$scope.user_loc.error('no geoloc :(');
+  			$cordovaToast.show('No geolocation found', 'short', 'bottom');
     	});
 	};
 
