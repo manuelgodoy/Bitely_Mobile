@@ -1,5 +1,5 @@
 angular.module('bitely.controllers',[])
-.controller('AppCtrl', function($cordovaToast, User, Auth, Order, $window, $cookies, $http, $localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook) {
+.controller('AppCtrl', function($ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, $http, $localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook) {
 
 	//ALTO DE LA CARD
 	$rootScope.cardHeight = 50+32+40+(($window.innerWidth-20)*(460/740));
@@ -7,6 +7,7 @@ angular.module('bitely.controllers',[])
 	$rootScope.platoWidth = $window.innerWidth * 0.40;
 
 	$scope.login = function(from){
+	$ionicBackdrop.retain();
     $cordovaFacebook.login(["email"])
     .then(function(success) {
         console.log('success:',success);
@@ -23,13 +24,13 @@ angular.module('bitely.controllers',[])
         		$localstorage.setObject('creditcard',{isset:true});
  			}
  		})
-
+		$ionicBackdrop.release();
  		if  (from==='home') {
 			$location.path('/app/home');
  		}
 
  		if  (from==='order') {
-			$location.path('/app/home');
+			$location.path('/app/order/card');
  		}
 
 

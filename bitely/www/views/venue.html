@@ -5,8 +5,8 @@
 		</div>
     </ion-nav-title>
       <ion-nav-buttons side="right">
-        <button ng-click="goToOrder()" ng-if="order.total>0" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          {{order.total}}$
+        <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+          ${{order.total | number:2}}
         </button>
       </ion-nav-buttons>
 	
@@ -35,7 +35,7 @@
   	</header>		
   	<p class="description">{{venue.description}}</p>
   	</div>
-		<div ng-repeat="menu in menus" id="menu">
+		<div ng-repeat="menu in menus" id="menu" style="padding-bottom:40px">
 			<div ng-repeat="section in menu.sections">
 				<h2>{{section.section_name}}</h2>
 				<div ng-repeat="subsection in section.subsections">
