@@ -294,7 +294,7 @@ p.asguest a.button {
 .color_white {
 	color: #fff;
 }
-.side-menu ion-content .scroll{
+.side-menu ion-content{
 	background: url('../img/side_bg.png')
 }
 #menu .scroll{

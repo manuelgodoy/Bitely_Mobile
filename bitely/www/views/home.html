@@ -13,21 +13,20 @@
           {{order.total}}$
         </button>
       </ion-nav-buttons>      
-	<ion-content  class="viewbg">
 		<ion-pane class="loader" ng-if="!loaded">
 			<ion-spinner></ion-spinner>
 			<p ng-if="!getlocation">Getting Location...</p>
-		</ion-pane>	
+		</ion-pane>	      
+	<ion-content  class="viewbg">
 		<ion-refresher
 			spinner=""
 			pulling-text="Pull to refresh..."
 			on-refresh="doRefresh()">
 		</ion-refresher>
-		<div ng-if="loaded">
+		<div ng-if="loaded" style="padding-bottom:20px">
 			<h2 class="titulo-near">Places near you <i class="icon ion-navigate color-naranja"></i></h2>
-			<div  collection-repeat="place in places" 
-			item-height="cardHeight" item-width="cardWidth">
-			<div class="list card cardvenue">
+
+			<div class="list card cardvenue"  ng-repeat="place in places">
 				<a class="item item-image" href="#/app{{place.menu_url}}">
 					<img ng-src="{{place.image || 'img/no_image.jpg'}}">
 				</a>
@@ -43,7 +42,6 @@
 						</div>
 					</div>
 				</a>
-			</div>
 			</div>
 		</div>
 		<ion-infinite-scroll

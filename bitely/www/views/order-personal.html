@@ -5,7 +5,7 @@
 		</div>
 	</ion-nav-title>
 	  <ion-nav-buttons side="right">
-	    <button side="right" class="button button-icon button-clear icon-right ion-arrow-right-c fuente-total" ng-click="goCard()">
+	    <button side="right" class="button button-icon button-clear icon-right ion-arrow-right-c fuente-total" ng-click="globals.currentUser.isguest || goCard()" ng-class="{'opa50': (globals.currentUser.isguest)}">
 	    </button>
 	  </ion-nav-buttons>	
 	<ion-content>
@@ -22,7 +22,7 @@
 		</header>
 		<div class="padding" ng-if="globals.currentUser.isguest">
 			You must be logged in to finish your order:
-			<a ng-click="login('order')" class="button button-royal button-outline">Login with Facebook</a>
+			<p><a ng-click="login('order')" class="button button-royal button-outline">Login with Facebook</a></p>
 		</div>
 		<div class="padding" ng-if="!globals.currentUser.isguest">
 			<h2>Welcome, {{globals.currentUser.name}}</h2>

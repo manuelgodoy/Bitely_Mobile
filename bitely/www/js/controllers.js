@@ -4,6 +4,7 @@ angular.module('bitely.controllers',[])
 	//ALTO DE LA CARD
 	$rootScope.cardHeight = 50+32+40+(($window.innerWidth-20)*(460/740));
 	$rootScope.cardWidth = $window.innerWidth;
+	$rootScope.platoWidth = $window.innerWidth * 0.40;
 
 	$scope.login = function(from){
     $cordovaFacebook.login(["email"])
@@ -76,6 +77,7 @@ angular.module('bitely.controllers',[])
 				isguest: true
 			});
 		//VA A HOME
+		Order.query();
 		$location.path('/app/home');
 	};
 
@@ -112,7 +114,6 @@ angular.module('bitely.controllers',[])
  		if ($rootScope.globals.currentUser.isguest) {
 			$location.path('/app/order/personal');
  		} else if (!$rootScope.creditcard.isset){
- 			console.log(!$rootScope.creditcard.isset);
  			$location.path('/app/order/card');	
  		} else if (!$rootScope.order.is_posted) {
  			$location.path('/app/order/confirm');
@@ -175,32 +176,21 @@ angular.module('bitely.controllers',[])
 
 
 
-
-
-
-
-
-
 	$scope.doRefresh = function() {
-      $timeout(function() {
-
       	$cordovaGeolocation.getCurrentPosition(posOptions)
     	.then(function (position) {
 			$scope.user_loc = {
 	      		lat  : position.coords.latitude, long : position.coords.longitude, rad : 200
 	  		}
+	  		Venues.get($scope.user_loc)
+	  		.$promise.then(function(data) {
+	    		$scope.places = data.venue_list;
+	  		}).finally(function(){
+	  			$scope.$broadcast('scroll.refreshComplete');
+	  		});	  		
     	}, function(err) {
     		$scope.user_loc.error('no geoloc :(');
     	});
-
-  		Venues.get($scope.user_loc)
-  		.$promise.then(function(data) {
-    		$scope.places = data.venue_list;
-			$scope.loaded = true;
-  		});
-
-      }, 1000).finally(function() {
-     });
 	};
 
 	// $scope.loadMore = function() {
@@ -470,7 +460,7 @@ angular.module('bitely.controllers',[])
 	$scope.tip = {};
 	$scope.doPay = function(){
 		Pay.save({},"tip="+$scope.tip.tip).$promise.then(function(order){
-			console.log(order);
+			$location.path('/app/order/success');
 		})
 	}
 

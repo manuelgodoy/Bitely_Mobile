@@ -156,7 +156,16 @@ angular.module('bitely', ['ionic','ionic.service.core','bitely.controllers', 'ng
         templateUrl : 'views/order-payment.html'
       }
     }
-  })       
+  })  
+  .state('app.order.success', {
+    url:'/success',
+    views: {
+      'orderContent': {
+        //controller: 'OrderCtrl',
+        templateUrl : 'views/order-success.html'
+      }
+    }
+  })  
   
   $urlRouterProvider.otherwise('/app/home');
 
