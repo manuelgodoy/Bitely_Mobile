@@ -126,7 +126,7 @@ angular.module('bitely.controllers',[])
  	}
 
 })
-.controller('HomeCtrl', function( $scope, $timeout, $http, $cordovaGeolocation, Venues) {
+.controller('HomeCtrl', function( $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
 
 	$scope.moreDataCanBeLoaded = false;
 
@@ -154,9 +154,10 @@ angular.module('bitely.controllers',[])
     .then(function (position) {
 		$scope.user_loc = {
       		lat  : position.coords.latitude, 
-      		long : position.coords.longitude, 
+      		lon : position.coords.longitude, 
       		rad : 500
   		}
+  		gLocation.update({lat:position.coords.latitude, lon:position.coords.longitude});
   		$scope.getlocation = true;
   		Venues.get($scope.user_loc)
   		.$promise.then(function(data) {
@@ -181,8 +182,9 @@ angular.module('bitely.controllers',[])
       	$cordovaGeolocation.getCurrentPosition(posOptions)
     	.then(function (position) {
 			$scope.user_loc = {
-	      		lat  : position.coords.latitude, long : position.coords.longitude, rad : 200
+	      		lat  : position.coords.latitude, lon : position.coords.longitude, rad : 500
 	  		}
+  			gLocation.update({lat:position.coords.latitude, lon:position.coords.longitude});
 	  		Venues.get($scope.user_loc)
 	  		.$promise.then(function(data) {
 	    		$scope.places = data.venue_list;

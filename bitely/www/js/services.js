@@ -44,9 +44,6 @@ angular.module('bitely.controllers')
   return service;
 })
 
-.factory('Location', function($resource){
-  return $resource(urlBase+'location');
-})
 
 .factory('Venues', function($resource){
   return $resource(urlBase+'venue_list');
@@ -74,6 +71,14 @@ angular.module('bitely.controllers')
         method:'POST',
         headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
     }
+  });
+})
+
+.factory('gLocation', function($resource){
+  return $resource(urlBase+'location', null, {
+        'update': { 
+          method:'PUT',
+         }
   });
 })
 
