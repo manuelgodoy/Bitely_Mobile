@@ -54,7 +54,7 @@
 							{{plate.menu_item.name}}
 						</div>
 						<div class="col col-20 order_price_">
-							${{plate.menu_item.price}}
+							${{plate.menu_item.price | number:2}}
 						</div>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 						Subtotal
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.total}}
+						${{order.total | number:2}}
 					</div>
 				</div>
 <!-- 				<div class="row">
@@ -81,7 +81,7 @@
 						Tax
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.tax_rate || 0}}
+						${{order.tax_rate || 0 | number:2}}
 					</div>
 				</div>
 <!-- 				<div class="row">
@@ -97,7 +97,7 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{order.total+order.tax_rate}}</strong>
+						<strong>${{order.total+order.tax_rate | number:2}}</strong>
 					</div>
 				</div>
 			</div>

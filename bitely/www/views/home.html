@@ -10,7 +10,7 @@
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          {{order.total}}$
+          {{order.total | number:2}}$
         </button>
       </ion-nav-buttons>      
 		<ion-pane class="loader" ng-if="!loaded">

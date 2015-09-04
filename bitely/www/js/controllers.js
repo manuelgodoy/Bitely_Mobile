@@ -293,7 +293,7 @@ angular.module('bitely.controllers',[])
 	};	
 	$scope.sendOrder = function(item){
 
-		if ($rootScope.order.restaurant.restaurant_id!==null && $rootScope.order.restaurant.restaurant_id !== $stateParams.rest_id ) {
+		if (!$rootScope.order.is_paid && $rootScope.order.restaurant.restaurant_id!==null && $rootScope.order.restaurant.restaurant_id !== $stateParams.rest_id ) {
 			
         $cordovaToast.show('Yoy have a pending order in another restaurant', 'short', 'center');
 
@@ -459,8 +459,14 @@ angular.module('bitely.controllers',[])
 
 	$scope.tip = {};
 	$scope.doPay = function(){
+		$ionicLoading.show({
+      		template: '<ion-spinner class="color_white"></ion-spinner>'
+    	});
 		Pay.save({},"tip="+$scope.tip.tip).$promise.then(function(order){
+    		$ionicLoading.hide();
+    		Order.query();
 			$location.path('/app/order/success');
+    		$rootScope.order.total;
 		})
 	}
 

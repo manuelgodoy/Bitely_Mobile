@@ -15,7 +15,7 @@
         <label class="checkbox">
           <input type="checkbox" ng-model="item2.checked" ng-value="item2.checked">
         </label>
-        {{item2.name}} <span class="item-note">{{item2.price}}$</span>
+        {{item2.name}} <span class="item-note">{{item2.price | number:2}}$</span>
       </li>
     </ul>
     <div class="list" ng-if="group.type==='OPTION_CHOOSE'">
