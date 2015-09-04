@@ -10,20 +10,22 @@ angular.module('bitely.controllers',[])
 	$ionicBackdrop.retain();
     $cordovaFacebook.login(["email"])
     .then(function(success) {
-        console.log('success:',success);
+        // console.log('success:',success);
         //$scope.respuesta.user = success;
         $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: success.authResponse.accessToken, fields: "id,name,last_name,first_name,email,picture.width(200).height(200)", format: "json" }})
         .then(function(theparams) {
-		$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data});
+        	theparams.data.access_token = success.authResponse.accessToken;
+			$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data}).then(function(){
+				Order.query();
+	 			User.get().$promise.then(function(data){
+	 				if (data.user.has_customertoken) {
+	        			$rootScope.creditcard = {isset:true};
+	        			$localstorage.setObject('creditcard',{isset:true});
+	 				}
+	 			});
+			});
 		Auth.setCredentials(theparams.data);
-		Order.query();
-		//chedk CC
- 		User.get().$promise.then(function(data){
- 			if (data.user.has_customertoken) {
-        		$rootScope.creditcard = {isset:true};
-        		$localstorage.setObject('creditcard',{isset:true});
- 			}
- 		})
+	
 		$ionicBackdrop.release();
  		if  (from==='home') {
 			$location.path('/app/home');
@@ -109,6 +111,9 @@ angular.module('bitely.controllers',[])
  		})
  	}
 
+	$scope.goHome = function(){
+		$location.path('/app/home');
+	}
 
  	$scope.goToOrder = function(){
 
@@ -540,9 +545,6 @@ angular.module('bitely.controllers',[])
 		Order.save().$promise.then(function(order){
 			console.log(order);
 		})
-	}
-	$scope.goHome = function(){
-		$location.path('/app');
 	}
 })
 ;

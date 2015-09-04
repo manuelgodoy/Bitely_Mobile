@@ -360,6 +360,7 @@ header.title h2 {
 }
 .pasos {
 	padding-top: 10px;
+	display: none;
 }
 span.circle {
 	background: #cdcdcd;
