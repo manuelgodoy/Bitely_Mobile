@@ -5,30 +5,32 @@
 		</div>
     </ion-nav-title>
 	  <ion-nav-buttons side="right">
-	    <button class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-class="{'opa50': card.addCard.$invalid}" ng-click="card.addCard.$invalid || saveCard()" menu-toggle="right">
+	    <button class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-class="{'opa50': (!card.checkoutForm.$valid)}" ng-click="enviame()">
 	    </button>
 	  </ion-nav-buttons>
   <ion-content>
 	<div id="edit-profile">
 		<header class="title padding">
 			<h1>Card Details</h1>
-			<h2>Enter your debit or credit card details below:</h2>
+			<h2 ng-if="creditcard.isset">You already have a {{creditcard.brand || 'card'}} registered in our app, if your want to change it enter your debit or credit card details below</h2>
+			<h2 ng-if="!creditcard.isset">Enter your debit or credit card details below:</h2>
 		</header>
-		<form name="card.addCard">
+		<form stripe-form="stripeCallback" name="card.checkoutForm" id="elform">
 			<div class="list">
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Card Number</span>
-			    <input type="text" required ng-model="card.data.number" pattern="[0-9]*">
+			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4}}" id="number">
 			  </label>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Exp.</span>
-			    <input type="month" required ng-model="card.data.exp">
+			    <input type="text" ng-model="expiry" payments-format="expiry" payments-validate="expiry" required placeholder="{{creditcard.date || 'mm/yy'}}" id="expiry">
 			  </label>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">CVC Code</span>
-			    <input type="number" required ng-model="card.data.cvc">
+			    <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" required id="cvc">
 			  </label>
 			</div>
+			<button ng-click="card.checkoutForm.submit();" id="elboton" ></button>
 		</form>
 	</div>
   </ion-content>

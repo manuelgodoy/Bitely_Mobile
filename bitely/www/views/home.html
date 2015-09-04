@@ -7,10 +7,16 @@
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
-      </ion-nav-buttons>	
-	<ion-content>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <button ng-click="goToOrder()" ng-if="order.total>0" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+          {{order.total}}$
+        </button>
+      </ion-nav-buttons>      
+	<ion-content  class="viewbg">
 		<ion-pane class="loader" ng-if="!loaded">
 			<ion-spinner></ion-spinner>
+			<p ng-if="!getlocation">Getting Location...</p>
 		</ion-pane>	
 		<ion-refresher
 			spinner=""
@@ -19,12 +25,13 @@
 		</ion-refresher>
 		<div ng-if="loaded">
 			<h2 class="titulo-near">Places near you <i class="icon ion-navigate color-naranja"></i></h2>
-			<pre>loc: {{user_loc}}</pre>
-			<div class="list card cardvenue" ng-repeat="place in places">
-				<a class="item item-image" href="#/app/venue/{{place.pid}}">
-					<img ng-src="{{place.image}}">
+			<div  collection-repeat="place in places" 
+			item-height="cardHeight" item-width="cardWidth">
+			<div class="list card cardvenue">
+				<a class="item item-image" href="#/app{{place.menu_url}}">
+					<img ng-src="{{place.image || 'img/no_image.jpg'}}">
 				</a>
-				<a class="item" href="#/app/venue/{{place.pid}}">
+				<a class="item" href="#/app{{place.menu_url}}">
 					<h2>{{place.name}}</h2>
 					<div class="row">
 						<div class="col col-80">
@@ -36,6 +43,7 @@
 						</div>
 					</div>
 				</a>
+			</div>
 			</div>
 		</div>
 		<ion-infinite-scroll

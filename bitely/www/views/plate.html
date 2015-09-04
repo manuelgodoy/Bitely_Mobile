@@ -4,11 +4,11 @@
 			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
 		</div>
     </ion-nav-title>
-	  <ion-nav-buttons side="right">
-	    <button class="button button-icon button-clear icon-right ion-ios-cart fuente-total" menu-toggle="right">
-	      {{orderTotal}}$
-	    </button>
-	  </ion-nav-buttons>  
+      <ion-nav-buttons side="right">
+        <button ng-click="goToOrder()" ng-if="order.total>0" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+          {{order.total}}$
+        </button>
+      </ion-nav-buttons> 
 	<ion-pane class="loader" ng-if="!loaded">
 	  	<ion-spinner></ion-spinner>
 	</ion-pane>	    

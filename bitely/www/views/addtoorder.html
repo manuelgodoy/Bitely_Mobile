@@ -2,29 +2,24 @@
   <ion-header-bar class="bar-royal">
   <button class="button" ng-click="closeAddModal()">Close</button>
   <div class="h1 title">Add to Order</div>
-  <button class="button button-icon button-clear icon-right ion-checkmark "></button>
+  <button class="button button-icon button-clear icon-right ion-checkmark" ng-click="chosedOrder(addModal.item)"></button>
   </ion-header-bar>
   <ion-content class="totoalto">
-  <div ng-repeat="group in addModal.options">
+  <pre>{{addModal.item | json}}</pre>
+  <div ng-repeat="group in addModal.item.option_groups">
     <div class="item item-divider">
     {{group.text}}
     </div>
     <ul class="list" ng-if="group.type==='OPTION_ADD'">
-      <li class="item item-checkbox checkbox-royal" ng-repeat="item in group.options">
+      <li class="item item-checkbox checkbox-royal" ng-repeat="item2 in group.options">
         <label class="checkbox">
-          <input type="checkbox">
+          <input type="checkbox" ng-model="item2.checked" ng-value="item2.checked">
         </label>
-        {{item.name}} <span class="item-note">{{item.price}}$</span>
+        {{item2.name}} <span class="item-note">{{item2.price}}$</span>
       </li>
     </ul>
     <div class="list" ng-if="group.type==='OPTION_CHOOSE'">
-      <label class="item item-radio" ng-repeat="item in group.options">
-        <input type="radio" name="group">
-        <div class="item-content">
-          {{item.name}}
-        </div>
-        <i class="radio-icon ion-checkmark"></i>
-      </label>
+      <ion-radio ng-model="addModal.item.choosed[group.text]" ng-value="item2"  ng-repeat="item2 in group.options">{{item2.name}}</ion-radio>
     </div>
   </div>
   </ion-content>

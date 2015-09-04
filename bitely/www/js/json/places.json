@@ -1,23 +1,18 @@
-[
-	{
-		"pid": 	1,
-		"name": 	"Lorem ipsum dolor sit.",
-		"image":  "img/restaurante.jpg",
-		"street_address": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, sint.",
-		"distance_to": "15"
-	},
-	{
-		"pid": 	2,
-		"name": 	"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, fugiat, voluptatem impedit neque nam earum distinctio quidem tempore dicta praesentium.",
-		"image":  "img/no_image.jpg",
-		"street_address": "1346 West Liberty Ave.",
-		"distance_to": "15"
-	},
-	{
-		"pid": 	3,
-		"name": 	"Lorem ipsum dolor sit.",
-		"image":  "img/restaurante.jpg",
-		"street_address": "1346 West Liberty Ave.",
-		"distance_to": "15"
-	}
-]
+{
+  "venue_list": [
+    {
+      "distance_to": 0.089999999999999997,
+      "menu_url": "/menu/2df804308d5e2f7e3153/Rioja%20Spanish%20Tapas%20Restaurant",
+      "name": "Rioja Spanish Tapas Restaurant",
+      "rest_id": "2df804308d5e2f7e3153",
+      "restaurant_picture": "/static/img/no_image.jpg"
+    },
+    {
+      "distance_to": 0.10000000000000001,
+      "menu_url": "/menu/1955a352a1309086b5ad/Royal%20Oaks%20Village",
+      "name": "Royal Oaks Village",
+      "rest_id": "1955a352a1309086b5ad",
+      "restaurant_picture": "/static/img/no_image.jpg"
+    }
+  ]
+}

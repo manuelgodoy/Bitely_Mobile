@@ -9,8 +9,8 @@
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear icon-right ion-ios-cart fuente-total" menu-toggle="right">
-          {{orderTotal}}$
+        <button  ng-click="goToOrder()" ng-if="order.total>0" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+          {{order.total}}$
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -27,14 +27,15 @@
       <div class="padding">
         <div class="logfb" ng-if="globals.currentUser.isguest">
           <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>
-          <p><a menu-close class="button button-royal button-outline" href="#/app/order/personal">View Order</a></p>
-          <p><a menu-close class="button button-royal button-outline" ng-click="login()">Login with Facebook</a></p>
+          <p><a menu-close class="button button-royal button-outline" href="#/app/order/confirm">View Order</a></p>
+          <p><a class="button button-royal button-outline" ng-click="login('menu')">Login with Facebook</a></p>
         </div>
         <div class="logout" ng-if="!globals.currentUser.isguest">
           <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>
+          <p><a menu-close class="button button-royal button-outline" ng-click="getUser()">getOrder</a></p>
           <p><a menu-close class="button button-royal button-outline" href="#/app/edit-profile">Edit Profile</a></p>
           <p><a menu-close class="button button-royal button-outline" href="#/app/add-card">Add Credit Card</a></p>
-          <p><a menu-close class="button button-royal button-outline" href="#/app/order/personal">View Order</a></p>
+          <p><a menu-close class="button button-royal button-outline" href="#/app/order/payment">View Order</a></p>
           <p><a menu-close class="button button-royal button-outline" ng-click="logout()">Logout</a></p>
         </div>
       </div>
