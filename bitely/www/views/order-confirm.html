@@ -9,7 +9,7 @@
 	    </button>
 	  </ion-nav-buttons>
 	  <ion-nav-buttons side="right">
-	    <button class="button button-icon button-clear icon-right ion-arrow-right-c fuente-total" ng-click="goPayment()">
+	    <button ng-if="order.restaurant.name" class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-click="doConfirm()">
 	    </button>
 	  </ion-nav-buttons>
 	<ion-content>
@@ -19,6 +19,10 @@
 			<div class="col-25 col"><span class="circle active">3</span>Confirm</div>
 			<div class="col-25 col"><span class="circle">4</span>Payment</div>
 		</div>
+		<header class="title padding">
+			<h1>Confirm your order</h1>
+			<h2>You can add or remove plates</h2>
+		</header>		
 		<div class="emptyorder padding" ng-if="!order.restaurant.name">
 			<h1>Your Order is Empty</h1>
           	<p><a class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>

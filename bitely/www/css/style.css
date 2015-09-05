@@ -456,3 +456,16 @@ span.circle.checked{
 .order_price {
 	font-size: 30px
 }
+ul.rating{
+	padding-top: 10px
+}
+ul.rating li {
+  display: inline;
+  border: 0px;
+  background: none;
+  padding: 5px 10px;
+}
+ul.rating li i {
+  font-size: 22px;
+  color: #eeac26;
+}

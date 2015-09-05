@@ -82,13 +82,20 @@ angular.module('bitely.controllers')
   });
 })
 
+.factory('Rating', function($resource){
+  return $resource(urlBase+'rating', null, {
+        'update': { 
+          method:'PUT',
+         }
+  });
+})
 .factory('Order', function($resource, $localstorage, $rootScope){
   return $resource(urlBase+'order', null, {
         'update': { 
           method:'PUT',
           interceptor: {
             response: function(order){
-              console.log('order:', order);
+              console.log('order update:', order);
               $rootScope.order = order.data;
               $localstorage.setObject('order',order.data);
             },
@@ -101,7 +108,7 @@ angular.module('bitely.controllers')
           method:'GET',
           interceptor: {
             response: function(order){
-              console.log('order:', order);
+              console.log('order query:', order);
               $rootScope.order = order.data;
               $localstorage.setObject('order',order.data);
             },
@@ -114,7 +121,7 @@ angular.module('bitely.controllers')
           method:'POST',
           interceptor: {
             response: function(order){
-              console.log('order:', order);
+              console.log('order save:', order);
               $rootScope.order = order.data;
               $localstorage.setObject('order',order.data);
             },

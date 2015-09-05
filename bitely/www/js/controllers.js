@@ -61,13 +61,16 @@ angular.module('bitely.controllers',[])
 			    }
 			}
 		};
-		$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams});
+		$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams}).then(function(){
+				Order.query();
+	 			User.get().$promise.then(function(data){
+	 				if (data.user.has_customertoken) {
+	        			$rootScope.creditcard = {isset:true};
+	        			$localstorage.setObject('creditcard',{isset:true});
+	 				}
+	 			});
+			});
 		Auth.setCredentials(theparams);
-		Order.query();
-		//chedk CC
-		// User.query().$promise.then(function(user){
-		// 	console.log()
-		// })
 		$location.path('/app/home');
     }
 
@@ -382,7 +385,6 @@ angular.module('bitely.controllers',[])
 	}
 
 	$scope.stripeCallback = function(code, result) {
-		//alert('saved!');
 	console.log('code:', code);
 	console.log('result:', result);
 
@@ -420,8 +422,20 @@ angular.module('bitely.controllers',[])
 	};
 
 })
+.controller('rateController', function($scope, Rating){
+	$scope.rate = {};
 
-.controller('OrderCtrl', function($cordovaToast,$localstorage, $rootScope,$scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
+
+	$scope.hechanged = function(key){
+		Rating.update({
+			rating: $scope.rate,
+			key: key
+		}).$promise.then(function(){
+			$cordovaToast.show('Plate rated!', 'short', 'bottom');
+		})
+	}
+})
+.controller('OrderCtrl', function($ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
 
 	$scope.card = {};
 
@@ -472,7 +486,7 @@ angular.module('bitely.controllers',[])
 		});
 	}
 
-	$scope.tip = {};
+	$scope.tip = {tip:0};
 	$scope.doPay = function(){
 		$ionicLoading.show({
       		template: '<ion-spinner class="color_white"></ion-spinner>'
@@ -534,16 +548,27 @@ angular.module('bitely.controllers',[])
 		// 	template: 'Credit Card saved',
 		// 	okType: 'button-royal'
 		// });
-    }
-
-
-
-
+    	}
 	}
-	$scope.goPayment = function(){
-		$location.path('/app/order/payment');
+	
+	//RAAAAATING
+	// $scope.rating ={}
+
+
+	$scope.doConfirm = function(){
+		$ionicLoading.show({
+      		template: '<ion-spinner class="color_white"></ion-spinner>'
+    	});
 		Order.save().$promise.then(function(order){
-			console.log(order);
+			$ionicLoading.hide();
+			$ionicPopup.alert({
+				title: 'Confirmed',
+				subTitle: 'your order has been sent to the kitchen',
+				okText: 'OK',
+				okType: 'button-royal'
+			}).then(function(res) {
+				$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
+			});
 		})
 	}
 })
