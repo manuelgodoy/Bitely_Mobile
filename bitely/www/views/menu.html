@@ -24,19 +24,23 @@
         <img ng-src="{{globals.currentUser.picture.data.url}}" alt="">
         <h1>{{globals.currentUser.name}}</h1>
       </div>
-      <div class="padding">
+      <div class="padding menuside">
         <div class="logfb" ng-if="globals.currentUser.isguest">
-          <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>
-          <p><a menu-close class="button button-royal button-outline" href="#/app/order/confirm">View Order</a></p>
-          <p><a class="button button-royal button-outline" ng-click="login('menu')">Login with Facebook</a></p>
+          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p> -->
+          <p><a menu-close class="button button-stable button-clear button-full">Search</a></p>
+          <p><a menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
+          <p><a class="button button-stable button-clear button-full" ng-click="login('menu')">Login with Facebook</a></p>
         </div>
         <div class="logout" ng-if="!globals.currentUser.isguest">
-          <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>
-          <!-- <p><a menu-close class="button button-royal button-outline" ng-click="getUser()">getOrder</a></p> -->
+          <p><a menu-close class="button button-stable button-clear button-full">Profile</a></p>
+          <p><a menu-close class="button button-stable button-clear button-full">Search</a></p>
+          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p> -->
+          <p><a menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
+          <p><a menu-close class="button button-stable button-clear button-full">Receipts</a></p>
           <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/edit-profile">Edit Profile</a></p> -->
-          <p><a menu-close class="button button-royal button-outline" href="#/app/add-card">Add Credit Card</a></p>
+          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/add-card">Add Credit Card</a></p> -->
           <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/order/payment">View Order</a></p> -->
-          <p><a menu-close class="button button-royal button-outline" ng-click="logout()">Logout</a></p>
+          <p><a menu-close class="button button-stable button-clear button-full" ng-click="logout()">Logout</a></p>
         </div>
       </div>
     </ion-content>

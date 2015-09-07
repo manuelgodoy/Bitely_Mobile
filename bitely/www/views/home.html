@@ -28,7 +28,7 @@
 
 			<div class="list card cardvenue"  ng-repeat="place in places">
 				<a class="item item-image" href="#/app{{place.menu_url}}">
-					<img ng-src="{{place.image || 'img/no_image.jpg'}}">
+					<img ng-src="{{place.restaurant_picture}}" err-src>
 				</a>
 				<a class="item" href="#/app{{place.menu_url}}">
 					<h2>{{place.name}}</h2>
