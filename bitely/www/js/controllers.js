@@ -555,5 +555,9 @@ angular.module('bitely.controllers',[])
 			});
 		})
 	}
+
+	$scope.goMenu = function(){
+		$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
+	}	
 })
 ;
