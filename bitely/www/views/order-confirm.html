@@ -85,7 +85,7 @@
 						Tax
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.tax_rate || 0 | number:2}}
+						${{order.tax_rate*order.total || 0 | number:2}}
 					</div>
 				</div>
 <!-- 				<div class="row">
@@ -101,7 +101,7 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{order.total+order.tax_rate | number:2}}</strong>
+						<strong>${{order.total*(1+order.tax_rate) | number:2}}</strong>
 					</div>
 				</div>
 			</div>
