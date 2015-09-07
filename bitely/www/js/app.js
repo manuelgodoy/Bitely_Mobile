@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments'])
 
-.run(function($cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window) {
+.run(function($cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window) {
   // 1646690858946373
   // cookie: session
   
@@ -30,9 +30,17 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
+    // if(window.StatusBar) {
+      //StatusBar.styleDefault();
+      // $cordovaStatusbar.styleHex('#fb7d00');
+    // }
+  if (window.StatusBar) {
+    if (ionic.Platform.isAndroid()) {
+      StatusBar.backgroundColorByHexString('#c96401');
+    } else {
+      // StatusBar.styleLightContent();
     }
+  }    
   });
 })
 
