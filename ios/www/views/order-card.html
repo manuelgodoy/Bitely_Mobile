@@ -1,0 +1,44 @@
+<ion-view view-title="Card" hide-back-button="true">
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+	</ion-nav-title>
+	  <ion-nav-buttons side="left">
+	    <button class="button button-icon button-clear icon-right ion-arrow-left-c fuente-total" ng-click="goMenu()">
+	    </button>
+	  </ion-nav-buttons>
+	  <ion-nav-buttons side="right">
+	    <button class="button button-icon button-clear icon-right ion-arrow-right-c fuente-total"  ng-class="{'opa50': (!card.checkoutForm2.$valid)}" ng-click="!card.checkoutForm2.$valid || goConfirm()">
+	    </button>
+	  </ion-nav-buttons>
+	<ion-content>
+		<div class="row pasos">
+			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Personal</div>
+			<div class="col-25 col"><span class="circle active">2</span>Card</div>
+			<div class="col-25 col"><span class="circle">3</span>Confirm</div>
+			<div class="col-25 col"><span class="circle">4</span>Payment</div>
+		</div>
+		<header class="title padding">
+			<h1>Card Details</h1>
+			<h2>Enter your debit or credit card details below:</h2>
+		</header>
+		<form stripe-form="stripeCallback2" name="card.checkoutForm2" id="elform2">
+			<div class="list">
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Card Number</span>
+			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4}}" id="number">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Exp.</span>
+			    <input type="text" ng-model="expiry" payments-format="expiry" payments-validate="expiry" required placeholder="{{creditcard.date || 'mm/yy'}}" id="expiry">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">CVC Code</span>
+			    <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" required id="cvc">
+			  </label>
+			</div>
+			<button ng-click="card.checkoutForm2.submit();" id="elboton2" ></button>
+		</form>	
+	</ion-content>
+</ion-view>
