@@ -18,10 +18,8 @@ angular.module('bitely.controllers',[])
 			$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data}).then(function(){
 				Order.query();
 	 			User.get().$promise.then(function(data){
-	 				if (data.user.has_customertoken) {
-	        			$rootScope.creditcard = {isset:true};
-	        			$localstorage.setObject('creditcard',{isset:true});
-	 				}
+	        		$rootScope.creditcard = data.user;
+	        		$localstorage.setObject('creditcard',data.user);
 	 			});
 			});
 		Auth.setCredentials(theparams.data);
@@ -64,10 +62,8 @@ angular.module('bitely.controllers',[])
 		$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams}).then(function(){
 				Order.query();
 	 			User.get().$promise.then(function(data){
-	 				if (data.user.has_customertoken) {
-	        			$rootScope.creditcard = {isset:true};
-	        			$localstorage.setObject('creditcard',{isset:true});
-	 				}
+        			$rootScope.creditcard = data.user;
+        			$localstorage.setObject('creditcard',data.user);
 	 			});
 			});
 		Auth.setCredentials(theparams);
@@ -107,10 +103,8 @@ angular.module('bitely.controllers',[])
  	}
  	$scope.getUser = function(){
  		User.get().$promise.then(function(data){
- 			if (data.user.has_customertoken) {
-        		$rootScope.creditcard = {isset:true};
-        		$localstorage.setObject('creditcard',{isset:true});
- 			}
+    		$rootScope.creditcard = data.user;;
+    		$localstorage.setObject('creditcard',data.user);
  		})
  	}
 
@@ -122,7 +116,7 @@ angular.module('bitely.controllers',[])
 
  		if ($rootScope.globals.currentUser.isguest) {
 			$location.path('/app/order/personal');
- 		} else if (!$rootScope.creditcard.isset){
+ 		} else if (!$rootScope.creditcard.has_customertoken){
  			$location.path('/app/order/card');	
  		} else if (!$rootScope.order.is_posted) {
  			$location.path('/app/order/confirm');
@@ -385,32 +379,28 @@ angular.module('bitely.controllers',[])
 	}
 
 	$scope.stripeCallback = function(code, result) {
-	console.log('code:', code);
-	console.log('result:', result);
+	// console.log('code:', code);
+	// console.log('result:', result);
 
 	if (result.error) {
-        console.log('it failed! error: ' + result.error.message);
+    	$ionicLoading.hide();
+        // console.log('it failed! error: ' + result.error.message);
+        $cordovaToast.show('it failed! error: ' + result.error.message, 'short', 'bottom');
     } else {
     	$ionicLoading.hide();
         User.save({},
-			"stripeToken="+result.id
-		);
-        var datos = {
-        	isset : true,
-        	last4 : '******* '+result.card.last4,
-        	brand: result.card.brand,
-        	date:result.card.exp_month+'/'+result.card.exp_year 
-        }
+			"stripeToken="+result.id+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
+		).$promise.then(function(){
+ 			User.get().$promise.then(function(data){
+        		$rootScope.creditcard = data.user;
+        		$localstorage.setObject('creditcard',data.user);
+ 			});
+	   		document.getElementById('cvc').value = "";
+	   		document.getElementById('expiry').value = "";
+	   		document.getElementById('number').value = "";
 
-        $rootScope.creditcard = datos;
-        $localstorage.setObject('creditcard',datos);
-
-
-   		document.getElementById('cvc').value = "";
-   		document.getElementById('expiry').value = "";
-   		document.getElementById('number').value = "";
-
-   		$cordovaToast.show('Card Saved', 'short', 'center');
+	   		$cordovaToast.show('Card Saved', 'short', 'center'); 			
+		});
 
 		// var alertPopup = $ionicPopup.alert({
 		// 	title: 'Succes!',
@@ -515,34 +505,28 @@ angular.module('bitely.controllers',[])
 	};
 
 	$scope.stripeCallback2 = function(code, result) {
-		//alert('saved!');
-	console.log('code:', code);
-	console.log('result:', result);
+	// alert('saved!');
+	// console.log('code:', code);
+	// console.log('result:', result);
 
 	if (result.error) {
-        console.log('it failed! error: ' + result.error.message);
+    	$ionicLoading.hide();
+        // console.log('it failed! error: ' + result.error.message);
+        $cordovaToast.show('it failed! error: ' + result.error.message, 'short', 'bottom');
     } else {
     	$ionicLoading.hide();
         User.save({},
-			"stripeToken="+result.id
-		);
-        var datos = {
-        	isset : true,
-        	last4 : '******* '+result.card.last4,
-        	brand: result.card.brand,
-        	date:result.card.exp_month+'/'+result.card.exp_year 
-        }
-
-        $rootScope.creditcard = datos;
-        $localstorage.setObject('creditcard',datos);
-
-
-   		document.getElementById('cvc').value = "";
-   		document.getElementById('expiry').value = "";
-   		document.getElementById('number').value = "";
-
-
-		$location.path('/app/order/confirm');
+			"stripeToken="+result.id+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
+		).$promise.then(function(){
+ 			User.get().$promise.then(function(data){
+        		$rootScope.creditcard = data.user;
+        		$localstorage.setObject('creditcard',data.user);
+ 			});
+	   		document.getElementById('cvc').value = "";
+	   		document.getElementById('expiry').value = "";
+	   		document.getElementById('number').value = "";
+			$location.path('/app/order/confirm');	 			
+		});
 		// var alertPopup = $ionicPopup.alert({
 		// 	title: 'Succes!',
 		// 	template: 'Credit Card saved',

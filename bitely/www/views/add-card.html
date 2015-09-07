@@ -23,7 +23,7 @@
 			<div class="list">
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Card Number</span>
-			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4}}" id="number">
+			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4 || ''}}" id="number">
 			  </label>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Exp.</span>
