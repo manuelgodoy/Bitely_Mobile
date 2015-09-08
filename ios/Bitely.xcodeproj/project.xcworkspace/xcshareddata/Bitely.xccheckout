@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>79252446-ABAC-48EA-A533-E15FFE4A351E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Bitely</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6C89A258112E90FD163260D31DFA6E5728E0C8A7</key>
+		<string>https://github.com/manuelgodoy/Bitely_Mobile.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>bitely/platforms/ios/Bitely.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6C89A258112E90FD163260D31DFA6E5728E0C8A7</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/manuelgodoy/Bitely_Mobile.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6C89A258112E90FD163260D31DFA6E5728E0C8A7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6C89A258112E90FD163260D31DFA6E5728E0C8A7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Bitely_Mobile</string>
+		</dict>
+	</array>
+</dict>
+</plist>

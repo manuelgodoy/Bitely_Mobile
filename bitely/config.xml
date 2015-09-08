@@ -16,11 +16,16 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="none"/>
   <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="orientation" value="portrait" />
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <preference name="StatusBarOverlaysWebView" value="true" />
+  <preference name="StatusBarBackgroundColor" value="#fb7d00" />  
   <allow-navigation href="*://*.facebook.com/*"/>
+  <allow-navigation href="*://*.bitely.io/*"/>
   <allow-intent href="http://facebook.com/*"/>
+  <allow-intent href="http://bitely.io/*"/>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>

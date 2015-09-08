@@ -6,6 +6,10 @@
     "ionic-service-core": "~0.1.10"
   },
   "dependencies": {
+    "angular-cookies": "~1.4.5",
+    "angular-payments": "*",
+    "angular-resource": "~1.4.5",
+    "ionic-rating": "~0.1.0",
     "ng-cordova-oauth": "~0.1.4"
   }
 }

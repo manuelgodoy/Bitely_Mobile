@@ -1,0 +1,17 @@
+2015-09-07 16:39:30.736 Bitely[1969:29215] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/gianolivieri/Library/Developer/CoreSimulator/Devices/C6DB61B1-BBB5-4CE0-BC03-511BDFF555D6/data/Containers/Data/Application/A5D841B4-082F-421B-A047-969DEC49FA2E/Library/Cookies/Cookies.binarycookies
+2015-09-07 16:39:32.578 Bitely[1969:29215] Apache Cordova native platform version 3.8.0 is starting.
+2015-09-07 16:39:32.579 Bitely[1969:29215] Multi-tasking -> Device: YES, App: YES
+2015-09-07 16:39:32.603 Bitely[1969:29215] Unlimited access to network resources
+2015-09-07 16:39:34.709 Bitely[1969:29215] Resetting plugins due to page load.
+2015-09-07 16:39:37.037 Bitely[1969:29215] Finished load of: file:///Users/gianolivieri/Library/Developer/CoreSimulator/Devices/C6DB61B1-BBB5-4CE0-BC03-511BDFF555D6/data/Containers/Bundle/Application/EF85767D-EE37-4A79-A00B-5877C72B088C/Bitely.app/www/index.html#/splash
+2015-09-07 17:14:29.607 Bitely[2726:45139] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/gianolivieri/Library/Developer/CoreSimulator/Devices/C6DB61B1-BBB5-4CE0-BC03-511BDFF555D6/data/Containers/Data/Application/EDE33F2A-31DC-4840-952E-B3C31BB6D7B1/Library/Cookies/Cookies.binarycookies
+2015-09-07 17:14:30.014 Bitely[2726:45139] Apache Cordova native platform version 3.8.0 is starting.
+2015-09-07 17:14:30.014 Bitely[2726:45139] Multi-tasking -> Device: YES, App: YES
+2015-09-07 17:14:30.059 Bitely[2726:45139] Unlimited access to network resources
+2015-09-07 17:14:30.439 Bitely[2726:45139] [CDVTimer][statusbar] 146.390021ms
+2015-09-07 17:14:30.439 Bitely[2726:45139] Init FacebookConnect Session
+2015-09-07 17:14:30.506 Bitely[2726:45139] [CDVTimer][facebookconnectplugin] 67.212045ms
+2015-09-07 17:14:30.506 Bitely[2726:45139] [CDVTimer][TotalPluginStartup] 214.330971ms
+2015-09-07 17:14:30.926 Bitely[2726:45139] Resetting plugins due to page load.
+2015-09-07 17:14:32.280 Bitely[2726:45139] Finished load of: file:///Users/gianolivieri/Library/Developer/CoreSimulator/Devices/C6DB61B1-BBB5-4CE0-BC03-511BDFF555D6/data/Containers/Bundle/Application/6F0FAA0A-8D65-41B7-BBF0-E76252D66FE9/Bitely.app/www/index.html#/splash
+2015-09-07 17:15:21.665 Bitely[2726:45139] THREAD WARNING: ['FacebookConnectPlugin'] took '265.205078' ms. Plugin should use a background thread.
