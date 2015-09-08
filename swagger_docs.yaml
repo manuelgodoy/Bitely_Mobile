@@ -121,6 +121,26 @@ paths:
           description: A list of restaurant Venues.
           schema:
             $ref: '#/definitions/VenueArray'
+
+  /item:
+    post:
+      summary: Fetch one specific item (ItemAPI)
+      description: |
+        The Item enpoint is used to fetch a single instance of an item.
+      parameters:
+        - name: itemkey
+          in: json
+          description: URL Safe key of this item.
+          required: true
+          type: string
+      tags:
+        - Item
+      responses:
+        default:
+          description: A restaurant Item instance.
+          schema:
+            $ref: '#/definitions/ItemSchema'
+
   /venue:
     get:
       summary: Fetch one specific restaurant venue (VenueAPI)
