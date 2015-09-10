@@ -21,7 +21,7 @@ angular.module('bitely.controllers')
   }
 }])
 
-.factory('Auth', function($localstorage, $rootScope, $cookies){
+.factory('Auth', function($localstorage, $rootScope, $cookies, $http){
   var service = {};
 
   service.setCredentials = function(todalainfo){
@@ -33,6 +33,7 @@ angular.module('bitely.controllers')
 
   service.clearCredentials = function(){
       $rootScope.globals = {};
+      $http.get('https://www.bitely.io/logout_app');
       $localstorage.setObject('globals',{});
       $cookies.remove("session");
       $rootScope.creditcard = {};

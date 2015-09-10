@@ -122,7 +122,7 @@ angular.module('bitely.controllers',[])
 			$location.path('/app/order/personal');
  		} else if (!$rootScope.creditcard.has_customertoken){
  			$location.path('/app/order/card');	
- 		} else if (!$rootScope.order.is_posted || $rootScope.order.is_paid) {
+ 		} else if (!$rootScope.order.is_posted) {
  			$location.path('/app/order/confirm');
  		} else {
  			$location.path('/app/order/payment');
@@ -591,7 +591,7 @@ angular.module('bitely.controllers',[])
 	// 	console.log(val, parseInt(val,10));
 	// 	return parseInt(val,10); };
 
-	$scope.addItem = function(item, restaurant){
+	$scope.addItem = function(item, restaurant, $index){
 
 		$cordovaToast.show('Plate added!', 'short', 'bottom');
 		var order = {
@@ -606,6 +606,9 @@ angular.module('bitely.controllers',[])
 			order.options = item.options
 			$rootScope.order.total = parseInt($rootScope.order.total) + parseInt(item.options_array.price);
 		};
+
+		$rootScope.order.order_plates[$index].quantity = $rootScope.order.order_plates[$index].quantity+1;
+
 		$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
 		Order.update(order);
 		
@@ -613,7 +616,7 @@ angular.module('bitely.controllers',[])
 
 
 
-	$scope.removeItem = function(item, restaurant){
+	$scope.removeItem = function(item, restaurant, $index){
 		$cordovaToast.show('Plate removed!', 'short', 'bottom');
 		var order = {
 			action: 'remove', 
@@ -627,11 +630,12 @@ angular.module('bitely.controllers',[])
 			$rootScope.order.total = parseInt($rootScope.order.total) - parseInt(item.options_array.price);
 			order.options = item.options;
 		}
-		$rootScope.order.total = parseInt($rootScope.order.total)-parseInt(ovalue.price);
+		$rootScope.order.total = parseInt($rootScope.order.total)-parseInt(item.price);
+		$rootScope.order.order_plates[$index].quantity = $rootScope.order.order_plates[$index].quantity-1;
 		Order.update(order);
 	}
 
-	$scope.tip = {tip:0};
+	$scope.tip = {};
 	$scope.doPay = function(){
 		$ionicLoading.show({
       		template: '<ion-spinner class="color_white"></ion-spinner>'

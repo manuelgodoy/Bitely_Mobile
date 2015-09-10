@@ -100,7 +100,7 @@
 						Tip
 					</div>
 					<div class="col col-20 order_price_">
-						${{tip.tip | number:2}}
+						${{tip.tip || 0 | number:2}}
 					</div>
 				</div> 
 				<div class="row">
