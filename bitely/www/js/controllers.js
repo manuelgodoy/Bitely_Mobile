@@ -2,9 +2,13 @@ angular.module('bitely.controllers',[])
 .controller('AppCtrl', function($ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, $http, $localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook) {
 
 	//ALTO DE LA CARD
-	$rootScope.cardHeight = 50+32+40+(($window.innerWidth-20)*(460/740));
+	$rootScope.cardHeight = 50+32+40+(($window.innerWidth-20));
 	$rootScope.cardWidth = $window.innerWidth;
 	$rootScope.platoWidth = $window.innerWidth * 0.40;
+
+	$rootScope.venueImage = {height:$window.innerWidth-20+'px', width:$window.innerWidth-20+'px'}
+	$rootScope.plateImage = {height:$window.innerWidth*.4+'px', width:$window.innerWidth*.4+'px'}
+
 
 	$scope.login = function(from){
 	$ionicBackdrop.retain();
@@ -118,7 +122,7 @@ angular.module('bitely.controllers',[])
 			$location.path('/app/order/personal');
  		} else if (!$rootScope.creditcard.has_customertoken){
  			$location.path('/app/order/card');	
- 		} else if (!$rootScope.order.is_posted) {
+ 		} else if (!$rootScope.order.is_posted || $rootScope.order.is_paid) {
  			$location.path('/app/order/confirm');
  		} else {
  			$location.path('/app/order/payment');
@@ -128,7 +132,13 @@ angular.module('bitely.controllers',[])
  	}
 
 })
-.controller('HomeCtrl', function($cordovaToast, $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
+.controller('HomeCtrl', function($ionicPlatform,$cordovaToast, $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
+
+    $ionicPlatform.registerBackButtonAction(
+        function () {
+           ionic.Platform.exitApp();
+        }, 100
+	);
 
 	$scope.moreDataCanBeLoaded = false;
 
@@ -183,6 +193,12 @@ angular.module('bitely.controllers',[])
 		// }, 2000);  	
     }, function(err) {
   		$cordovaToast.show('No geolocation found', 'short', 'bottom');
+  		$cordovaToast.show('Using test locations', 'short', 'bottom');
+  			Venues.get(test_location)
+  			.$promise.then(function(data) {
+    			$scope.places = data.venue_list;
+				$scope.loaded = true;
+			})
     });
 
 
@@ -216,7 +232,14 @@ angular.module('bitely.controllers',[])
  //  	};      
 })
 
-.controller('VenueCtrl', function($cordovaToast, $scope, $stateParams, $rootScope, $timeout, $ionicModal, $http, Venue, Menu, Order){
+.controller('VenueCtrl', function($ionicPlatform, $location, $cordovaToast, $scope, $stateParams, $rootScope, $timeout, $ionicModal, $http, Venue, Menu, Order){
+
+    $ionicPlatform.registerBackButtonAction(
+        function () {
+            $location.path('/app/home');
+        }, 100
+	)
+
 
 	$scope.venue = {};
 	$scope.venue.name = $stateParams.name_id;
@@ -272,14 +295,16 @@ angular.module('bitely.controllers',[])
 			if (value.type==='OPTION_ADD') {
 				angular.forEach( value.options, function(ovalue, okey){
 					if (ovalue.checked) {
-						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+'}';
+						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+', "type":"OPTION_ADD"}';
+						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
 					};
 				})
 			}
 			if (value.type==='OPTION_CHOOSE') {
 				if (item.choosed) {
 					angular.forEach( item.choosed, function(ovalue, okey){
-						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+'}';
+						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+', "type":"OPTION_CHOOSE"}';
+						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
 					})
 				} else {
         			$cordovaToast.show('Must choose an option', 'short', 'center');
@@ -294,16 +319,19 @@ angular.module('bitely.controllers',[])
 			itemprice: item.price, 
 			itemname: item.name || item.text, 
 			restname: $stateParams.name_id, 
-			options: JSON.stringify(losoptions),
+			options: losoptions,
 			restid: $stateParams.rest_id
 		}
 		if (!error) {
 			Order.update(order);
+			$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(order.itemprice);
 			$scope.addModal.hide();
 		};
 
 	};	
-	$scope.sendOrder = function(item){
+	$scope.sendOrder = function(item, $event){
+
+    	$event.stopPropagation();
 
 		if (!$rootScope.order.is_paid && $rootScope.order.restaurant.restaurant_id!==null && $rootScope.order.restaurant.restaurant_id !== $stateParams.rest_id ) {
 			
@@ -317,6 +345,7 @@ angular.module('bitely.controllers',[])
 				$scope.addModal.show();
 			} else {
 				$cordovaToast.show('Plate Ordered!', 'short', 'center');
+				$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
 				Order.update({
 					action: 'add', 
 					itemkey: item.key, 
@@ -329,22 +358,123 @@ angular.module('bitely.controllers',[])
 		}
 	}
 
+	$scope.goPlate = function(key){
+		if (key) {
+			$location.path('/app/plate/'+key);
+		}
+	}
+
 })
-.controller('PlateCtrl', function( $scope, $timeout, $http) {
+.controller('PlateCtrl', function( Item, Order, $location, $ionicPlatform, $rootScope, $stateParams, $scope, $timeout, $http, $ionicModal, $cordovaToast) {
 
 	$scope.plate = {};
 
 	$scope.loaded = false;
 
-	$timeout(function(){
-		$scope.loaded = true;
-		 $http.get('js/json/plate.json').then(function(lugares){
-		 	$scope.plate = lugares.data;
-		 });
 
-	}, 2000);
+	Item.save({itemkey:$stateParams.id}).$promise.then(function(plate){
+		console.log(plate)
+		$scope.plate = plate.item;
+		$scope.loaded =  true;
+
+	    $ionicPlatform.registerBackButtonAction(
+	        function () {
+	            $location.path('/app/menu/'+plate.item.restaurant.restaurant_id+'/'+plate.item.restaurant.name)
+	        }, 100
+		);
+
+	})
 
 
+
+
+	// $timeout(function(){
+	// 	$scope.loaded = true;
+	// 	 $http.get('js/json/plate.json').then(function(lugares){
+	// 	 	$scope.plate = lugares.data;
+	// 	 });
+
+	// }, 2000);
+
+	$ionicModal.fromTemplateUrl('views/addtoorder.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.addModal = modal;
+	});
+	$scope.closeAddModal = function() {
+		$scope.addModal.hide();
+	};
+	$scope.chosedOrder = function(item) {
+		
+        $cordovaToast.show('Plate ordered!', 'short', 'center');
+
+		var losoptions = {};
+		var error = false;
+
+		angular.forEach( item.option_groups, function(value, key){
+			if (value.type==='OPTION_ADD') {
+				angular.forEach( value.options, function(ovalue, okey){
+					if (ovalue.checked) {
+						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+', "type":"OPTION_ADD"}';
+						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
+					};
+				})
+			}
+			if (value.type==='OPTION_CHOOSE') {
+				if (item.choosed) {
+					angular.forEach( item.choosed, function(ovalue, okey){
+						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+'}, "type":"OPTION_CHOOSE"}';
+						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
+					})
+				} else {
+        			$cordovaToast.show('Must choose an option', 'short', 'center');
+					error = true;
+				}
+			}
+		})
+
+		order = {
+			action: 'add', 
+			itemkey: item.key, 
+			itemprice: item.price, 
+			itemname: item.name || item.text, 
+			options: losoptions,
+			restname: item.restaurant.name, 
+			restid: item.restaurant.restaurant_id
+		}
+		if (!error) {
+			Order.update(order);
+			$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(order.itemprice);
+			$scope.addModal.hide();
+		};
+
+	};	
+	$scope.sendOrder = function(item){
+
+		if (!$rootScope.order.is_paid && $rootScope.order.restaurant.restaurant_id!==null && $rootScope.order.restaurant.restaurant_id !== item.restaurant.restaurant_id ) {
+			
+        $cordovaToast.show('Yoy have a pending order in another restaurant', 'short', 'center');
+
+		} else {
+
+
+			if (item.option_groups) {
+			 	$scope.addModal.item = item
+				$scope.addModal.show();
+			} else {
+				$cordovaToast.show('Plate Ordered!', 'short', 'center');
+				$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
+				Order.update({
+					action: 'add', 
+					itemkey: item.key, 
+					itemprice: item.price, 
+					itemname: item.name || item.text, 
+					restname: item.restaurant.name, 
+					restid: item.restaurant.restaurant_id
+				})
+			}
+		}
+	}
 
 })
 
@@ -425,7 +555,20 @@ angular.module('bitely.controllers',[])
 		})
 	}
 })
-.controller('OrderCtrl', function($ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
+.controller('OrderCtrl', function($ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
+	$scope.$on('$ionicView.enter', function(){
+		$rootScope.order = {};
+		$scope.loaded = false;
+		Order.query().$promise.then(function(order){
+			$scope.loaded = true;
+		});
+	});
+
+    $ionicPlatform.registerBackButtonAction(
+        function () {
+            $location.path('/app/menu/'+$rootScope.restaurant.restaurant_id+'/'+$rootScope.restaurant.name)
+        }, 100
+	);
 
 	$scope.card = {};
 
@@ -451,14 +594,20 @@ angular.module('bitely.controllers',[])
 	$scope.addItem = function(item, restaurant){
 
 		$cordovaToast.show('Plate added!', 'short', 'bottom');
-		Order.update({
+		var order = {
 			action: 'add', 
 			itemkey: item.key, 
 			itemprice: item.price, 
 			itemname: item.name || item.text,
 			restname: restaurant.name,
 			restid: restaurant.restaurant_id
-		})
+		};
+		if (item.options) {
+			order.options = item.options
+			$rootScope.order.total = parseInt($rootScope.order.total) + parseInt(item.options_array.price);
+		};
+		$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
+		Order.update(order);
 		
 	}	
 
@@ -466,14 +615,20 @@ angular.module('bitely.controllers',[])
 
 	$scope.removeItem = function(item, restaurant){
 		$cordovaToast.show('Plate removed!', 'short', 'bottom');
-		Order.update({
+		var order = {
 			action: 'remove', 
 			itemkey: item.key, 
 			itemprice: item.price, 
 			itemname: item.name || item.text, 
 			restname: restaurant.name,
 			restid: restaurant.restaurant_id
-		});
+		};
+		if (item.options) {
+			$rootScope.order.total = parseInt($rootScope.order.total) - parseInt(item.options_array.price);
+			order.options = item.options;
+		}
+		$rootScope.order.total = parseInt($rootScope.order.total)-parseInt(ovalue.price);
+		Order.update(order);
 	}
 
 	$scope.tip = {tip:0};
@@ -557,7 +712,11 @@ angular.module('bitely.controllers',[])
 	}
 
 	$scope.goMenu = function(){
-		$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
-	}	
+		if ($rootScope.order.restaurant) {
+			$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
+		} else {
+			$location.path('/app/home');
+		}
+	}
 })
 ;

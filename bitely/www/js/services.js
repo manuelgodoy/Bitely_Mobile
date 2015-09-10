@@ -64,6 +64,17 @@ angular.module('bitely.controllers')
     }
   });
 })
+// .factory('Item', function($resource){
+//   return $resource(urlBase+'item', null, {
+//     'get': {
+//         method:'POST',
+//         headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+//     }
+//   });
+// })
+.factory('Item', function($resource){
+  return $resource(urlBase+'item');
+})
 
 .factory('Pay', function($resource){
   return $resource(urlBase+'pay', null, {
@@ -96,8 +107,19 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order update:', order);
-              $rootScope.order = order.data;
-              $localstorage.setObject('order',order.data);
+              // angular.forEach( order.data.order_plates, function(value, key){
+              //   if (value.menu_item.options) {
+              //     order.data.order_plates[key].menu_item.options_array = [];
+              //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+              //   }
+              // });
+              $rootScope.order.is_posted = order.data.is_posted;
+              $rootScope.order.is_paid = order.data.is_paid;
+              // $rootScope.order.total = order.data.total;
+              $rootScope.order.tax_rate = order.data.tax_rate;
+              $rootScope.order.restaurant = order.data.restaurant;
+
+              $localstorage.setObject('order',$rootScope.order);
             },
             responseError: function (data) {
               console.log('error in interceptor', data);
@@ -109,6 +131,17 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order query:', order);
+              angular.forEach( order.data.order_plates, function(value, key){
+                if (value.menu_item.options) {
+                  order.data.order_plates[key].menu_item.options_array = [];
+                  order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+                }
+              });
+              if (order.data.is_paid) {
+                order.data.total = 0;
+                order.data.tax_rate = 0;
+                order.data.order_plates = {};
+              }
               $rootScope.order = order.data;
               $localstorage.setObject('order',order.data);
             },
@@ -122,6 +155,12 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order save:', order);
+              angular.forEach( order.data.order_plates, function(value, key){
+                if (value.menu_item.options) {
+                  order.data.order_plates[key].menu_item.options_array = [];
+                  order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+                }
+              });
               $rootScope.order = order.data;
               $localstorage.setObject('order',order.data);
             },

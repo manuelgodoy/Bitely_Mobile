@@ -5,14 +5,18 @@
 		</div>
 	</ion-nav-title>
 	  <ion-nav-buttons side="left">
-	    <button class="button button-icon button-clear icon-right ion-arrow-left-c fuente-total" ng-click="goMenu()">
+	    <button class="button button-icon button-clear icon-right ion-ios-arrow-left fuente-total" ng-click="goMenu()">
 	    </button>
 	  </ion-nav-buttons>
 	  <ion-nav-buttons side="right">
 	    <button class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-click="doPay()">
 	    </button>
-	  </ion-nav-buttons>		
+	  </ion-nav-buttons>
+		<ion-pane class="loader" ng-if="!loaded">
+			<ion-spinner></ion-spinner>
+		</ion-pane>		  
 	<ion-content>
+	<div ng-if="loaded">
 		<div class="row pasos">
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Personal</div>
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Card</div>
@@ -108,6 +112,7 @@
 					</div>
 				</div>
 			</div>
-		</div>			
+		</div>
+	</div>		
 	</ion-content>
 </ion-view>

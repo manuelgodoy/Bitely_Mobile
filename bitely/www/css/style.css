@@ -220,9 +220,10 @@
 #plate header h3 {
 	text-align: right;
 	font-family: 'sourcesans';
-	font-size: 26px;
+	font-size: 24px;
 	color:#b2b2b2;
 	text-decoration: none;
+	margin-bottom: 0;
 }
 #plate p.description {
 	font-family: 'sourcesans';
@@ -295,7 +296,8 @@ p.asguest a.button {
 	color: #fff;
 }
 .side-menu ion-content{
-	background: url('../img/side_bg.png')
+	background: url('../img/side_bg.png');
+	background-size: cover;
 }
 #menu .scroll{
 	background: none !important;
@@ -475,23 +477,14 @@ ul.rating li i {
 	min-height: 35px !important;
 	max-height: 35px !important
 }
-.row_ {
-	/*display: -webkit-box;*/
-	/*display: -webkit-flex;*/
-	display: -moz-box;
-	display: -moz-flex;
-	display: -ms-flexbox;
-	display: flex;
-	width: 100%; 
-	padding-left: 10px;
-	white-space: nowrap;
+.ratingplate ul.rating {
+	padding-top: 0;
+	float: right;
 }
-.row_ .col_ {
-	display: inline-block;
-	padding-right: 15px;
-	/*background: #f0c*/
+.ratingplate ul.rating li {
+  padding: 0 0 0 4px;
 }
-
-.row_ .col_ .list.card{
-	margin: 0;
+.ratingplate ul.rating li i {
+  font-size: 12px !important;
+  color: #eeac26;
 }
