@@ -640,7 +640,7 @@ angular.module('bitely.controllers',[])
 		$ionicLoading.show({
       		template: '<ion-spinner class="color_white"></ion-spinner>'
     	});
-		Pay.save({},"tip="+$scope.tip.tip).$promise.then(function(order){
+		Pay.save({tip:$scope.tip.tip}).$promise.then(function(order){
     		$ionicLoading.hide();
     		Order.query();
 			$location.path('/app/order/success');

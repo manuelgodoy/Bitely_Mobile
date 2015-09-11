@@ -77,13 +77,16 @@ angular.module('bitely.controllers')
   return $resource(urlBase+'item');
 })
 
+// .factory('Pay', function($resource){
+//   return $resource(urlBase+'pay', null, {
+//     'save': {
+//         method:'POST',
+//         headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+//     }
+//   });
+// })
 .factory('Pay', function($resource){
-  return $resource(urlBase+'pay', null, {
-    'save': {
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
-    }
-  });
+  return $resource(urlBase+'pay');
 })
 
 .factory('gLocation', function($resource){

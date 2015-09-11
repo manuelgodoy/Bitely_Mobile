@@ -22,12 +22,12 @@
 	  <div class="padding" id="plate">
 	  	<header>
 	  		<div class="row">
-	  			<div class="col col-80">
+	  			<div class="col col-75">
 	  				<h1>{{plate.name || plate.text}}</h1>
 					<h2><a href="#/app/menu/{{plate.restaurant.restaurant_id}}/{{plate.restaurant.name}}">{{plate.restaurant.name}}</a></h2>
 	  			</div>
-	  			<div class="col col-20 ratingplate">
-					<h3>{{plate.price | number:2}}$</h3>
+	  			<div class="col col-25 ratingplate">
+					<h3>${{plate.price | number:2}}</h3>
 					<rating ng-model="plate.rating_average" max="5" readonly="true"></rating>
 	  			</div>
 	  		</div>
