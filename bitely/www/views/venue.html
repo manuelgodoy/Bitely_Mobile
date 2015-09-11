@@ -10,7 +10,7 @@
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.total*(1+order.tax_rate) | number:2}}
+          ${{order.total | number:2}}
         </button>
       </ion-nav-buttons>
 	
@@ -45,7 +45,7 @@
 				<div ng-repeat="subsection in section.subsections">
 					<h3>{{subsection.subsection_name}}</h3>
 				  	<ion-scroll class="sinpadd rowvenue" zooming="false" direction="x" style="width: 100%;" scrollbar-x="false">
-				  		<div class="row">
+				  		<div class="row_">
 				 			<div class="col_ col-45_"style="width:{{platoWidth+20}}px" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
 			        			<div class="list card" style="width:{{platoWidth}}px" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null" ng-click="goPlate(subsection.contents[i].key)">
 									<div class="item item-image">

@@ -488,3 +488,23 @@ ul.rating li i {
   font-size: 12px !important;
   color: #eeac26;
 }
+.row_ {
+	/*display: -webkit-box;*/
+	/*display: -webkit-flex;*/
+	display: -moz-box;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%; 
+	padding-left: 10px;
+	white-space: nowrap;
+}
+.row_ .col_ {
+	display: inline-block;
+	padding-right: 15px;
+	/*background: #f0c*/
+}
+
+.row_ .col_ .list.card{
+	margin: 0;
+}

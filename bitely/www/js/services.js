@@ -119,7 +119,7 @@ angular.module('bitely.controllers')
               // });
               $rootScope.order.is_posted = order.data.is_posted;
               $rootScope.order.is_paid = order.data.is_paid;
-              // $rootScope.order.total = order.data.total;
+              if (!$rootScope.order.total) $rootScope.order.total = order.data.total;
               $rootScope.order.tax_rate = order.data.tax_rate;
               $rootScope.order.restaurant = order.data.restaurant;
 
