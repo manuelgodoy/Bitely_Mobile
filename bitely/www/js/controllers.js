@@ -301,7 +301,7 @@ angular.module('bitely.controllers',[])
 				angular.forEach( value.options, function(ovalue, okey){
 					if (ovalue.checked) {
 						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+', "type":"OPTION_ADD"}';
-						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
+						$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(ovalue.price);
 					};
 				})
 			}
@@ -309,7 +309,7 @@ angular.module('bitely.controllers',[])
 				if (item.choosed) {
 					angular.forEach( item.choosed, function(ovalue, okey){
 						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+', "type":"OPTION_CHOOSE"}';
-						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
+						$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(ovalue.price);
 					})
 				} else {
         			$cordovaToast.show('Must choose an option', 'short', 'center');
@@ -329,7 +329,7 @@ angular.module('bitely.controllers',[])
 		}
 		if (!error) {
 			Order.update(order);
-			$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(order.itemprice);
+			$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(order.itemprice);
 			$scope.addModal.hide();
 		};
 
@@ -350,7 +350,7 @@ angular.module('bitely.controllers',[])
 				$scope.addModal.show();
 			} else {
 				$cordovaToast.show('Plate Ordered!', 'short', 'center');
-				$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
+				$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(item.price);
 				Order.update({
 					action: 'add', 
 					itemkey: item.key, 
@@ -421,7 +421,7 @@ angular.module('bitely.controllers',[])
 				angular.forEach( value.options, function(ovalue, okey){
 					if (ovalue.checked) {
 						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+', "type":"OPTION_ADD"}';
-						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
+						$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(ovalue.price);
 					};
 				})
 			}
@@ -429,7 +429,7 @@ angular.module('bitely.controllers',[])
 				if (item.choosed) {
 					angular.forEach( item.choosed, function(ovalue, okey){
 						losoptions = '{"name":"'+ovalue.name+'", "price":'+ovalue.price+'}, "type":"OPTION_CHOOSE"}';
-						$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(ovalue.price);
+						$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(ovalue.price);
 					})
 				} else {
         			$cordovaToast.show('Must choose an option', 'short', 'center');
@@ -449,7 +449,7 @@ angular.module('bitely.controllers',[])
 		}
 		if (!error) {
 			Order.update(order);
-			$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(order.itemprice);
+			$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(order.itemprice);
 			$scope.addModal.hide();
 		};
 
@@ -468,7 +468,7 @@ angular.module('bitely.controllers',[])
 				$scope.addModal.show();
 			} else {
 				$cordovaToast.show('Plate Ordered!', 'short', 'center');
-				$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
+				$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(item.price);
 				Order.update({
 					action: 'add', 
 					itemkey: item.key, 
@@ -593,8 +593,8 @@ angular.module('bitely.controllers',[])
 
 	// $scope.typeOf = function(val) { return typeof(val); };
 	// $scope.toInt = function(val) {
-	// 	console.log(val, parseInt(val,10));
-	// 	return parseInt(val,10); };
+	// 	console.log(val, parseFloat(val,10));
+	// 	return parseFloat(val,10); };
 
 	$scope.addItem = function(item, restaurant, $index){
 
@@ -609,12 +609,12 @@ angular.module('bitely.controllers',[])
 		};
 		if (item.options) {
 			order.options = item.options
-			$rootScope.order.total = parseInt($rootScope.order.total) + parseInt(item.options_array.price);
+			$rootScope.order.total = parseFloat($rootScope.order.total) + parseFloat(item.options_array.price);
 		};
 
 		$rootScope.order.order_plates[$index].quantity = $rootScope.order.order_plates[$index].quantity+1;
 
-		$rootScope.order.total = parseInt($rootScope.order.total)+parseInt(item.price);
+		$rootScope.order.total = parseFloat($rootScope.order.total)+parseFloat(item.price);
 		Order.update(order);
 		
 	}	
@@ -632,10 +632,10 @@ angular.module('bitely.controllers',[])
 			restid: restaurant.restaurant_id
 		};
 		if (item.options) {
-			$rootScope.order.total = parseInt($rootScope.order.total) - parseInt(item.options_array.price);
+			$rootScope.order.total = parseFloat($rootScope.order.total) - parseFloat(item.options_array.price);
 			order.options = item.options;
 		}
-		$rootScope.order.total = parseInt($rootScope.order.total)-parseInt(item.price);
+		$rootScope.order.total = parseFloat($rootScope.order.total)-parseFloat(item.price);
 		$rootScope.order.order_plates[$index].quantity = $rootScope.order.order_plates[$index].quantity-1;
 		Order.update(order);
 	}
