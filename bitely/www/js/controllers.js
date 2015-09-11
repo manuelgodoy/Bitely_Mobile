@@ -34,7 +34,12 @@ angular.module('bitely.controllers',[])
  		}
 
  		if  (from==='order') {
-			$location.path('/app/order/card');
+ 			if (!$rootScope.creditcard.has_customertoken) {
+ 				$location.path('/app/order/card');	
+ 			} else {
+ 				$location.path('/app/order/confirm');	
+ 			}
+			
  		}
 
 
