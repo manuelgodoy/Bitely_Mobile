@@ -247,13 +247,13 @@ angular.module('bitely.controllers',[])
 
 
 	$scope.venue = {};
-	$scope.venue.name = $stateParams.name_id;
+	//$scope.venue.name = $stateParams.name_id;
 	$scope.menus = {};
 	$scope.loaded= false;
 
-	// Venue.get({rest_id: $stateParams.rest_id}, function(data){
-	// 	$scope.venue = data.venue;
-	// });
+	Venue.get({rest_id: $stateParams.rest_id, name_id: $stateParams.name_id}, function(data){
+		$scope.venue = data.venue;
+	});
 
 	Menu.get({rest_id: $stateParams.rest_id, name_id:$stateParams.name_id}
 		,function(data){
@@ -560,14 +560,19 @@ angular.module('bitely.controllers',[])
 		})
 	}
 })
-.controller('OrderCtrl', function($ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
-	$scope.$on('$ionicView.enter', function(){
+.controller('OrderCtrl', function($state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
+	
+	$scope.state = $state;
+
+	console.log($state);
+
+	if ($scope.state.current.name === 'app.order.confirm' || $scope.state.current.name ===  "app.order.payment") {
 		$rootScope.order = {};
 		$scope.loaded = false;
 		Order.query().$promise.then(function(order){
 			$scope.loaded = true;
-		});
-	});
+		});		
+	}
 
     $ionicPlatform.registerBackButtonAction(
         function () {
