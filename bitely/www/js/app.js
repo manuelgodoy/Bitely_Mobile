@@ -167,6 +167,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   })
 
   .state('app.order.confirm', {
+    cache:false,
     url:'/confirm',
     views: {
       'orderContent': {
@@ -178,6 +179,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
   .state('app.order.payment', {
     url:'/payment',
+    cache:false,
     views: {
       'orderContent': {
         //controller: 'OrderCtrl',
