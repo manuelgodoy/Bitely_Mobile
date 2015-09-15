@@ -182,6 +182,7 @@
 }
 .rowvenue .item.itemmenospadding {
 	padding:8px;
+	font-size: 14px;
 }
 .rowvenue .item.itemmenospadding a{
     color: #666666;
@@ -302,6 +303,9 @@ p.asguest a.button {
 #menu .scroll{
 	background: none !important;
 }
+.item.item-image img {
+	display: block;
+}
 .side-menu .avatar {
 	padding-top: 50px;
 }
@@ -334,6 +338,26 @@ p.asguest a.button {
 	width: 27px !important; 
 	height: 27px;
 	display: block;
+}
+.price {
+	font-family: 'sourcesans';
+	font-size:17px !important;
+	position: absolute;
+	bottom: 4px;
+	left:8px;
+	z-index: 10
+}
+.degradacion {
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0.9))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.9) 100%); /* Chrome10+,Safari5.1+ */
+background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.9) 100%); /* W3C */
+
+	width:100%;
+	height: 50px;
+	position: absolute;
+	z-index: 9;
+	bottom:0;
+	left: 0;
 }
 .col-45 {    
 	flex: 0 0 45%;
@@ -447,13 +471,7 @@ span.circle.checked{
 .order .options {
 	color: #fb7d00
 }
-.price {
-	font-family: 'sourcesans';
-	font-size:17px !important;
-	position: absolute;
-	bottom: 4px;
-	left:8px;
-}
+
 #elboton, #elboton2  {display: none;}
 .order_price {
 	font-size: 30px
@@ -507,4 +525,25 @@ ul.rating li i {
 
 .row_ .col_ .list.card{
 	margin: 0;
+}
+.itemvenue {
+	border-top: 0;
+	padding: 0 0 5px 8px;
+	margin-top: -8px;
+}
+.itemvenue ul.rating{
+	padding-top: 0px
+}
+.itemvenue ul.rating li {
+  display: inline;
+  border: 0px;
+  background: none;
+  padding: 0px 3px 0 0;
+}
+.itemvenue ul.rating li i {
+  font-size: 14px;
+  color: #eeac26;
+}
+.header-item a.ion-ios-arrow-left {
+	padding-right: 12px !important
 }

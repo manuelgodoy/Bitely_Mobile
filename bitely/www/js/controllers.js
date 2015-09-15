@@ -1,5 +1,5 @@
 angular.module('bitely.controllers',[])
-.controller('AppCtrl', function($ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, $http, $localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook) {
+.controller('AppCtrl', function(Order, $ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, $http, $localstorage,$rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook) {
 
 	//ALTO DE LA CARD
 	$rootScope.cardHeight = 50+32+40+(($window.innerWidth-20));
@@ -24,24 +24,23 @@ angular.module('bitely.controllers',[])
 	 			User.get().$promise.then(function(data){
 	        		$rootScope.creditcard = data.user;
 	        		$localstorage.setObject('creditcard',data.user);
+
+					$ionicBackdrop.release();
+			 		if  (from==='home') {
+						$location.path('/app/home');
+			 		}
+
+			 		if  (from==='order') {
+			 			if (!$rootScope.creditcard.has_customertoken) {
+			 				$location.path('/app/order/card');	
+			 			} else {
+			 				$location.path('/app/order/confirm');	
+			 			}
+			 		}
+
 	 			});
 			});
 		Auth.setCredentials(theparams.data);
-	
-		$ionicBackdrop.release();
- 		if  (from==='home') {
-			$location.path('/app/home');
- 		}
-
- 		if  (from==='order') {
- 			if (!$rootScope.creditcard.has_customertoken) {
- 				$location.path('/app/order/card');	
- 			} else {
- 				$location.path('/app/order/confirm');	
- 			}
-			
- 		}
-
 
         }, function(error){
           console.log('get error:', error);
@@ -122,16 +121,27 @@ angular.module('bitely.controllers',[])
 	}
 
  	$scope.goToOrder = function(){
+ 		// alert('click order');
+		$ionicLoading.show({
+      		template: '<ion-spinner class="color_white"></ion-spinner>'
+    	});
 
- 		if ($rootScope.globals.currentUser.isguest) {
-			$location.path('/app/order/personal');
- 		} else if (!$rootScope.creditcard.has_customertoken){
- 			$location.path('/app/order/card');	
- 		} else if (!$rootScope.order.is_posted) {
- 			$location.path('/app/order/confirm');
- 		} else {
- 			$location.path('/app/order/payment');
- 		}
+ 		Order.query().$promise.then(function(order){
+ 			$ionicLoading.hide()
+ 			if ($rootScope.globals.currentUser.isguest) {
+				$location.path('/app/order/personal');
+	 		} else if (!$rootScope.creditcard.has_customertoken){
+	 			$location.path('/app/order/card');	
+	 		} else if (!$rootScope.order.is_posted) {
+	 			$location.path('/app/order/confirm');
+	 		} else if ($rootScope.order.is_paid) {
+	 			// $location.path('/app/order/confirm');
+	 		} else {
+	 			$location.path('/app/order/payment');
+	 		}
+ 		});
+
+	
 
 
  	}
@@ -357,7 +367,7 @@ angular.module('bitely.controllers',[])
 					itemname: item.name || item.text, 
 					restname: $stateParams.name_id, 
 					restid: $stateParams.rest_id
-				})
+				});
 			}
 		}
 	}
@@ -464,14 +474,19 @@ angular.module('bitely.controllers',[])
 					itemname: item.name || item.text, 
 					restname: item.restaurant.name, 
 					restid: item.restaurant.restaurant_id
-				})
+				});
 			}
 		}
 	}
 
 })
 
+.controller('MeProfileCtrl', function(User, $scope, $timeout){
+	// $scope.profile = {};
+	// User.get()
+})
 .controller('ProfileCtrl', function($scope, $timeout){
+
 	$scope.profile = {};
 	$scope.profile.data = {};
 	$scope.profile.data.state ='';
@@ -512,7 +527,8 @@ angular.module('bitely.controllers',[])
     } else {
     	$ionicLoading.hide();
         User.save({},
-			"stripeToken="+result.id+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
+			"stripeToken="+result.id
+			//+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
 		).$promise.then(function(){
  			User.get().$promise.then(function(data){
         		$rootScope.creditcard = data.user;
@@ -544,24 +560,21 @@ angular.module('bitely.controllers',[])
 	}
 })
 .controller('OrderCtrl', function($state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
-	
-	$scope.state = $state;
+	$scope.loaded = true;
 
-	console.log('state:',$state);
+	// $scope.$on('$stateChangeSuccess', 
+	// function(event, toState, toParams, fromState, fromParams){ 
+	// 	// console.log('event:',event);
+	// 	// console.log('toState:',toState.name);
+	// 	if (toState.name === 'app.order.confirm' || toState.name ===  "app.order.payment") {
+	// 		$rootScope.order = {};
+	// 		$scope.loaded = false;
+	// 		Order.query().$promise.then(function(order){
+	// 			$scope.loaded = true;
+	// 		});
+	// 	}
 
-	$scope.$on('$stateChangeSuccess', 
-	function(event, toState, toParams, fromState, fromParams){ 
-		// console.log('event:',event);
-		// console.log('toState:',toState.name);
-		if (toState.name === 'app.order.confirm' || toState.name ===  "app.order.payment") {
-			$rootScope.order = {};
-			$scope.loaded = false;
-			Order.query().$promise.then(function(order){
-				$scope.loaded = true;
-			});
-		}
-
-	 })
+	//  })
 
 
 
@@ -660,7 +673,8 @@ angular.module('bitely.controllers',[])
     } else {
     	$ionicLoading.hide();
         User.save({},
-			"stripeToken="+result.id+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
+			"stripeToken="+result.id
+			//+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
 		).$promise.then(function(){
  			User.get().$promise.then(function(data){
         		$rootScope.creditcard = data.user;

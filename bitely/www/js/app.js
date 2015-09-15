@@ -125,6 +125,17 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
     }
   })
 
+  .state('app.profile', {
+    url:'/profile',
+    cache:false,
+    views: {
+      'appContent': {
+        templateUrl : 'views/profile.html',
+        controller: 'MeProfileCtrl'
+      }
+    }
+  })  
+
   .state('app.addCard', {
     url:'/add-card',
     views: {

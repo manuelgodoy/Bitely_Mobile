@@ -18,7 +18,7 @@
 	</ion-pane>	    
   <ion-content>
   <div ng-if="loaded">
-  <img ng-src="{{plate.picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
+  <img ng-src="{{plate.picture_url || 'img/no_image.jpg' }}" class="venue-img"  err-src>
 	  <div class="padding" id="plate">
 	  	<header>
 	  		<div class="row">
@@ -27,7 +27,7 @@
 					<h2><a href="#/app/menu/{{plate.restaurant.restaurant_id}}/{{plate.restaurant.name}}">{{plate.restaurant.name}}</a></h2>
 	  			</div>
 	  			<div class="col col-25 ratingplate">
-					<h3>${{plate.price | number:2}}</h3>
+					<h3><span ng-if="plate.price">${{plate.price | number:2}}</span></h3>
 					<rating ng-model="plate.rating_average" max="5" readonly="true"></rating>
 	  			</div>
 	  		</div>

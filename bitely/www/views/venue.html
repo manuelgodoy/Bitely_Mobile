@@ -5,8 +5,7 @@
 		</div>
     </ion-nav-title>    
       <ion-nav-buttons side="left">
-        <a href="#/app/home" class="button button-icon button-clear icon-right ion-ios-arrow-left">
-        </a>
+        <a href="#/app/home" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
@@ -49,11 +48,15 @@
 				 			<div class="col_ col-45_"style="width:{{platoWidth+20}}px" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
 			        			<div class="list card" style="width:{{platoWidth}}px" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null" ng-click="goPlate(subsection.contents[i].key)">
 									<div class="item item-image">
+										<div class="degradacion"></div>
 										<img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}" ng-style="plateImage">
 										<a class="button_ boton-order-venue" ng-click="sendOrder(subsection.contents[i], $event)" ng-if="subsection.contents[i].key || subsection.contents[i].option_groups"><img src="img/add_order.png" alt=""></a>
 										<p class="price" ng-if="subsection.contents[i].price">{{menu.currency_symbol}}{{subsection.contents[i].price | number:2}}</p>
 									</div>
 									<div class="item itemmenospadding">{{subsection.contents[i].name || subsection.contents[i].text}}
+									</div>
+									<div class="item itemvenue">
+										<rating ng-model="subsection.contents[i].rating_average" max="5" readonly="true"></rating>
 									</div>
 								</div>
 							</div>
