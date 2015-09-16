@@ -171,50 +171,46 @@ angular.module('bitely.controllers',[])
 	$scope.user_loc = test_location;
 
 
-	var posOptions = {timeout: 10000, enableHighAccuracy: false};
+	var posOptions = {timeout: 300000, enableHighAccuracy: false};
 
 
 	$scope.places = {};
 
   	
-  	$cordovaGeolocation.getCurrentPosition(posOptions)
-    .then(function (position) {
-		$scope.user_loc = {
-      		lat  : position.coords.latitude, 
-      		lon : position.coords.longitude, 
-      		rad : 500
-  		}
-  		gLocation.update({lat:position.coords.latitude, lon:position.coords.longitude});
-  		$scope.getlocation = true;
-  		Venues.get($scope.user_loc)
-  		.$promise.then(function(data) {
-    		$scope.places = data.venue_list;
-			$scope.loaded = true;
-  		}, function(){
-  			$cordovaToast.show('Using test locations', 'short', 'bottom');
-  			Venues.get(test_location)
-  			.$promise.then(function(data) {
-    			$scope.places = data.venue_list;
-				$scope.loaded = true;
-			})
-  		});
-	 // 	$timeout(function() {
 
-		// 	$scope.loaded = true;
-
-		// 	 $http.get('js/json/places.json').then(function(lugares){
-		// 	 	$scope.places = lugares.data;
-		// 	 });
-		// }, 2000);  	
-    }, function(err) {
-  		$cordovaToast.show('No geolocation found', 'short', 'bottom');
-  		$cordovaToast.show('Using test locations', 'short', 'bottom');
-  			Venues.get(test_location)
-  			.$promise.then(function(data) {
-    			$scope.places = data.venue_list;
+	ionic.Platform.ready(function(){
+  	  	$cordovaGeolocation.getCurrentPosition(posOptions)
+	    .then(function (position) {
+			$scope.user_loc = {
+	      		lat  : position.coords.latitude, 
+	      		lon : position.coords.longitude, 
+	      		rad : 500
+	  		}
+	  		gLocation.update({lat:position.coords.latitude, lon:position.coords.longitude});
+	  		$scope.getlocation = true;
+	  		Venues.get($scope.user_loc)
+	  		.$promise.then(function(data) {
+	    		$scope.places = data.venue_list;
 				$scope.loaded = true;
-			})
-    });
+	  		}, function(){
+	  			$cordovaToast.show('Using test locations (server error 500)', 'short', 'bottom');
+	  			Venues.get(test_location)
+	  			.$promise.then(function(data) {
+	    			$scope.places = data.venue_list;
+					$scope.loaded = true;
+				})
+	  		});
+	    }, function(err) {
+	  		$cordovaToast.show('No geolocation found, pull to refresh', 'short', 'bottom');
+	  			Venues.get(test_location)
+	  			.$promise.then(function(data) {
+	    			$scope.places = data.venue_list;
+					$scope.loaded = true;
+				})
+	    });
+  	});
+
+	
 
 
 
@@ -233,6 +229,7 @@ angular.module('bitely.controllers',[])
 	  		});	  		
     	}, function(err) {
   			$cordovaToast.show('No geolocation found', 'short', 'bottom');
+  			$scope.$broadcast('scroll.refreshComplete');
     	});
 	};
 
@@ -715,7 +712,7 @@ angular.module('bitely.controllers',[])
 	}
 
 	$scope.goMenu = function(){
-		if ($rootScope.order.restaurant) {
+		if ($rootScope.order.restaurant && $rootScope.order.restaurant.restaurant_id) {
 			$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
 		} else {
 			$location.path('/app/home');

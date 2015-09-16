@@ -210,11 +210,11 @@ angular.module('angularPayments', []);angular.module('angularPayments')
 
       if (re.test(value)) {
         e.preventDefault();
-        return $target.val(value + ' ' + digit);
+        return $target.val(value + '' + digit);
 
       } else if (re.test(value + digit)) {
         e.preventDefault();
-        return $target.val(value + digit + ' ');
+        return $target.val(value + digit + '');
 
       }
   };

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.bitely.app" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.bitely.app" version="0.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Bitely</name>
     <description>
         The Future of Ordering.
@@ -24,8 +24,10 @@
     </feature>
     <allow-navigation href="*://*.facebook.com/*" />
     <allow-navigation href="*://*.bitely.io/*" />
-    <allow-intent href="http://facebook.com/*" />
-    <allow-intent href="http://bitely.io/*" />
+    <allow-navigation href="*://*.stripe.com/*" />
+    <allow-intent href="*://*.facebook.com/*" />
+    <allow-intent href="*://bitely.io/*" />
+    <allow-intent href="*://*.stripe.com/*" />
     <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -66,5 +68,7 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.0.0" />
+    <plugin name="ionic-plugin-keyboard" spec="^1.0.7" />
     <plugin name="cordova-plugin-geolocation" spec="^1.0.1" />
 </widget>
