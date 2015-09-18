@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments'])
 
-.run(function($cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window) {
+.run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window) {
   // 1646690858946373
   // cookie: session
   
@@ -25,6 +25,24 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   });
 
   $ionicPlatform.ready(function() {
+
+    // $cordovaFacebook.getLoginStatus().then(function(success){
+    //   if (success.status === 'connected') {
+    //     $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: success.authResponse.accessToken, fields: "id,name,last_name,first_name,email,picture.width(200).height(200)", format: "json" }})
+    //     .then(function(theparams) {
+    //       theparams.data.access_token = success.authResponse.accessToken;
+    //       $http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data}).then(function(){
+    //         Order.query();
+    //         User.get().$promise.then(function(data){
+    //           $rootScope.creditcard = data.user;
+    //           $localstorage.setObject('creditcard',data.user);
+    //         });
+    //       });
+    //     Auth.setCredentials(theparams.data);
+    //     $location.path('/app/home');
+    //     })
+    //   }
+    // });
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -44,7 +62,9 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
+
+ $ionicConfigProvider.views.swipeBackEnabled(false);
  
 
  $httpProvider.defaults.withCredentials = true;
@@ -105,6 +125,17 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
     }
   })
 
+  .state('app.profile', {
+    url:'/profile',
+    cache:false,
+    views: {
+      'appContent': {
+        templateUrl : 'views/profile.html',
+        controller: 'MeProfileCtrl'
+      }
+    }
+  })  
+
   .state('app.addCard', {
     url:'/add-card',
     views: {
@@ -147,6 +178,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   })
 
   .state('app.order.confirm', {
+    cache:false,
     url:'/confirm',
     views: {
       'orderContent': {
@@ -158,6 +190,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
   .state('app.order.payment', {
     url:'/payment',
+    cache:false,
     views: {
       'orderContent': {
         //controller: 'OrderCtrl',

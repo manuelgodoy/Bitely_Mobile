@@ -10,7 +10,7 @@
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.total*(1+order.tax_rate) | number:2}}
+          ${{order.total | number:2}}
         </button>
       </ion-nav-buttons>      
 		<ion-pane class="loader" ng-if="!loaded">
@@ -28,7 +28,7 @@
 
 			<div class="list card cardvenue"  ng-repeat="place in places">
 				<a class="item item-image" href="#/app{{place.menu_url}}">
-					<img ng-src="{{place.restaurant_picture}}" err-src>
+					<img ng-src="{{place.picture}}" err-src ng-style="venueImage">
 				</a>
 				<a class="item" href="#/app{{place.menu_url}}">
 					<h2>{{place.name}}</h2>

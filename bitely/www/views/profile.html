@@ -1,0 +1,24 @@
+<ion-view>
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+    </ion-nav-title>
+      <ion-nav-buttons side="left">
+        <a href="#/app/home" class="button button-icon button-clear icon-right ion-ios-arrow-left">
+        </a>
+      </ion-nav-buttons>
+	  </ion-nav-buttons>
+  <ion-content>
+	<div id="edit-profile">
+		<header class="title padding">
+			<h1>Your Profile</h1>
+			<h2>Enter your details below:</h2>
+		</header>
+		<div class="padding">
+			<h3>{{creditcard.fullname}}</h3>
+			<h4 ng-if="creditcard.has_customertoken">You have a {{creditcard.stripe_data.sources.data[0].brand}} card ending in {{creditcard.stripe_data.sources.data[0].last4}}</h4>
+		</div>
+	</div>
+  </ion-content>
+</ion-view>

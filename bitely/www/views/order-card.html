@@ -5,11 +5,11 @@
 		</div>
 	</ion-nav-title>
 	  <ion-nav-buttons side="left">
-	    <button class="button button-icon button-clear icon-right ion-arrow-left-c fuente-total" ng-click="goMenu()">
+	    <button class="button button-icon button-clear icon-right ion-ios-arrow-left fuente-total" ng-click="goMenu()">
 	    </button>
 	  </ion-nav-buttons>
 	  <ion-nav-buttons side="right">
-	    <button class="button button-icon button-clear icon-right ion-arrow-right-c fuente-total"  ng-class="{'opa50': (!card.checkoutForm2.$valid)}" ng-click="!card.checkoutForm2.$valid || goConfirm()">
+	    <button class="button button-icon button-clear icon-right ion-ios-arrow-right fuente-total"  ng-class="{'opa50': (!card.checkoutForm2.$valid)}" ng-click="!card.checkoutForm2.$valid || goConfirm()">
 	    </button>
 	  </ion-nav-buttons>
 	<ion-content>
@@ -27,15 +27,15 @@
 			<div class="list">
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Card Number</span>
-			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4}}" id="number">
+			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4}}" id="number" pattern="[0-9]*">
 			  </label>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Exp.</span>
-			    <input type="text" ng-model="expiry" payments-format="expiry" payments-validate="expiry" required placeholder="{{creditcard.date || 'mm/yy'}}" id="expiry">
+			    <input type="text" ng-model="expiry" payments-format="expiry" payments-validate="expiry" required placeholder="{{creditcard.date || 'mm/yy'}}" id="expiry" pattern="[0-9 \/]*">
 			  </label>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">CVC Code</span>
-			    <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" required id="cvc">
+			    <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" required id="cvc" pattern="[0-9]*">
 			  </label>
 			</div>
 			<button ng-click="card.checkoutForm2.submit();" id="elboton2" ></button>

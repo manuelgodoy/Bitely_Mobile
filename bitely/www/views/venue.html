@@ -4,9 +4,12 @@
 			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
 		</div>
     </ion-nav-title>    
+      <ion-nav-buttons side="left">
+        <a href="#/app/home" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
+      </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.total*(1+order.tax_rate) | number:2}}
+          ${{order.total | number:2}}
         </button>
       </ion-nav-buttons>
 	
@@ -19,7 +22,7 @@
   	<h2>{{error.data.message}}</h2>
   </div>
   <div ng-if="loaded && !error">
-  <img ng-src="{{venue.restaurant_picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
+  <img ng-src="{{venue.picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
   <div id="venue">
   	<div class="padding">
   	<header>
@@ -43,10 +46,11 @@
 				  	<ion-scroll class="sinpadd rowvenue" zooming="false" direction="x" style="width: 100%;" scrollbar-x="false">
 				  		<div class="row_">
 				 			<div class="col_ col-45_"style="width:{{platoWidth+20}}px" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
-			        			<div class="list card" style="width:{{platoWidth}}px" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null">
+			        			<div class="list card" style="width:{{platoWidth}}px" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null" ng-click="goPlate(subsection.contents[i].key)">
 									<div class="item item-image">
-										<img ng-src="{{subsection.contents[i].image || 'img/no_image.jpg'}}">
-										<a class="button_ boton-order-venue" ng-click="sendOrder(subsection.contents[i])" ng-if="subsection.contents[i].key"><img src="img/add_order.png" alt=""></a>
+										<div class="degradacion"></div>
+										<img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}" ng-style="plateImage">
+										<a class="button_ boton-order-venue" ng-click="sendOrder(subsection.contents[i], $event)" ng-if="subsection.contents[i].key || subsection.contents[i].option_groups"><img src="img/add_order.png" alt=""></a>
 										<p class="price" ng-if="subsection.contents[i].price">{{menu.currency_symbol}}{{subsection.contents[i].price | number:2}}</p>
 									</div>
 									<div class="item itemmenospadding">{{subsection.contents[i].name || subsection.contents[i].text}}

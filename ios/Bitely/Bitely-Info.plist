@@ -49,34 +49,125 @@
       </dict>
     </dict>
     <key>CFBundleIdentifier</key>
-    <string>com.ionicframework.bitely295106</string>
+    <string>com.bitely.app</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.1.0</string>
     <key>CFBundleSignature</key>
     <string>????</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1397986197168446</string>
+        </array>
+      </dict>
+    </array>
     <key>CFBundleVersion</key>
-    <string>0.0.1</string>
-    <key>CFBundleShortVersionString</key>
-    <string>0.0.1</string>
+    <string>0.1.0</string>
+    <key>FacebookAppID</key>
+    <string>1397986197168446</string>
+    <key>FacebookDisplayName</key>
+    <string>Bitely</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
-    <key>NSMainNibFile</key>
+    <key>NSLocationWhenInUseUsageDescription</key>
     <string></string>
     <key>NSMainNibFile~ipad</key>
     <string></string>
-    <key>UISupportedInterfaceOrientations</key>
+    <key>UIInterfaceOrientation</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationPortraitUpsideDown</string>
-    </array>
-    <key>UISupportedInterfaceOrientations~ipad</key>
-    <array>
-      <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationPortraitUpsideDown</string>
     </array>
     <key>UILaunchImages</key>
     <array>
@@ -181,60 +272,15 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
-    <key>UIInterfaceOrientation</key>
+    <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
     </array>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string></string>
-    <key>FacebookAppID</key>
-    <string>1397986197168446</string>
-    <key>FacebookDisplayName</key>
-    <string>Bitely</string>
-    <key>CFBundleURLTypes</key>
+    <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1397986197168446</string>
-        </array>
-      </dict>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
     </array>
   </dict>
 </plist>

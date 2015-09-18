@@ -1,16 +1,13 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-royal">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button  ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.total*(1+order.tax_rate) | number:2}}
+          ${{order.total | number:2}}
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -28,14 +25,14 @@
         <div class="logfb" ng-if="globals.currentUser.isguest">
           <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p> -->
           <p><a menu-close class="button button-stable button-clear button-full">Search</a></p>
-          <p><a menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
+          <p><a ng-if="order.total>0 && !order.is_paid" menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
           <p><a class="button button-stable button-clear button-full" ng-click="login('menu')">Login with Facebook</a></p>
         </div>
         <div class="logout" ng-if="!globals.currentUser.isguest">
-          <p><a menu-close class="button button-stable button-clear button-full">Profile</a></p>
+          <p><a menu-close class="button button-stable button-clear button-full" href="#/app/profile">Profile</a></p>
           <p><a menu-close class="button button-stable button-clear button-full">Search</a></p>
           <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p> -->
-          <p><a menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
+          <p><a ng-if="order.total>0 && !order.is_paid" menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
           <p><a menu-close class="button button-stable button-clear button-full">Receipts</a></p>
           <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/edit-profile">Edit Profile</a></p> -->
           <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/add-card">Add Credit Card</a></p> -->

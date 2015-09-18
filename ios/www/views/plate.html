@@ -4,9 +4,13 @@
 			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
 		</div>
     </ion-nav-title>
+      <ion-nav-buttons side="left">
+        <a href="#/app/menu/{{plate.restaurant.restaurant_id}}/{{plate.restaurant.name}}" class="button button-icon button-clear icon-right ion-ios-arrow-left">
+        </a>
+      </ion-nav-buttons>    
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.total*(1+order.tax_rate) | number:2}}
+          ${{order.total | number:2}}
         </button>
       </ion-nav-buttons> 
 	<ion-pane class="loader" ng-if="!loaded">
@@ -14,22 +18,22 @@
 	</ion-pane>	    
   <ion-content>
   <div ng-if="loaded">
-  <img ng-src="{{plate.image}}" alt="" class="venue-img">
+  <img ng-src="{{plate.picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
 	  <div class="padding" id="plate">
 	  	<header>
 	  		<div class="row">
-	  			<div class="col col-80">
-	  				<h1>{{plate.name}}</h1>
-					<h2><a href="#/app/venue/{{plate.restaurant.pid}}">{{plate.restaurant.name}}</a></h2>
+	  			<div class="col col-75">
+	  				<h1>{{plate.name || plate.text}}</h1>
+					<h2><a href="#/app/menu/{{plate.restaurant.restaurant_id}}/{{plate.restaurant.name}}">{{plate.restaurant.name}}</a></h2>
 	  			</div>
-	  			<div class="col col-20">
-					<h3>{{plate.price}}$</h3>
-					{{plate.rating_average}}
+	  			<div class="col col-25 ratingplate">
+					<h3><span ng-if="plate.price">${{plate.price | number:2}}</span></h3>
+					<rating ng-model="plate.rating_average" max="5" readonly="true"></rating>
 	  			</div>
 	  		</div>
 	  	</header>
 	  	<p class="description">{{plate.description}}</p>
-	  	<a bg-click="order({{plate.pid}})" class="order"><img src="img/order_orange.png" alt=""></a>
+	  	<a ng-click="sendOrder(plate,restaurant)" class="order"><img src="img/order_orange.png" alt=""></a>
 	  </div>
 	</div>
   </ion-content>
