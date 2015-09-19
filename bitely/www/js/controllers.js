@@ -532,7 +532,8 @@ angular.module('bitely.controllers',[])
         		$localstorage.setObject('creditcard',data.user);
  			});
 	   		document.getElementById('cvc').value = "";
-	   		document.getElementById('expiry').value = "";
+	   		document.getElementById('month').value = "";
+	   		document.getElementById('year').value = "";
 	   		document.getElementById('number').value = "";
 
 	   		$cordovaToast.show('Card Saved', 'short', 'center'); 			
@@ -678,7 +679,8 @@ angular.module('bitely.controllers',[])
         		$localstorage.setObject('creditcard',data.user);
  			});
 	   		document.getElementById('cvc').value = "";
-	   		document.getElementById('expiry').value = "";
+	   		document.getElementById('month').value = "";
+	   		document.getElementById('year').value = "";
 	   		document.getElementById('number').value = "";
 			$location.path('/app/order/confirm');	 			
 		});

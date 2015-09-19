@@ -474,7 +474,8 @@ span.circle.checked{
 
 #elboton, #elboton2  {display: none;}
 .order_price {
-	font-size: 30px
+	font-size: 30px;
+	text-align: right;
 }
 ul.rating{
 	padding-top: 10px

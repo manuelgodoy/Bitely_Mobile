@@ -40,7 +40,7 @@
 				<div class="plate" ng-repeat="plate in order.order_plates" ng-if="plate.quantity>0">
 
 					<div class="row options">
-						<div class="col col-80">
+						<div class="col">
 							<div class="list">
 							  <label class="item item-input item-select_">
 							    <div class="input-label">
@@ -52,7 +52,7 @@
 							  </label>
 							</div>
 						</div>
-						<div class="col col-20 order_price">
+						<div class="col order_price">
 							<span ng-if="!plate.is_posted">
 								<i class='icon ion-minus-circled' ng-click="removeItem(plate.menu_item, order.restaurant, $index)" ng-click="removeItem(plate.menu_item, order.restaurant)"></i>
 								<i class='icon ion-plus-circled' ng-click="addItem(plate.menu_item, order.restaurant, $index)"></i>

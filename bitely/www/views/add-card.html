@@ -16,19 +16,30 @@
 	<div id="edit-profile">
 		<header class="title padding">
 			<h1>Card Details</h1>
-			<h2 ng-if="creditcard.isset">You already have a {{creditcard.brand || 'card'}} registered in our app, if your want to change it enter your debit or credit card details below</h2>
+			<h2 ng-if="creditcard.has_customertoken">You already have a {{creditcard.stripe_data.sources.data[0].brand || 'card'}} registered in our app, if your want to change it enter your debit or credit card details below</h2>
 			<h2 ng-if="!creditcard.isset">Enter your debit or credit card details below:</h2>
 		</header>
 		<form stripe-form="stripeCallback" name="card.checkoutForm" id="elform">
 			<div class="list">
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Card Number</span>
-			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.last4 || ''}}" id="number" pattern="[0-9]*">
+			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{creditcard.stripe_data.sources.data[0].last4 || ''}}" id="number" pattern="[0-9]*">
 			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Exp.</span>
-			    <input type="text" ng-model="expiry" payments-format="expiry" payments-validate="expiry" required placeholder="{{creditcard.date || 'mm/yy'}}" id="expiry" pattern="[0-9 \/]*">
-			  </label>
+			  <div class="row">
+			  	<div class="col">
+			    	<span class="input-label" style="margin: 0 0 0 5px">Exp.</span>
+			    </div>
+			  	<div class="col">
+				  <label class="item_ item-input ">
+				    <input type="text" ng-model="expMonth" required placeholder="{{creditcard.stripe_data.sources.data[0].exp_month  || 'Month'}}" pattern="[0-9]*" maxlength="2" id="month">
+				  </label>
+			  	</div>
+			  	<div class="col">
+				  <label class="item_ item-input ">
+				    <input type="text" ng-model="expYear"  required placeholder="{{creditcard.stripe_data.sources.data[0].exp_year || 'Year'}}" pattern="[0-9]*" maxlength="4" id="year">
+				  </label>
+			  	</div>
+			  </div>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">CVC Code</span>
 			    <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" required id="cvc" pattern="[0-9]*">
