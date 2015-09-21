@@ -370,9 +370,7 @@ angular.module('bitely.controllers',[])
 	}
 
 	$scope.goPlate = function(key){
-		if (key) {
 			$location.path('/app/plate/'+key);
-		}
 	}
 
 })
