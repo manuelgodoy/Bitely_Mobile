@@ -12,7 +12,7 @@ angular.module('bitely.controllers',[])
 
 	$scope.login = function(from){
 	$ionicBackdrop.retain();
-    $cordovaFacebook.login(["email"])
+    $cordovaFacebook.login(["email","user_friends"])
     .then(function(success) {
         // console.log('success:',success);
         //$scope.respuesta.user = success;
