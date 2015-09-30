@@ -18,8 +18,8 @@
   <ion-side-menu side="left" class="side-menu">
     <ion-content>
       <div class="avatar">
-        <img ng-src="{{globals.currentUser.picture.data.url}}" alt="">
-        <h1>{{globals.currentUser.name}}</h1>
+        <img ng-src="{{globals.currentUser.picture}}" alt="">
+        <h1>{{globals.currentUser.fullname}}</h1>
       </div>
       <div class="padding menuside">
         <div class="logfb" ng-if="globals.currentUser.isguest">

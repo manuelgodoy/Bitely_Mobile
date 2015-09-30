@@ -63,7 +63,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
-
+  
  $ionicConfigProvider.views.swipeBackEnabled(false);
  
 

@@ -14,38 +14,61 @@ angular.module('bitely.controllers',[])
 	$ionicBackdrop.retain();
     $cordovaFacebook.login(["email","user_friends"])
     .then(function(success) {
-        // console.log('success:',success);
-        //$scope.respuesta.user = success;
-        $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: success.authResponse.accessToken, fields: "id,name,last_name,first_name,email,picture.width(200).height(200)", format: "json" }})
-        .then(function(theparams) {
-        	theparams.data.access_token = success.authResponse.accessToken;
-			$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data}).then(function(){
-				Order.query();
-	 			User.get().$promise.then(function(data){
-	        		$rootScope.creditcard = data.user;
-	        		$localstorage.setObject('creditcard',data.user);
 
-					$ionicBackdrop.release();
-			 		if  (from==='home') {
-						$location.path('/app/home');
-			 		}
+    	$http.post('https://www.bitely.io/facebook_login_app', {access_token: success.authResponse.accessToken})
+    	.then(function(user){
+			Auth.setCredentials(user.data);
+			Order.query();
+			$ionicBackdrop.release();
+	 		if  (from==='home') {
+				$location.path('/app/home');
+	 		}
 
-			 		if  (from==='order') {
-			 			if (!$rootScope.creditcard.has_customertoken) {
-			 				$location.path('/app/order/card');	
-			 			} else {
-			 				$location.path('/app/order/confirm');	
-			 			}
-			 		}
-
-	 			});
-			});
-		Auth.setCredentials(theparams.data);
-
-        }, function(error){
+	 		if  (from==='order') {
+	 			if (!$rootScope.rootScope.globals.currentUser.has_customertoken) {
+	 				$location.path('/app/order/card');
+	 			} else {
+	 				$location.path('/app/order/confirm');
+	 			}
+	 		}			
+    	}, function(error){
           console.log('get error:', error);
           $scope.respuesta = error;
         });
+
+
+        // console.log('success:',success);
+        //$scope.respuesta.user = success;
+  //       $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: success.authResponse.accessToken, fields: "id,name,last_name,first_name,email,picture.width(200).height(200)", format: "json" }})
+  //       .then(function(theparams) {
+  //       	theparams.data.access_token = success.authResponse.accessToken;
+		// 	$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data}).then(function(){
+		// 		Order.query();
+	 // 			User.get().$promise.then(function(data){
+	 //        		$rootScope.creditcard = data.user;
+	 //        		$localstorage.setObject('creditcard',data.user);
+
+		// 			$ionicBackdrop.release();
+		// 	 		if  (from==='home') {
+		// 				$location.path('/app/home');
+		// 	 		}
+
+		// 	 		if  (from==='order') {
+		// 	 			if (!$rootScope.creditcard.has_customertoken) {
+		// 	 				$location.path('/app/order/card');	
+		// 	 			} else {
+		// 	 				$location.path('/app/order/confirm');	
+		// 	 			}
+		// 	 		}
+
+	 // 			});
+		// 	});
+		// Auth.setCredentials(theparams.data);
+
+  //       }, function(error){
+  //         console.log('get error:', error);
+  //         $scope.respuesta = error;
+  //       });
     }, function (error) {
         console.log(error);
         //$cordovaToast.show(error, 'short', 'center');
@@ -54,36 +77,61 @@ angular.module('bitely.controllers',[])
 	};
 
     $scope.fakebook = function(){
-    	theparams = {
-    	access_token :"CAAT3dgau4T4BABfpGWkgGhmlMwyQLPdRVlRWyakXaimAy0U01MTBAjGK9PZC8VmmJpsAaGWUI2Go9MRmJFdNZCjmnoz17y45jLUQxdxcFIEoXnCOc7D5yaEim5W53j9DnlCwPx0o5lnKqLa3SZBZCtY1HLKPYx2ZBbEN18VO1kK5mRoHiTi78WoUdQd7OxAXzKW86ZA4HPM6iVqFspwcZAreCpnYJeFnBgZD",
-		email	: "gian.olivieri@gmail.com",
-		name : "Gian F. Olivieri",
-		first_name	: "Gian",
-		last_name: "Olivieri",
-		picture: {
-			    "data": {
-			      "is_silhouette": false,
-			      "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c6.0.50.50/p50x50/9771_10153577592966393_7987985602653327226_n.jpg?oh=b992903c85f9ca760556c179277939a1&oe=563C4327&__gda__=1450369685_31fb6f8bfc4bbcdac1e649af04c66784"
-			    }
-			}
-		};
-		$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams}).then(function(){
-				Order.query();
-	 			User.get().$promise.then(function(data){
-        			$rootScope.creditcard = data.user;
-        			$localstorage.setObject('creditcard',data.user);
-	 			});
-			});
-		Auth.setCredentials(theparams);
-		$location.path('/app/home');
+
+    	$http.post('https://www.bitely.io/facebook_login_app', {access_token: "CAAT3dgau4T4BAGl8IwpmqZCOd3jVwfdnJr7vSlIXSh0uv5HUsX88hGek82LD1NkiwR2VI3LJY2Xb32w1OzDZBdzm8SXmLkki2w5AUMnTJ1NKRJSIHvKh5jiCa54Qp8fWQaIOv8i8JAr9Piwo6202DwrPK8MHH8oi0MVMkExUeeCZCHMwQGPbfLIadZC3ZAq6MRUxtbR85IryUP2zYLx7CBf3KYrnYtP4ZD"})
+    	.then(function(user){
+			Auth.setCredentials(user.data);
+			Order.query();
+			$ionicBackdrop.release();
+	 		if  (from==='home') {
+				$location.path('/app/home');
+	 		}
+
+	 		if  (from==='order') {
+	 			if (!$rootScope.rootScope.globals.currentUser.has_customertoken) {
+	 				$location.path('/app/order/card');
+	 			} else {
+	 				$location.path('/app/order/confirm');
+	 			}
+	 		}			
+    	}, function(error){
+          console.log('get error:', error);
+          $scope.respuesta = error;
+        });
+
+
+
+
+  //   	theparams = {
+  //   	access_token :,
+		// email	: "gian.olivieri@gmail.com",
+		// name : "Gian F. Olivieri",
+		// first_name	: "Gian",
+		// last_name: "Olivieri",
+		// picture: {
+		// 	    "data": {
+		// 	      "is_silhouette": false,
+		// 	      "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c6.0.50.50/p50x50/9771_10153577592966393_7987985602653327226_n.jpg?oh=b992903c85f9ca760556c179277939a1&oe=563C4327&__gda__=1450369685_31fb6f8bfc4bbcdac1e649af04c66784"
+		// 	    }
+		// 	}
+		// };
+		// $http.get('https://www.bitely.io/facebook_login_app',{ params:theparams}).then(function(){
+		// 		Order.query();
+	 // 			User.get().$promise.then(function(data){
+  //       			$rootScope.creditcard = data.user;
+  //       			$localstorage.setObject('creditcard',data.user);
+	 // 			});
+		// 	});
+		// Auth.setCredentials(theparams);
+		// $location.path('/app/home');
     }
 
 
 	$scope.asGuest = function(){
 		//SIMULAR LOGIN
 		Auth.setCredentials({
-				name: 'Guest',
-				picture: {data: {url:'img/blank.gif'}},
+				fullname: 'Guest',
+				picture: 'img/blank.gif',
 				isguest: true
 			});
 		//VA A HOME
@@ -130,7 +178,7 @@ angular.module('bitely.controllers',[])
  			$ionicLoading.hide()
  			if ($rootScope.globals.currentUser.isguest) {
 				$location.path('/app/order/personal');
-	 		} else if (!$rootScope.creditcard.has_customertoken){
+	 		} else if (!$rootScope.globals.currentUser.has_customertoken){
 	 			$location.path('/app/order/card');	
 	 		} else if (!$rootScope.order.is_posted) {
 	 			$location.path('/app/order/confirm');
@@ -525,9 +573,10 @@ angular.module('bitely.controllers',[])
 			"stripeToken="+result.id
 			//+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
 		).$promise.then(function(){
- 			User.get().$promise.then(function(data){
-        		$rootScope.creditcard = data.user;
-        		$localstorage.setObject('creditcard',data.user);
+ 			User.get().$promise.then(function(user){
+ 				Auth.setCredentials(user.data);
+        		// $rootScope.creditcard = data.user;
+        		// $localstorage.setObject('creditcard',data.user);
  			});
 	   		document.getElementById('cvc').value = "";
 	   		document.getElementById('month').value = "";
@@ -555,7 +604,7 @@ angular.module('bitely.controllers',[])
 		})
 	}
 })
-.controller('OrderCtrl', function($state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
+.controller('OrderCtrl', function(Auth, $state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
 	$scope.loaded = true;
 
 	// $scope.$on('$stateChangeSuccess', 
@@ -672,9 +721,10 @@ angular.module('bitely.controllers',[])
 			"stripeToken="+result.id
 			//+"&last4="+result.card.last4+"&brand="+result.card.brand+"date="+result.card.exp_month+"/"+result.card.exp_year 
 		).$promise.then(function(){
- 			User.get().$promise.then(function(data){
-        		$rootScope.creditcard = data.user;
-        		$localstorage.setObject('creditcard',data.user);
+ 			User.get().$promise.then(function(user){
+        		// $rootScope.creditcard = data.user;
+        		// $localstorage.setObject('creditcard',data.user);
+        		Auth.setCredentials(user.data);
  			});
 	   		document.getElementById('cvc').value = "";
 	   		document.getElementById('month').value = "";
