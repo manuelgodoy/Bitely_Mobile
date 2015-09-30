@@ -86,7 +86,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   })
 
   .state('app.home', {
-    cache:false,
+    // cache:false,
     url: '/home',
     views: {
       'appContent':{

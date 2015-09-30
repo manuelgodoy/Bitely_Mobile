@@ -19,45 +19,90 @@
 			<div class="col-25 col"><span class="circle">3</span>Confirm</div>
 			<div class="col-25 col"><span class="circle">4</span>Payment</div>
 		</div>
-
 		<header class="title padding">
-			<h1>Tell Us About Yourself</h1>
-			<h2>Enter your details below:</h2>
+			<h1>Confirm your order</h1>
+			<h2>You can add or remove plates</h2>
 		</header>
-		<div class="padding" ng-if="globals.currentUser.isguest">
-			You must be logged in to finish your order:
-			<p><a ng-click="login('order')" class="button button-royal button-outline icon-left ion-social-facebook"> Login with Facebook</a></p>
+		<div class="emptyorder padding" ng-if="!order.restaurant.name">
+			<h1>Your Order is Empty</h1>
+          	<p><a class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>
 		</div>
-		<div class="padding" ng-if="!globals.currentUser.isguest">
-			<h2>Welcome, {{globals.currentUser.name}}</h2>
-		</div>
-<!-- 			<form name="profile.editProfile" id="whitebg">
-			<div class="list">
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Name</span>
-			    <input type="text" ng-model="profile.data.name">
-			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Address</span>
-			    <input type="text" ng-model="profile.data.address">
-			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Address 2</span>
-			    <input type="text"ng-model="profile.data.address2">
-			  </label>  
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Phone</span>
-			    <input type="tel" ng-model="profile.data.phone">
-			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">State</span>
-			    <input type="text" ng-model="profile.data.state">
-			  </label> 
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">City</span>
-			    <input type="text" ng-model="profile.data.city">
-			  </label>  
+		<div class="order" ng-if="order.restaurant.name">
+			<div class="restaurant padding">
+				<h1>{{order.restaurant.name}}</h1>
+				<!-- <h2>618 Brooklin boulevard Pittsburg, PA</h2> -->
 			</div>
-		</form>	 -->	
+			<div class="plates">
+				<div class="plate" ng-repeat="plate in order.order_plates" ng-if="plate.quantity>0">
+
+					<div class="row options">
+						<div class="col">
+							<div class="list">
+							  <label class="item item-input item-select_">
+							    <div class="input-label">
+							      Quantity: {{plate.quantity}}
+							    </div>
+							  </label>
+							</div>
+						</div>
+						<div class="col order_price">
+							<span ng-if="!plate.is_posted">
+								<i class='icon ion-minus-circled' ng-click="removeItem(plate.menu_item, order.restaurant, $index)" ng-click="removeItem(plate.menu_item, order.restaurant)"></i>
+								<i class='icon ion-plus-circled' ng-click="addItem(plate.menu_item, order.restaurant, $index)"></i>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-80">
+							{{plate.menu_item.name}}
+						</div>
+						<div class="col col-20 order_price_">
+							<span ng-if="plate.menu_item.price">${{plate.menu_item.price | number:2}}</span>
+						</div>
+					</div>
+
+						<div class="row" ng-repeat="option in plate.menu_item.options_array">
+							<div class="col col-80">
+								{{option.name}}
+							</div>
+							<div class="col col-20 order_price_">
+								<span ng-if="option.price">${{option.price | number:2}}</span>
+							</div>
+						</div>					
+				</div>
+			</div>
+			<div class="totals">
+				<div class="row">
+					<div class="col col-80">
+						Subtotal
+					</div>
+					<div class="col col-20 order_price_">
+						${{order.total | number:2}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-80">
+						Tax
+					</div>
+					<div class="col col-20 order_price_">
+						${{order.tax_rate*order.total || 0 | number:2}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-80">
+							Total
+					</div>
+					<div class="col col-20 order_price_">
+						<strong>${{order.total*(1+order.tax_rate) | number:2}}</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+		<div class="padding centradito" ng-if="globals.currentUser.isguest">
+			<p>You must be logged in to finish your order:</p>
+			<p><a ng-click="login('order')" class="button button-royal button-outline icon-left ion-social-facebook"> Login with Facebook</a></p>
+		</div>	
 	</ion-content>
 </ion-view>
