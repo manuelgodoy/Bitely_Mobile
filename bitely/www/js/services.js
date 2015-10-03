@@ -1,6 +1,29 @@
 var urlBase = "https://www.bitely.io/bitely/api/v3.0/";
 
 angular.module('bitely.controllers')
+
+.service('returnToState', function($ionicHistory, $location, $rootScope){
+  return function(stateName, home){
+    var moved = false;
+    var historyId = $ionicHistory.currentHistoryId();
+    var history = $ionicHistory.viewHistory().histories[historyId];
+    for (var i = history.stack.length - 1; i >= 0; i--){
+      if (history.stack[i].stateName == stateName){
+        $ionicHistory.backView(history.stack[i]);
+        $ionicHistory.goBack();
+        moved = true;
+      }
+    }
+    if (!moved) {
+      if (home){
+        $location.path('/app/home')
+      } else {
+        $location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
+      }
+    }
+  }
+})
+
 .factory('$localstorage', ['$window', function($window) {
   return {
     set: function(key, value) {
@@ -45,6 +68,9 @@ angular.module('bitely.controllers')
   return service;
 })
 
+.factory('Login', function($resource){
+  return $resource('https://www.bitely.io/facebook_login_app');
+})
 
 .factory('Venues', function($resource){
   return $resource(urlBase+'venue_list');
@@ -135,12 +161,12 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order query:', order);
-              angular.forEach( order.data.order_plates, function(value, key){
-                if (value.menu_item.options) {
-                  order.data.order_plates[key].menu_item.options_array = [];
-                  order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
-                }
-              });
+              // angular.forEach( order.data.order_plates, function(value, key){
+              //   if (value.menu_item.options) {
+              //     order.data.order_plates[key].menu_item.options_array = [];
+              //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+              //   }
+              // });
               if (order.data.is_paid) {
                 order.data.total = 0;
                 order.data.tax_rate = 0;
@@ -159,12 +185,12 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order save:', order);
-              angular.forEach( order.data.order_plates, function(value, key){
-                if (value.menu_item.options) {
-                  order.data.order_plates[key].menu_item.options_array = [];
-                  order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
-                }
-              });
+              // angular.forEach( order.data.order_plates, function(value, key){
+              //   if (value.menu_item.options) {
+              //     order.data.order_plates[key].menu_item.options_array = [];
+              //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+              //   }
+              // });
               $rootScope.order = order.data;
               $localstorage.setObject('order',order.data);
             },

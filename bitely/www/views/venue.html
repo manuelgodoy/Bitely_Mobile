@@ -5,7 +5,7 @@
 		</div>
     </ion-nav-title>    
       <ion-nav-buttons side="left">
-        <a href="#/app/home" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
+        <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
