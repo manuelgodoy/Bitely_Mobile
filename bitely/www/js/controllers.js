@@ -4,6 +4,7 @@ angular.module('bitely.controllers',[])
 		$http, $localstorage, $rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook, $ionicHistory) {
 
 	//ALTO DE LA CARD
+	$rootScope.todoAlto = $window.innerHeight;
 	$rootScope.cardHeight = 50+32+40+(($window.innerWidth-20));
 	$rootScope.cardWidth = $window.innerWidth;
 	$rootScope.platoWidth = $window.innerWidth * 0.40;
@@ -327,13 +328,46 @@ angular.module('bitely.controllers',[])
  //  	};      
 })
 
-.controller('VenueCtrl', function($ionicPlatform, $location, $cordovaToast, $scope, $stateParams, $rootScope, $timeout, $ionicModal, $http, Venue, Menu, Order){
+.controller('VenueCtrl', function($ionicScrollDelegate, $ionicPlatform, $location, $cordovaToast, $scope, $stateParams, $rootScope, $timeout, $ionicModal, $http, Venue, Menu, Order){
 
     $ionicPlatform.registerBackButtonAction(
         function () {
             $location.path('/app/home');
         }, 100
 	)
+
+
+  $scope.toggleGroup = function(group, $index) {
+  	$location.hash('menu'+$index);
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+      $ionicScrollDelegate.$getByHandle('venueContent').scrollTop(true);
+    } else {
+      $scope.shownGroup = group;
+      $scope.shownGroup.section = group.sections[0];
+      $timeout(function(){
+      	$ionicScrollDelegate.$getByHandle('venueContent').anchorScroll(true);
+      	$ionicScrollDelegate.$getByHandle('submenu').scrollTo(0,0);
+      }, 200)
+    }
+  };
+
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+
+  $scope.isSectionShown = function(section) {
+  	if ($scope.shownGroup) {
+  		return $scope.shownGroup.section === section;
+  	} else {
+  		return false;
+  	}
+  }
+
+  $scope.activarSection = function(section){
+  	$scope.shownGroup.section = section;
+  	$ionicScrollDelegate.$getByHandle('menumenu').scrollTop();
+  }
 
 
 	$scope.venue = {};

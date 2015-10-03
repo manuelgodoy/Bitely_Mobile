@@ -1,0 +1,68 @@
+<ion-view>
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+    </ion-nav-title>    
+      <ion-nav-buttons side="left">
+        <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+          ${{order.total | number:2}}
+        </button>
+      </ion-nav-buttons>
+	
+	<ion-pane class="loader" ng-if="!loaded">
+	  	<ion-spinner></ion-spinner>
+	</ion-pane>
+
+  <ion-content  class="viewbg">
+  <div class="error padding" ng-if="error">
+  	<h2>{{error.data.message}}</h2>
+  </div>
+  <div ng-if="loaded && !error">
+  <img ng-src="{{venue.picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
+  <div id="venue">
+  	<div class="padding">
+  	<header>
+  		<div class="row">
+  			<div class="col col-80">
+				<h1>{{venue.name}}</h1>
+				<p class="address">{{venue.street_address}}</p>
+  			</div>
+  			<div class="col col-20 text-alig-right distance">
+				<p ng-if="venue.distance_to"><i class="icon ion-navigate color-naranja"></i> {{venue.distance_to}}m</p>
+  			</div>
+  		</div>
+  	</header>		
+  	<p class="description">{{venue.description}}</p>
+  	</div>
+		<div ng-repeat="menu in menus" id="menu" style="padding-bottom:40px">
+			<div ng-repeat="section in menu.sections">
+				<h2>{{section.section_name}}</h2>
+				<div ng-repeat="subsection in section.subsections">
+					<h3>{{subsection.subsection_name}}</h3>
+				  	<ion-scroll class="sinpadd rowvenue" zooming="false" direction="x" style="width: 100%;" scrollbar-x="false">
+				  		<div class="row_">
+				 			<div class="col_ col-45_"style="width:{{platoWidth+20}}px" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
+			        			<div class="list card" style="width:{{platoWidth}}px" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null" ng-click="!subsection.contents[i].key || goPlate(subsection.contents[i].key)">
+									<div class="item item-image">
+										<div class="degradacion"></div>
+										<img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}" ng-style="plateImage">
+										<a class="button_ boton-order-venue" ng-click="sendOrder(subsection.contents[i], $event)" ng-if="subsection.contents[i].key || subsection.contents[i].option_groups"><img src="img/add_order.png" alt=""></a>
+										<p class="price" ng-if="subsection.contents[i].price">{{menu.currency_symbol}}{{subsection.contents[i].price | number:2}}</p>
+									</div>
+									<div class="item itemmenospadding">{{subsection.contents[i].name || subsection.contents[i].text}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</ion-scroll>
+				</div>
+			</div>
+		</div>
+  	</div>
+  	</div>
+  </ion-content>
+</ion-view>

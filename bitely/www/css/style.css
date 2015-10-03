@@ -7,6 +7,9 @@
     font-weight: normal;
     font-style: normal;
 }
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
 .viewbg {
 	background: url('../img/bg.png');
 	min-height: 100%;
@@ -477,6 +480,11 @@ span.circle.checked{
 	font-size: 30px;
 	text-align: right;
 }
+.order_price a{
+	font-size: 30px;
+	margin:0;
+	padding: 0;
+}
 ul.rating{
 	padding-top: 10px
 }
@@ -550,4 +558,61 @@ ul.rating li i {
 }
 .centradito {
 	text-align: center
+}
+
+.list .item-accordion {
+  max-height: 2000px;
+  /*height:auto;*/
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.7s all linear;
+  background: #fff;
+  overflow:hidden;
+}
+.list .item-accordion.ng-hide {
+	height: 0;
+  	max-height: 0px;
+}
+
+.list .item-accordion .lassections a {
+	line-height: 54px;
+	font-size: 18px;
+	font-family: 'sourcesans';
+	padding-right: 16px;
+}
+.list .item-accordion .lassections a:first-child {
+	margin:0;
+}
+.list .item-accordion.ng-hide-add,
+.list .item-accordion.ng-hide-remove {
+  display: block !important;
+}
+#venue {
+	padding-bottom: 60px;
+}
+.lassections {
+	/*display: -webkit-box;*/
+	/*display: -webkit-flex;*/
+	display: -moz-box;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%; 
+	padding-left: 10px;
+	white-space: nowrap;
+}
+.lassections a.active {
+	border-bottom: 1px solid #333;
+	font-weight: bold;
+}
+.secmenu {
+	background: #e5e5e5;
+}
+.menu-list {}
+.menu-list .rating li i{
+	font-size: 18px;
+}
+.menu-list .rating li{
+	padding-left:0;
+	padding-bottom: 0;
 }
