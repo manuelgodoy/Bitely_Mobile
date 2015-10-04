@@ -23,7 +23,7 @@
 			<div class="list">
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">Card Number</span>
-			    <input type="text" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{globals.currentUser.stripe_data.sources.data[0].last4 || ''}}" id="number" pattern="[0-9]*">
+			    <input type="tel" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{globals.currentUser.stripe_data.sources.data[0].last4 || ''}}" id="number" pattern="[0-9]*">
 			  </label>
 			  <div class="row">
 			  	<div class="col">
@@ -31,18 +31,18 @@
 			    </div>
 			  	<div class="col">
 				  <label class="item_ item-input ">
-				    <input type="text" ng-model="expMonth" required placeholder="{{globals.currentUser.stripe_data.sources.data[0].exp_month  || 'Month'}}" pattern="[0-9]*" maxlength="2" id="month">
+				    <input type="tel" ng-model="expMonth" required placeholder="{{globals.currentUser.stripe_data.sources.data[0].exp_month  || 'Month'}}" pattern="[0-9]*" maxlength="2" id="month">
 				  </label>
 			  	</div>
 			  	<div class="col">
 				  <label class="item_ item-input ">
-				    <input type="text" ng-model="expYear"  required placeholder="{{globals.currentUser.stripe_data.sources.data[0].exp_year || 'Year'}}" pattern="[0-9]*" maxlength="4" id="year">
+				    <input type="tel" ng-model="expYear"  required placeholder="{{globals.currentUser.stripe_data.sources.data[0].exp_year || 'Year'}}" pattern="[0-9]*" maxlength="4" id="year">
 				  </label>
 			  	</div>
 			  </div>
 			  <label class="item item-input item-stacked-label">
 			    <span class="input-label">CVC Code</span>
-			    <input type="text" ng-model="cvc" payments-format="cvc" payments-validate="cvc" required id="cvc" pattern="[0-9]*">
+			    <input type="tel" ng-model="cvc" payments-format="cvc" payments-type-model="type" payments-validate="cvc" required id="cvc" pattern="[0-9]*">
 			  </label>
 			</div>
 			<button ng-click="card.checkoutForm.submit();" id="elboton" ></button>

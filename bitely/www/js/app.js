@@ -116,6 +116,17 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
     }
   })
 
+  .state('app.debug', {
+    url: '/debug',
+    cache: false,
+    views: {
+      'appContent': {
+        templateUrl: 'views/debug.html',
+        controller: 'DebugCtrl'
+      }
+    }
+  })  
+
   .state('app.editProfile', {
     url:'/edit-profile',
     views: {

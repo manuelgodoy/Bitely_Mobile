@@ -598,7 +598,7 @@ ul.rating li i {
 	display: -ms-flexbox;
 	display: flex;
 	width: 100%; 
-	padding-left: 10px;
+	padding-left: 16px;
 	white-space: nowrap;
 }
 .lassections a.active {
@@ -616,3 +616,40 @@ ul.rating li i {
 	padding-left:0;
 	padding-bottom: 0;
 }
+.itemani{
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+}
+.itemani.ng-animate, 
+.itemani.ng-enter, 
+.itemani.ng-move, 
+.itemani.ng-leave
+{ 
+    -webkit-transition: 400ms ease-out all;
+    -ms-transition: 400ms ease-out all;
+    transition: 400ms ease-out all;
+} 
+.itemani.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  transition-delay: 0.05s;
+  transition-duration: 0s;
+}
+.itemani.ng-move {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+
+}
+.itemani.ng-enter {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+}
+.itemani.ng-enter.itemani.ng-enter-active {
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+}
+
+.itemani.ng-leave.itemani.ng-leave-active{
+    transform: translateX(100%);
+	-webkit-transform: translateX(100%);
+}
+

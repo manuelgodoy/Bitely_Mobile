@@ -43,7 +43,7 @@
           <ion-item class="item-stable item-icon-right"
                     ng-click="toggleGroup(menu,$index)"
                     ng-class="{active: isGroupShown(menu)}">
-            <i class="icon" ng-class="isGroupShown(menu) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i>
+            <i class="icon" ng-class="isGroupShown(menu) ? 'ion-ios-close-empty' : 'ion-ios-arrow-down'"></i>
             {{menu.menu_name || 'Menu '+$index}}
           </ion-item>
           <div ng-show="isGroupShown(menu)" class="item-accordion" style="height:{{todoAlto-96}}px">
@@ -60,17 +60,19 @@
 				<div>
 					<ion-scroll direction="y" delegate-handle="menumenu" style="width:100%; height:{{todoAlto-96-54}}px;" scrollbar-y="false" has-bouncing="false">
 						<ion-list>
-							<div ng-repeat="subsection in menu.section.subsections">
+							<div ng-repeat="subsection in menu.section.subsections" class=""  ng-animate-children>
+
+              <!-- <input type="text" ng-model="filtrarpor"> -->
 								<div class="item divider" ng-if="subsection.subsection_name">
 									{{subsection.subsection_name}}
 								</div>
-							<a ng-click="!item.key || goPlate(item.key)" class="item item-thumbnail-left item-button-right" ng-repeat="item in subsection.contents">
+							<a ng-click="!item.key || goPlate(item.key)" class="itemani item item-thumbnail-left item-button-right" ng-repeat="item in subsection.contents">
       							<img ng-src="{{item.picture || 'img/no_image.jpg' }}" err-src>
       							<h2>{{item.name || item.text}}</h2>
       							<p ng-if="item.price">{{menu.currency_symbol}} {{item.price | number:2}}</p>
-      							<rating ng-model="item.rating_average" max="5" readonly="true"></rating>
-							    <button class="button button-clear royal" ng-click="sendOrder(item, $event)" ng-if="item.key || item.option_groups">
-							      <i class="icon ion-ios-plus-outline"></i>
+      							<rating  ng-if="item.rating_average" ng-model="item.rating_average" max="5" readonly="true"></rating>
+							    <button class="button button-royal " ng-click="sendOrder(item, $event)" ng-if="item.key || item.option_groups">
+							      <i class="icon ion-plus"></i>
 							    </button>
     						</a>								
 							</div>
