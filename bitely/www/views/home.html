@@ -27,8 +27,8 @@
 			<h2 class="titulo-near">Places near you <i class="icon ion-navigate color-naranja"></i></h2>
 
 			<div class="list card cardvenue"  ng-repeat="place in places">
-				<a class="item item-image" href="#/app{{place.menu_url}}">
-					<img ng-src="{{place.picture}}" err-src ng-style="venueImage">
+				<a class="item item-image" href="#/app{{place.menu_url}}" ng-style="venueImage">
+					<img ng-src="{{place.picture}}" err-src >
 				</a>
 				<a class="item" href="#/app{{place.menu_url}}">
 					<h2>{{place.name}}</h2>

@@ -653,3 +653,7 @@ ul.rating li i {
 	-webkit-transform: translateX(100%);
 }
 
+
+.cardvenue .item-image {
+	overflow:hidden;
+}

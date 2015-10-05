@@ -9,7 +9,7 @@ angular.module('bitely.controllers',[])
 	$rootScope.cardWidth = $window.innerWidth;
 	$rootScope.platoWidth = $window.innerWidth * 0.40;
 
-	$rootScope.venueImage = {height:$window.innerWidth-20+'px', width:$window.innerWidth-20+'px'}
+	$rootScope.venueImage = {height:($window.innerWidth-20)*174/250+'px', width:$window.innerWidth-20+'px'}
 	$rootScope.plateImage = {height:$window.innerWidth*.4+'px', width:$window.innerWidth*.4+'px'}
 
 
@@ -201,6 +201,7 @@ angular.module('bitely.controllers',[])
 
 	$scope.goHome = function(){
 		returnToState('app.home', true);
+		$rootScope.scroll = 0;
 		// $location.path('/app/home');
 	}
 
@@ -356,6 +357,9 @@ angular.module('bitely.controllers',[])
     if ($scope.isGroupShown(group)) {
       $scope.shownGroup = null;
       $ionicScrollDelegate.$getByHandle('venueContent').scrollTop(true);
+  	  $timeout(function(){
+  		$ionicScrollDelegate.$getByHandle('venueContent').resize();
+  	  },300)
     } else {
       $scope.shownGroup = group;
       $scope.shownGroup.section = [];
@@ -363,7 +367,8 @@ angular.module('bitely.controllers',[])
       	$ionicScrollDelegate.$getByHandle('venueContent').anchorScroll(true);
   	  	$scope.shownGroup.section = group.sections[0];
   	  	$ionicScrollDelegate.$getByHandle('submenu').scrollTo(0,0);
-      }, 500)
+  	  	$ionicScrollDelegate.$getByHandle('menumenu').scrollTo(0,0);
+      }, 0)
     }
   };
 
