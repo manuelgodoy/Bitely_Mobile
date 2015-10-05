@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments'])
+angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
 
 .run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window) {
   // 1646690858946373
@@ -62,7 +62,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $httpProvider, $ionicConfigProvider) {
   
  $ionicConfigProvider.views.swipeBackEnabled(false);
  
@@ -219,8 +219,17 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
       }
     }
   })  
+  .state("otherwise", {
+    url: "*path",
+    template: "",
+    controller: [
+              '$state',
+      function($state) {
+        $state.go('app.home')
+      }]
+  });
   
-  $urlRouterProvider.otherwise('/app/home');
+  // $urlRouterProvider.otherwise('/app/home');
 
 
 });

@@ -10,12 +10,12 @@ angular.module('bitely.controllers',[])
 	$rootScope.platoWidth = $window.innerWidth * 0.40;
 
 	$rootScope.venueImage = {height:($window.innerWidth-20)*174/250+'px', width:$window.innerWidth-20+'px'}
-	$rootScope.plateImage = {height:$window.innerWidth*.4+'px', width:$window.innerWidth*.4+'px'}
-
+	// $rootScope.plateImage = {height:$window.innerWidth*.4+'px', width:$window.innerWidth*.4+'px'}
+	$rootScope.plateImage = {height:($window.innerWidth*.5*500/800)-20+'px'}
 
 
 	$scope.getHistory = function(){
-		console.log($ionicHistory.viewHistory());
+		// console.log($ionicHistory.viewHistory());
 	}
 	$scope.login = function(from){
 	$ionicBackdrop.retain();
@@ -47,7 +47,7 @@ angular.module('bitely.controllers',[])
 				});
 	 		}			
     	}, function(error){
-          console.log('get error:', error);
+          // console.log('get error:', error);
           $ionicBackdrop.release();
           $ionicPopup.alert({
 				title: 'Error!',
@@ -90,7 +90,7 @@ angular.module('bitely.controllers',[])
   //         $scope.respuesta = error;
   //       });
     }, function (error) {
-        console.log(error);
+        // console.log(error);
         $cordovaToast.show(error, 'short', 'center');
     });
 		
@@ -100,7 +100,7 @@ angular.module('bitely.controllers',[])
 
     	Login.save({access_token:"CAAT3dgau4T4BAKYp1n0LwNVZBzbwyNDyodtAZC3VR3mMeboEmpv5PYL9RDgiE1CP6Np3ZAbhFMUJK6S1Ghhab6in4wWZCsGVDszZC2xIypPmVDeZBL5tURyIllVrX9tWbDorNsCARn0QtisgNOZBs0OuIvGinG1FqzQ0nsfZCYu4COtNyF2XIZACkF2oX2nFpxZCXgmFvMyCQ3UXIZBf0TZA3mRy"}
 		).$promise.then(function(res){
-    		console.log(res);
+    		// console.log(res);
     		if (res.user!==null){
 
 			Auth.setCredentials(res.user);
@@ -125,7 +125,7 @@ angular.module('bitely.controllers',[])
 				});
 	 		}			
     	}, function(error){
-          console.log('get error:', error);
+          // console.log('get error:', error);
           $ionicBackdrop.release();
           $ionicPopup.alert({
 				title: 'Error!',
@@ -348,7 +348,7 @@ angular.module('bitely.controllers',[])
    });  
   $scope.$on('$ionicView.enter', function(){
   	if (!$rootScope.scroll) $rootScope.scroll=0;
-  	console.log('scroll',$rootScope.scroll);
+  	// console.log('scroll',$rootScope.scroll);
       $ionicScrollDelegate.$getByHandle('venueContent').scrollTo(0,$rootScope.scroll, true);
    });  
 
@@ -356,10 +356,10 @@ angular.module('bitely.controllers',[])
   	$location.hash('menu'+$index);
     if ($scope.isGroupShown(group)) {
       $scope.shownGroup = null;
-      $ionicScrollDelegate.$getByHandle('venueContent').scrollTop(true);
   	  $timeout(function(){
   		$ionicScrollDelegate.$getByHandle('venueContent').resize();
-  	  },300)
+      	$ionicScrollDelegate.$getByHandle('venueContent').scrollTop(true);
+  	  },200)
     } else {
       $scope.shownGroup = group;
       $scope.shownGroup.section = [];
@@ -368,7 +368,7 @@ angular.module('bitely.controllers',[])
   	  	$scope.shownGroup.section = group.sections[0];
   	  	$ionicScrollDelegate.$getByHandle('submenu').scrollTo(0,0);
   	  	$ionicScrollDelegate.$getByHandle('menumenu').scrollTo(0,0);
-      }, 0)
+      }, 200)
     }
   };
 
@@ -406,7 +406,7 @@ angular.module('bitely.controllers',[])
 			$scope.loaded= true;
 		}
 		,function(err){
-			console.log(err);
+			// console.log(err);
 			$scope.error = err;
 			$scope.loaded= true;
 		}
@@ -532,7 +532,7 @@ angular.module('bitely.controllers',[])
 
 
 	Item.get({itemkey:$stateParams.id}).$promise.then(function(plate){
-		console.log(plate)
+		// console.log(plate)
 		$scope.plate = plate.item;
 		$scope.loaded =  true;
 

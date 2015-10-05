@@ -60,14 +60,16 @@
 				<div>
 					<ion-scroll direction="y" delegate-handle="menumenu" style="width:100%; height:{{todoAlto-96-54}}px;" scrollbar-y="true" has-bouncing="false">
           <div ng-repeat="subsection in menu.section.subsections" class=""  ng-animate-children>
-          <h3>{{subsection.subsection_name || 'Subsection '+$index}}</h3>
-            <ion-scroll class="sinpadd rowvenue" zooming="false" direction="x" style="width: 100%;" scrollbar-x="false">
-              <div class="row_">
-              <div class="col_ col-45_"style="width:{{platoWidth+20}}px" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
-                    <div class="list card" style="width:{{platoWidth}}px" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null" ng-click="!subsection.contents[i].key || goPlate(subsection.contents[i].key)">
-                  <div class="item item-image">
+          <div class="item item-divider">
+            {{subsection.subsection_name || 'Subsection '+$index}}
+          </div>
+            
+              <div class="row venuerowrow" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
+              <div class="col col-50" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null"  >
+                    <div class="card" ng-click="!subsection.contents[i].key || goPlate(subsection.contents[i].key)">
+                  <div class="item item-image venueimage" ng-style="plateImage">
+                    <img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}">
                     <div class="degradacion"></div>
-                    <img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}" ng-style="plateImage">
                     <a class="button_ boton-order-venue" ng-click="sendOrder(subsection.contents[i], $event)" ng-if="subsection.contents[i].key || subsection.contents[i].option_groups"><img src="img/add_order.png" alt=""></a>
                     <p class="price" ng-if="subsection.contents[i].price">{{menu.currency_symbol}}{{subsection.contents[i].price | number:2}}</p>
                   </div>
@@ -76,7 +78,6 @@
                 </div>
               </div>
             </div>
-          </ion-scroll>
           </div>
 						</ion-list>
 					</ion-scroll>

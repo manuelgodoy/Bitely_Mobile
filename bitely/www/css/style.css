@@ -521,7 +521,7 @@ ul.rating li i {
 	display: -moz-box;
 	display: -moz-flex;
 	display: -ms-flexbox;
-	display: flex;
+	/*display: flex;*/
 	width: 100%; 
 	padding-left: 10px;
 	white-space: nowrap;
@@ -596,13 +596,12 @@ ul.rating li i {
 	display: -moz-box;
 	display: -moz-flex;
 	display: -ms-flexbox;
-	display: flex;
+	/*display: flex;*/
 	width: 100%; 
 	padding-left: 16px;
 	white-space: nowrap;
 }
 .lassections a.active {
-	border-bottom: 1px solid #333;
 	font-weight: bold;
 }
 .secmenu {
@@ -656,4 +655,11 @@ ul.rating li i {
 
 .cardvenue .item-image {
 	overflow:hidden;
+}
+.venueimage {
+	overflow:hidden;
+	position: relative;
+}
+.venuerowrow .card {
+	margin-bottom: 10px;
 }
