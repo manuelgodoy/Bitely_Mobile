@@ -1,71 +1,68 @@
-<ion-view>
-	<ion-nav-title>
-		<div class="hlogo">
-			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
-		</div>
-    </ion-nav-title>    
-      <ion-nav-buttons side="left">
-        <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
-      </ion-nav-buttons>
-      <ion-nav-buttons side="right">
-        <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.total | number:2}}
-        </button>
-      </ion-nav-buttons>
-	
+<ion-view view-title="{{venue.name}}" hide-nav-bar="true">
+<ion-header-bar align-title="left" class="bar-royal" ng-class="{'bar-trans': !headerFade}">
+  <div class="buttons">
+   <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
+  </div>
+  <h1 class="title titlemargin" ng-class="{'opaci1':headerFade}">{{venue.name}}</h1>
+  <div class="buttons">
+    <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+      ${{order.total | number:2}}
+    </button>    
+    <button class="button button-icon icon ion-android-more-horizontal" ng-click="popover.show($event)"></button>
+  </div>
+</ion-header-bar>
+            <ion-scroll zooming="false" direction="x" style="width:100%;" scrollbar-x="false" has-bouncing="false" class="secmenu" delegate-handle="submenu" ng-class="{'activado': headerFade}">
+            <div class="lassections">
+                <a 
+                      ng-repeat="section in menu.sections"
+                      ng-click="activarSection(section)"
+                      ng-class="{active: isSectionShown(section)}">
+                {{section.section_name || 'Section '+$index}}
+                </a>
+              </div>
+           </ion-scroll>	
 	<ion-pane class="loader" ng-if="!loaded">
 	  	<ion-spinner></ion-spinner>
 	</ion-pane>
 
-  <ion-content  class="viewbg" delegate-handle="venueContent">
+  <ion-content class="noheaderpad viewbg" delegate-handle="venueContent" has-bouncing="false" fade-image scroll-event-interval="5">
   <div class="error padding" ng-if="error">
   	<h2>{{error.data.message}}</h2>
   </div>
-  <div ng-if="loaded && !error">
-  <img ng-src="{{venue.picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
+  <div ng-show="loaded && !error">
+  
   <div id="venue">
-  	<div class="padding">
-  	<header>
-  		<div class="row">
-  			<div class="col col-80">
-				<h1>{{venue.name}}</h1>
-				<p class="address">{{venue.street_address}}</p>
-  			</div>
-  			<div class="col col-20 text-alig-right distance">
-				<p ng-if="venue.distance_to"><i class="icon ion-navigate color-naranja"></i> {{venue.distance_to}}m</p>
-  			</div>
-  		</div>
-  	</header>		
-  	<p class="description">{{venue.description}}</p>
-  	</div>
+    <header>
+      <div class="header-fader" ng-style="venueImageInner">
+        <img ng-src="{{venue.picture || 'img/no_image.jpg' }}"  class="venue-img"  err-src>
+          <div class="degtop"></div>
+          <div class="nombrerest">
+            <h1>{{venue.name}}</h1>
+            <p class="address">{{venue.street_address}}</p>
+          </div>
+      </div>
+    </header>    
   	  <ion-list>
-        <div ng-repeat="menu in menus" id="menu{{$index}}" class="menu-list">
-          <ion-item class="item-stable item-icon-right"
+        <div>
+<!--           <ion-item class="item-light item-icon-right"
                     ng-click="toggleGroup(menu,$index)"
                     ng-class="{active: isGroupShown(menu)}">
             <i class="icon" ng-class="isGroupShown(menu) ? 'ion-ios-close-empty' : 'ion-ios-arrow-down'"></i>
             {{menu.menu_name || 'Menu '+$index}}
-          </ion-item>
-          <div ng-show="isGroupShown(menu)" class="item-accordion" style="height:{{todoAlto-96}}px">
-          	<ion-scroll zooming="false" direction="x" style="width:100%; height:54px" scrollbar-x="false" has-bouncing="false" class="secmenu" delegate-handle="submenu">
-         		<div class="lassections">
-	          		<a 
-	                    ng-repeat="section in menu.sections"
-	                    ng-click="activarSection(section)"
-	                    ng-class="{active: isSectionShown(section)}">
-	            	{{section.section_name || 'Section '+$index}}
-	          		</a>
-          		</div>
-			</ion-scroll>
+          </ion-item> -->
+          <div ng-show="isGroupShown(menu)" class="item-accordion" style="min-height:{{todoAlto-44}}px" >
+            <div style="padding-top:54px;"></div>
 				<div>
-					<ion-scroll direction="y" delegate-handle="menumenu" style="width:100%; height:{{todoAlto-96-54}}px;" scrollbar-y="true" has-bouncing="false">
-          <div ng-repeat="subsection in menu.section.subsections" class=""  ng-animate-children>
-          <div class="item item-divider">
-            {{subsection.subsection_name || 'Subsection '+$index}}
+          <div ng-if="loadsection" class="sectionloader">
+            <ion-spinner></ion-spinner>
+          </div>
+          <div ng-repeat="subsection in menu.section.subsections" class="" ng-animate-children>
+          <div class="item item-divider" ng-if="subsection.subsection_name">
+            {{subsection.subsection_name}}
           </div>
             
               <div class="row venuerowrow" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
-              <div class="col col-50" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null"  >
+              <div class="col col-50" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null"   >
                     <div class="card" ng-click="!subsection.contents[i].key || goPlate(subsection.contents[i].key)">
                   <div class="item item-image venueimage" ng-style="plateImage">
                     <img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}">
@@ -75,17 +72,19 @@
                   </div>
                   <div class="item itemmenospadding">{{subsection.contents[i].name || subsection.contents[i].text}}
                   </div>
+                  <div class="item itemvenue">
+                    <rating ng-model="subsection.contents[i].rating_average" max="5" readonly="true"></rating>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 						</ion-list>
-					</ion-scroll>
 				</div>
 			</div>
         </div>
       </ion-list>
-      <div style="height:{{todoAlto-200}}px" ng-if="shownGroup"></div>
+      <div style="height:{{todoAlto-200}}px" ng-if="!shownGroup"></div>
   	</div>
   	</div>
   </ion-content>

@@ -102,6 +102,22 @@ body {
 	font-family: 'sourcesans';
 	font-size: 13px !important;
 }
+#venue header {
+	position: relative;
+	background: #fb7d00;
+	border-bottom: 1px solid #d26900;
+}
+#venue header .nombrerest {
+	position: absolute;
+	bottom:0px;
+	width: 100%;
+	padding: 15px;
+	padding-top: 30px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.45)));
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.45) 100%);
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.45) 100%);
+}
+
 #venue header .row{
 	padding: 0;
 }
@@ -110,24 +126,24 @@ body {
 }
 #venue header h1 {
 	font-family: 'sourcesans';
-	font-size: 30px;
+	font-size: 27px;
 	font-weight: normal;
-	color:#828282;
+	color:#fff;
 	line-height: 1.1;
 	margin-bottom: 2px;
 }
 #venue header p.address {
 	font-family: 'sourcesans';
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: normal;
-	color:#828282;
+	color:#fff;
 	line-height: 1.1
 }
 #venue header .distance p{
 	font-family: 'sourcesans';
 	font-size: 17px;
 	margin-top: 5px;
-	color:#828282;
+	color:#fff;
 }
 #venue p.description {
 	font-family: 'sourcesans';
@@ -179,15 +195,15 @@ body {
 }
 
 
-.rowvenue .card {
-	margin-top: 0;
-	margin-bottom: 20px !important;
+.venuerowrow .card {
+	margin: 5px !important;
+	margin-top: 20px;
 }
-.rowvenue .item.itemmenospadding {
+.venuerowrow .item.itemmenospadding {
 	padding:8px;
 	font-size: 14px;
 }
-.rowvenue .item.itemmenospadding a{
+.venuerowrow .item.itemmenospadding a{
     color: #666666;
 }
 .sinpadd .col a {
@@ -202,7 +218,7 @@ body {
 }
 #plate header h1 {
 	font-family: 'sourcesans';
-	font-size: 30px;
+	font-size: 27px;
 	font-weight: normal;
 	color:#828282;
 	line-height: 1.1;
@@ -211,7 +227,7 @@ body {
 }
 #plate header h2 {
 	font-family: 'sourcesans';
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: normal;
 	color:#828282;
 	line-height: 1.1;
@@ -565,7 +581,7 @@ ul.rating li i {
   /*height:auto;*/
   padding-top: 0;
   padding-bottom: 0;
-  transition: 0.7s all linear;
+  transition: 0.7s all ease-out;
   background: #fff;
   overflow:hidden;
 }
@@ -573,14 +589,19 @@ ul.rating li i {
 	height: 0;
   	max-height: 0px;
 }
-
-.list .item-accordion .lassections a {
+.lassections a {
 	line-height: 54px;
 	font-size: 18px;
 	font-family: 'sourcesans';
 	padding-right: 16px;
+	color: rgb(68,68,68)
 }
-.list .item-accordion .lassections a:first-child {
+.menu-list .item-stable {
+	font-size: 18px;
+	font-family: 'sourcesans';
+	font-weight: bold;
+}
+.lassections a:first-child {
 	margin:0;
 }
 .list .item-accordion.ng-hide-add,
@@ -588,8 +609,10 @@ ul.rating li i {
   display: block !important;
 }
 #venue {
-	padding-bottom: 60px;
+	/*padding-bottom: 60px;*/
 }
+
+
 .lassections {
 	/*display: -webkit-box;*/
 	/*display: -webkit-flex;*/
@@ -606,6 +629,17 @@ ul.rating li i {
 }
 .secmenu {
 	background: #e5e5e5;
+	z-index: 1;
+	top:44px;
+	height:0;
+}
+.secmenu.activado-add{
+  	transition: 0.15s all ease-out;
+}
+.secmenu.activado {
+	height:54px;
+	border-bottom: 1px solid #a2a2a2;
+
 }
 .menu-list {}
 .menu-list .rating li i{
@@ -652,14 +686,50 @@ ul.rating li i {
 	-webkit-transform: translateX(100%);
 }
 
-
+.venuerowrow .col,.venuerowrow, .venuerowrow .card, .venuerowrow div {
+  	transition: 10.09s all ease-out;
+}
 .cardvenue .item-image {
 	overflow:hidden;
 }
 .venueimage {
 	overflow:hidden;
 	position: relative;
+	background: #000
 }
-.venuerowrow .card {
-	margin-bottom: 10px;
+.noheaderpad.has-header {
+	top:0;
+}
+.degtop {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.3)), color-stop(100%,rgba(0,0,0,0)));
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
+	background: linear-gradient(to bottom,  rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
+	height: 43px;
+	position: absolute;
+	top:0;
+	width: 100%;
+}
+.bar-royal.bar-trans {
+	background: none;
+	border:0;
+}
+.titlemargin {
+	margin-right: 65px !important;
+  	transition: 0.200s all ease-out;
+  	overflow: hidden;
+  	/*opacity: 0;*/
+    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+}
+.titlemargin.opaci1 {
+	/*opacity: 1;*/
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+}
+.activo {
+	font-weight: bold;
+}
+.sectionloader {
+	padding-top: 10px;
+	text-align: center;
 }

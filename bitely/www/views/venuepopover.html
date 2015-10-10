@@ -1,0 +1,7 @@
+<ion-popover-view style="height: {{(54 * menus.length) + 'px !important'}};">
+<ion-content>
+	<div class="list">
+		<a class="item" ng-repeat="menui in menus" ng-click="changeMenu(menui)" ng-class="{'activo':menu===menui}">{{menui.menu_name}}</a>
+	</div>
+</ion-content>
+</ion-popover-view>

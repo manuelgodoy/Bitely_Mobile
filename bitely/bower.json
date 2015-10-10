@@ -6,6 +6,7 @@
     "ionic-service-core": "~0.1.10"
   },
   "dependencies": {
+    "angular-bindonce": "~0.3.3",
     "angular-cookies": "~1.4.5",
     "angular-payments": "*",
     "angular-resource": "~1.4.5",
