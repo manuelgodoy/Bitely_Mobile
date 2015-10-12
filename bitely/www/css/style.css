@@ -686,8 +686,8 @@ ul.rating li i {
 	-webkit-transform: translateX(100%);
 }
 
-.venuerowrow .col,.venuerowrow, .venuerowrow .card, .venuerowrow div {
-  	transition: 10.09s all ease-out;
+.venuerowrow .venuecol {
+  	transition: 0.1s all ease-out;
 }
 .cardvenue .item-image {
 	overflow:hidden;
@@ -732,4 +732,31 @@ ul.rating li i {
 .sectionloader {
 	padding-top: 10px;
 	text-align: center;
+}
+.venuerowrow {
+	padding:5px;
+}
+.venuecol {
+	width:50%;
+	float:left;
+	padding: 8px 5px;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+}
+.venuecol:nth-child(2n) {
+}
+.venuecol.ng-enter-stagger {
+  transition-delay: 0.07s;
+  transition-duration: 0s;	
+}
+.venuecol.ng-enter {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+}
+.venuecol.ng-leave-active, .venuecol.ng-leave,
+.venuecol.ng-leave-active.ng-leave {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  transition-duration: 10s;	
+
 }

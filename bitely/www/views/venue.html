@@ -34,7 +34,7 @@
   <div id="venue">
     <header>
       <div class="header-fader" ng-style="venueImageInner">
-        <img ng-src="{{venue.picture || 'img/no_image.jpg' }}"  class="venue-img"  err-src>
+        <img ng-src="{{venue.picture || 'img/no_image.jpg' }}"  class="venue-img" err-src>
           <div class="degtop"></div>
           <div class="nombrerest">
             <h1>{{venue.name}}</h1>
@@ -61,19 +61,19 @@
             {{subsection.subsection_name}}
           </div>
             
-              <div class="row venuerowrow" ng-repeat="plate in subsection.contents track by $index" ng-if="$index % 2 == 0">
-              <div class="col col-50" ng-repeat="i in [$index, $index + 1]" ng-if="subsection.contents[i] != null"   >
-                    <div class="card" ng-click="!subsection.contents[i].key || goPlate(subsection.contents[i].key)">
+              <div class="venuerowrow">
+              <div class="venuecol" ng-repeat="plate in subsection.contents"   >
+                    <div class="card" ng-click="!plate.key || goPlate(plate.key)">
                   <div class="item item-image venueimage" ng-style="plateImage">
-                    <img ng-src="{{subsection.contents[i].picture || 'img/no_image.jpg'}}">
+                    <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
                     <div class="degradacion"></div>
-                    <a class="button_ boton-order-venue" ng-click="sendOrder(subsection.contents[i], $event)" ng-if="subsection.contents[i].key || subsection.contents[i].option_groups"><img src="img/add_order.png" alt=""></a>
-                    <p class="price" ng-if="subsection.contents[i].price">{{menu.currency_symbol}}{{subsection.contents[i].price | number:2}}</p>
+                    <a class="button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"><img src="img/add_order.png" alt=""></a>
+                    <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
                   </div>
-                  <div class="item itemmenospadding">{{subsection.contents[i].name || subsection.contents[i].text}}
+                  <div class="item itemmenospadding">{{plate.name || plate.text}}
                   </div>
                   <div class="item itemvenue">
-                    <rating ng-model="subsection.contents[i].rating_average" max="5" readonly="true"></rating>
+                    <rating ng-model="plate.rating_average" max="5" readonly="true"></rating>
                   </div>
                 </div>
               </div>
@@ -84,7 +84,6 @@
 			</div>
         </div>
       </ion-list>
-      <div style="height:{{todoAlto-200}}px" ng-if="!shownGroup"></div>
   	</div>
   	</div>
   </ion-content>

@@ -13,7 +13,7 @@ angular.module('bitely.controllers',[])
 	$rootScope.venueImage = {height:($window.innerWidth-20)*174/250+'px', width:$window.innerWidth-20+'px'}
 	$rootScope.venueImageInner = {height:($window.innerWidth)*174/250+'px', width:$window.innerWidth+'px'}
 	// $rootScope.plateImage = {height:$window.innerWidth*.4+'px', width:$window.innerWidth*.4+'px'}
-	$rootScope.plateImage = {height:(($window.innerWidth)*.5*800/800)-35+'px'}
+	$rootScope.plateImage = {height:(($window.innerWidth)*.5*800/800)-25+'px'}
 
 
 	$scope.getHistory = function(){
@@ -57,40 +57,6 @@ angular.module('bitely.controllers',[])
 				okType: 'button-royal'
 			});
         });
-
-
-        // console.log('success:',success);
-        //$scope.respuesta.user = success;
-  //       $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: success.authResponse.accessToken, fields: "id,name,last_name,first_name,email,picture.width(200).height(200)", format: "json" }})
-  //       .then(function(theparams) {
-  //       	theparams.data.access_token = success.authResponse.accessToken;
-		// 	$http.get('https://www.bitely.io/facebook_login_app',{ params:theparams.data}).then(function(){
-		// 		Order.query();
-	 // 			User.get().$promise.then(function(data){
-	 //        		$rootScope.creditcard = data.user;
-	 //        		$localstorage.setObject('creditcard',data.user);
-
-		// 			$ionicBackdrop.release();
-		// 	 		if  (from==='home') {
-		// 				$location.path('/app/home');
-		// 	 		}
-
-		// 	 		if  (from==='order') {
-		// 	 			if (!$rootScope.creditcard.has_customertoken) {
-		// 	 				$location.path('/app/order/card');	
-		// 	 			} else {
-		// 	 				$location.path('/app/order/confirm');	
-		// 	 			}
-		// 	 		}
-
-	 // 			});
-		// 	});
-		// Auth.setCredentials(theparams.data);
-
-  //       }, function(error){
-  //         console.log('get error:', error);
-  //         $scope.respuesta = error;
-  //       });
     }, function (error) {
         // console.log(error);
         $cordovaToast.show(error, 'short', 'center');
@@ -135,32 +101,6 @@ angular.module('bitely.controllers',[])
 				okType: 'button-royal'
 			});
         });
-
-
-
-
-  //   	theparams = {
-  //   	access_token :,
-		// email	: "gian.olivieri@gmail.com",
-		// name : "Gian F. Olivieri",
-		// first_name	: "Gian",
-		// last_name: "Olivieri",
-		// picture: {
-		// 	    "data": {
-		// 	      "is_silhouette": false,
-		// 	      "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/c6.0.50.50/p50x50/9771_10153577592966393_7987985602653327226_n.jpg?oh=b992903c85f9ca760556c179277939a1&oe=563C4327&__gda__=1450369685_31fb6f8bfc4bbcdac1e649af04c66784"
-		// 	    }
-		// 	}
-		// };
-		// $http.get('https://www.bitely.io/facebook_login_app',{ params:theparams}).then(function(){
-		// 		Order.query();
-	 // 			User.get().$promise.then(function(data){
-  //       			$rootScope.creditcard = data.user;
-  //       			$localstorage.setObject('creditcard',data.user);
-	 // 			});
-		// 	});
-		// Auth.setCredentials(theparams);
-		// $location.path('/app/home');
     }
 
 
@@ -402,7 +342,7 @@ angular.module('bitely.controllers',[])
   	$timeout(function(){
   		$scope.loadsection = false;
   		$scope.shownGroup.section = section;
-  	}, 400);
+  	}, 300);
   }
 
   $scope.changeMenu = function(menu){
