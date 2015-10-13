@@ -344,11 +344,12 @@ p.asguest a.button {
 }
 .boton-order-venue {
 	position: absolute;
-	bottom:8px;
+	bottom:-3px;
 	right:8px;
 	z-index:10;
-	width: 27px !important;
-	height: 27px !important;
+	width: 32px !important;
+	height: 32px !important;
+	font-size: 34px;
 	border: 0;
 	background: 0;
 	padding: 0;
@@ -701,7 +702,7 @@ ul.rating li i {
 .venueimage {
 	overflow:hidden;
 	position: relative;
-	background: #000
+	background: #fff
 }
 .noheaderpad.has-header {
 	top:0;

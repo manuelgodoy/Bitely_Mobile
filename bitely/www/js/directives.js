@@ -36,7 +36,7 @@ angular.module('bitely.controllers')
       var fadeAmt;
       
       var header = $document[0].body.querySelector('.header-fader');
-      var headerHeight = - 20 - 44+($window.innerWidth)*174/250;
+      var headerHeight = - 10 - 44+($window.innerWidth)*174/250;
       
       function onScroll(e) {
         var scrollTop = e.detail.scrollTop;
@@ -44,24 +44,24 @@ angular.module('bitely.controllers')
         // console.log($rootScope)
 
         if(scrollTop >= 0) {
-          // y = Math.min(headerHeight / scrollDelay, Math.max(0, y + scrollTop - prevY));
-          opa = (headerHeight - scrollTop)/headerHeight;
+          y = Math.min(headerHeight / scrollDelay, Math.max(0, y + scrollTop - prevY));
+          opa = Math.max(0, (headerHeight - scrollTop)/headerHeight);
         } else {
-          // y = 0;
+          y = 0;
           opa = 1;
         }
-        // console.log(headerHeight);
+        // console.log(y);
 
         ionic.requestAnimationFrame(function() {
           fadeAmt = 1 - (y / headerHeight);
           // header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
           header.style.opacity = opa;
-          if(scrollTop >= headerHeight && $rootScope.headerFade === false) {
+          if(y >= headerHeight && $rootScope.headerFade === false) {
             // console.log('kl;ajsldk');
             $rootScope.headerFade = true;
             $rootScope.$apply();
           } 
-          if(scrollTop < headerHeight && $rootScope.headerFade === true) {
+          if(y < headerHeight && $rootScope.headerFade === true) {
             $rootScope.headerFade = false;
             $rootScope.$apply();
           }

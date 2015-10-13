@@ -25,7 +25,7 @@
 	  	<ion-spinner></ion-spinner>
 	</ion-pane>
 
-  <ion-content class="noheaderpad viewbg" delegate-handle="venueContent" has-bouncing="false" fade-image scroll-event-interval="5">
+  <ion-content scrollbar-y="false" class="noheaderpad viewbg" delegate-handle="venueContent" has-bouncing="false" fade-image scroll-event-interval="5">
   <div class="error padding" ng-if="error">
   	<h2>{{error.data.message}}</h2>
   </div>
@@ -64,7 +64,8 @@
                   <div class="item item-image venueimage" ng-style="plateImage">
                     <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
                     <div class="degradacion"></div>
-                    <a class="button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"><img src="img/add_order.png" alt=""></a>
+                   <!--  <a class="button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"><img src="img/add_order.png" alt=""></a> -->
+                   <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"></a>
                     <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
                   </div>
                   <div class="item itemmenospadding">{{plate.name || plate.text}}

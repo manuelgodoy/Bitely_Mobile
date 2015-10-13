@@ -16,7 +16,7 @@
 	<ion-pane class="loader" ng-if="!loaded">
 	  	<ion-spinner></ion-spinner>
 	</ion-pane>	    
-  <ion-content>
+  <ion-content scrollbar-y="false">
   <div ng-if="loaded">
   <img ng-src="{{plate.picture || 'img/no_image.jpg' }}" class="venue-img"  err-src>
 	  <div class="padding" id="plate">
