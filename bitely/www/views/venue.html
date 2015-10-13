@@ -1,9 +1,9 @@
 <ion-view view-title="{{venue.name}}" hide-nav-bar="true">
-<ion-header-bar align-title="left" class="bar-royal" ng-class="{'bar-trans': !headerFade}">
+<ion-header-bar align-title="left" class="bar-royal sinborder" ng-class="{'bar-trans': !headerFade}">
   <div class="buttons">
    <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
   </div>
-  <h1 class="title titlemargin" ng-class="{'opaci1':headerFade}">{{venue.name}}</h1>
+  <h1 class="title titlemargin" ng-class="{'opaci1':headerFade, 'titlemargintiene' : (order.total>0 && !order.is_paid)}">{{venue.name}}</h1>
   <div class="buttons">
     <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
       ${{order.total | number:2}}
@@ -51,12 +51,9 @@
             {{menu.menu_name || 'Menu '+$index}}
           </ion-item> -->
           <div ng-show="isGroupShown(menu)" class="item-accordion" style="min-height:{{todoAlto-44}}px" >
-            <div style="padding-top:54px;"></div>
+            <div style="padding-top:43px;"></div>
 				<div>
-          <div ng-if="loadsection" class="sectionloader">
-            <ion-spinner></ion-spinner>
-          </div>
-          <div ng-repeat="subsection in menu.section.subsections" class="" ng-animate-children>
+          <div class="sectionani clearfix" ng-repeat="subsection in menu.section.subsections" class="" ng-animate-children>
           <div class="item item-divider" ng-if="subsection.subsection_name">
             {{subsection.subsection_name}}
           </div>
@@ -73,7 +70,7 @@
                   <div class="item itemmenospadding">{{plate.name || plate.text}}
                   </div>
                   <div class="item itemvenue">
-                    <rating ng-model="plate.rating_average" max="5" readonly="true"></rating>
+                    <img ng-src="img/rating{{(plate.rating_average|number:0) ||'none' }}.png" class="ratingimg">
                   </div>
                 </div>
               </div>

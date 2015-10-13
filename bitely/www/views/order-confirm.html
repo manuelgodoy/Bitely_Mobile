@@ -9,7 +9,7 @@
 	    </button>
 	  </ion-nav-buttons>
 	  <ion-nav-buttons side="right">
-	    <button ng-if="order.restaurant.name" class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-click="doConfirm()">
+	    <button ng-if="order.restaurant.name" class="button button-icon button-clear icon-right ion-android-done fuente-total" ng-click="doConfirm()">
 	    </button>
 	  </ion-nav-buttons>
 		<ion-pane class="loader" ng-if="!loaded">
@@ -44,7 +44,7 @@
 							<div class="list">
 							  <label class="item item-input item-select_">
 							    <div class="input-label">
-							      Quantity: {{plate.quantity}}
+							      <!-- Quantity: {{plate.quantity}} -->
 							    </div>
 							  </label>
 							</div>
@@ -57,22 +57,28 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col col-80">
-							{{plate.menu_item.name}}
+						<div class="col col-10">
+							{{plate.quantity}}x
+						</div>
+						<div class="col col platename">
+							<strong>{{plate.menu_item.name}}</strong>
 						</div>
 						<div class="col col-20 order_price_">
 							<span ng-if="plate.menu_item.price">${{plate.menu_item.price | number:2}}</span>
 						</div>
 					</div>
 
-						<div class="row" ng-repeat="option in plate.menu_item.options">
-							<div class="col col-80">
+						<div class="row optionrow" ng-repeat="option in plate.menu_item.options" ng-if="option.name">
+							<div class="col col-10">
+								
+							</div>
+							<div class="col">
 								{{option.name}}
 							</div>
 							<div class="col col-20 order_price_">
 								<span ng-if="option.price">${{option.price | number:2}}</span>
 							</div>
-						</div>					
+						</div>
 				</div>
 			</div>
 			<div class="totals">

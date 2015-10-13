@@ -36,7 +36,7 @@ angular.module('bitely.controllers')
       var fadeAmt;
       
       var header = $document[0].body.querySelector('.header-fader');
-      var headerHeight = - 44+($window.innerWidth)*174/250;
+      var headerHeight = - 20 - 44+($window.innerWidth)*174/250;
       
       function onScroll(e) {
         var scrollTop = e.detail.scrollTop;
