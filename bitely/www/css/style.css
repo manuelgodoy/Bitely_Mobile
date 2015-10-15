@@ -105,7 +105,7 @@ body {
 #venue header {
 	position: relative;
 	background: #fb7d00;
-	border-bottom: 1px solid #d26900;
+	/*border-bottom: 1px solid #d26900;*/
 }
 #venue header .nombrerest {
 	position: absolute;
@@ -591,7 +591,7 @@ ul.rating li i {
   	max-height: 0px;
 }
 .lassections a {
-	line-height: 43px;
+	line-height: 34px;
 	font-size: 18px;
 	font-family: 'sourcesans';
 	margin-right: 16px !important;
@@ -627,25 +627,25 @@ ul.rating li i {
 	padding-left: 16px;
 	white-space: nowrap;
 	height: 43px;
-	border-bottom: 1px solid #d26900;
 }
 .lassections a.active {
 	font-weight: bold;
-	border-bottom: 3px solid #fff;
-	line-height: 41px;
+	border-bottom: 4px solid #fff;
+	line-height: 40px;
 }
 .secmenu {
 	background: #fb7d00;
 	z-index: 1;
 	top:44px;
-	height:0;
+	height:44px;
+	/*border-bottom: 1px solid #d26900;*/
 }
 .secmenu.activado-add{
   	transition: 0.15s all ease-in;
   	transition-delay: .1s;
 }
 .secmenu.activado {
-	height:43px;
+	height:34px;
 	/*border-bottom: 1px solid #d26900;*/
 }
 .menu-list {}
@@ -694,7 +694,7 @@ ul.rating li i {
 }
 
 .venuerowrow .venuecol {
-  	transition: 0.1s all ease-out;
+  	transition: 0.3s all cubic-bezier(0, 1.1, 1, 1.1);
 }
 .cardvenue .item-image {
 	overflow:hidden;
@@ -768,7 +768,8 @@ ul.rating li i {
 	height:11.5px;
 }
 .bar.bar-royal.sinborder {
-	border-color:#fb7d00 !important;
+	/*border-color:#fb7d00 !important;*/
+	border:none;
 	background-image: none;
 }
 .platename {
@@ -782,4 +783,10 @@ ul.rating li i {
 	padding-left:0;
 	padding-right: 20px;
 	padding-top: 0;
+}
+.bar.bar-royal.barraespecial {
+	background-color: rgba(251,125,0,0)
+}
+.secmenu {
+	opacity: 0;
 }

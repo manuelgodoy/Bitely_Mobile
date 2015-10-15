@@ -1,26 +1,26 @@
 <ion-view view-title="{{venue.name}}" hide-nav-bar="true">
-<ion-header-bar align-title="left" class="bar-royal sinborder" ng-class="{'bar-trans': !headerFade}">
+<ion-header-bar align-title="left" class="bar-royal sinborder barraespecial">
   <div class="buttons">
    <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
   </div>
-  <h1 class="title titlemargin" ng-class="{'opaci1':headerFade, 'titlemargintiene' : (order.total>0 && !order.is_paid)}">{{venue.name}}</h1>
+  <h1 class="title titlemargin" ng-class="{'titlemargintiene' : (order.total>0 && !order.is_paid)}">{{venue.name}}</h1>
   <div class="buttons">
     <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
       ${{order.total | number:2}}
     </button>    
     <button class="button button-icon icon ion-android-more-horizontal" ng-click="popover.show($event)"></button>
   </div>
-</ion-header-bar>
-            <ion-scroll zooming="false" direction="x" style="width:100%;" scrollbar-x="false" has-bouncing="false" class="secmenu" delegate-handle="submenu" ng-class="{'activado': headerFade}">
-            <div class="lassections">
-                <a 
-                      ng-repeat="section in menu.sections"
-                      ng-click="activarSection(section)"
-                      ng-class="{active: isSectionShown(section)}">
-                {{section.section_name || 'Section '+$index}}
-                </a>
-              </div>
-           </ion-scroll>	
+</ion-header-bar>	
+<ion-scroll zooming="false" direction="x" style="width:100%;" scrollbar-x="false" has-bouncing="false" class="secmenu" delegate-handle="submenu">
+<div class="lassections">
+    <a 
+          ng-repeat="section in menu.sections"
+          ng-click="activarSection(section)"
+          ng-class="{active: isSectionShown(section)}">
+    {{section.section_name || 'Section '+$index}}
+    </a>
+  </div>
+</ion-scroll> 
 	<ion-pane class="loader" ng-if="!loaded">
 	  	<ion-spinner></ion-spinner>
 	</ion-pane>
@@ -51,7 +51,7 @@
             {{menu.menu_name || 'Menu '+$index}}
           </ion-item> -->
           <div ng-show="isGroupShown(menu)" class="item-accordion" style="min-height:{{todoAlto-44}}px" >
-            <div style="padding-top:43px;"></div>
+            <div style="padding-top:10px;"></div>
 				<div>
           <div class="sectionani clearfix" ng-repeat="subsection in menu.section.subsections" class="" ng-animate-children>
           <div class="item item-divider" ng-if="subsection.subsection_name">
