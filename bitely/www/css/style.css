@@ -790,3 +790,12 @@ ul.rating li i {
 .secmenu {
 	opacity: 0;
 }
+.platform-ios #venuecontent {
+	top: 0 !important;
+}
+.platform-ios .degtop{
+	height:74px;
+}
+.platform-ios .secmenu {
+	top:64px;
+}
