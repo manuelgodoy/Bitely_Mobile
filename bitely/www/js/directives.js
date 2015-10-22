@@ -39,6 +39,10 @@ angular.module('bitely.controllers')
       var header = $document[0].body.querySelector('.header-fader');
       var bar = $document[0].body.querySelector('.barraespecial');//('[nav-bar="active"]');
       var headerHeight = - 43 - 44+($window.innerWidth)*174/250;
+      if (ionic.Platform.isIOS()){
+        headerHeight = headerHeight -20;
+      }
+      var headerHeightextra = -20 + headerHeight;
       var titulin = $document[0].body.querySelector('.titlemargin');
       var menusin = $document[0].body.querySelector('.secmenu');
       
@@ -49,24 +53,24 @@ angular.module('bitely.controllers')
 
         if(scrollTop >= 0) {
           // y = Math.min(headerHeight / scrollDelay, Math.max(0, y + scrollTop - prevY));
-          opa = Math.max(0, (headerHeight - scrollTop)/headerHeight);
-          otroFade = Math.max(0,Math.min(1,(scrollTop-headerHeight+40)/40));
+          opa = Math.max(0, (headerHeightextra - scrollTop)/headerHeightextra);
+          otroFade = Math.max(0,Math.min(1,(scrollTop-headerHeight+20)/20));
         } else {
           y = 0;
           opa = 1;
           otroFade = 0;
         }
-        // console.log(y);
+        // console.log(otroFade);
 
         ionic.requestAnimationFrame(function() {
 
-          console.log(scrollTop-headerHeight);
+          // console.log(scrollTop-headerHeight);
 
           // header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
           header.style.opacity = opa;
           bar.style.backgroundColor = 'rgba(251,125,0,'+(otroFade)+')';
           menusin.style.opacity = otroFade;
-          menusin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*-40 + 'px, 0)';
+          menusin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*-20 + 'px, 0)';
           titulin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*150 + '%, 0)';
           // menusin.style.height = otroFade*44+'px';
           // bar.style.borderColor = 'rgba(251,125,0,'+(1-opa)+')';
