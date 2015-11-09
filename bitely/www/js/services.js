@@ -48,6 +48,11 @@ angular.module('bitely.controllers')
   var service = {};
 
   service.setCredentials = function(todalainfo){
+      Ionic.io();
+      var user = Ionic.User.current();
+      user.id = todalainfo.nickname;
+      user.set('image', todalainfo.picture);
+      user.save();
       $rootScope.globals = {
           currentUser: todalainfo
       };
@@ -58,6 +63,7 @@ angular.module('bitely.controllers')
       $rootScope.globals = {};
       $http.get('https://www.bitely.io/logout_app');
       $localstorage.setObject('globals',{});
+      $localstorage.remove('ionic_io_user_e739e0e8');
       $cookies.remove("session");
       $rootScope.creditcard = {};
       $localstorage.setObject('creditcard',{});
@@ -67,7 +73,6 @@ angular.module('bitely.controllers')
 
   return service;
 })
-
 .factory('Login', function($resource){
   return $resource('https://www.bitely.io/facebook_login_app');
 })
@@ -148,10 +153,10 @@ angular.module('bitely.controllers')
               // });
               $rootScope.order.is_posted = order.data.is_posted;
               $rootScope.order.is_paid = order.data.is_paid;
-              if (!$rootScope.order.total) $rootScope.order.total = order.data.total;
+              // if (!$rootScope.order.total) $rootScope.order.total = order.data.total;
+              $rootScope.order.appTotal = order.data.total;
               $rootScope.order.tax_rate = order.data.tax_rate;
               $rootScope.order.restaurant = order.data.restaurant;
-
               $localstorage.setObject('order',$rootScope.order);
             },
             responseError: function (data) {
@@ -170,12 +175,14 @@ angular.module('bitely.controllers')
               //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
               //   }
               // });
-              if (order.data.is_paid) {
-                order.data.total = 0;
-                order.data.tax_rate = 0;
-                order.data.order_plates = {};
-              }
               $rootScope.order = order.data;
+              $rootScope.order.appTotal = order.data.total;
+              if (order.data.is_paid) {
+                $rootScope.order.appTotal = 0;
+                // order.data.total = 0;
+                // order.data.tax_rate = 0;
+                // order.data.order_plates = {};
+              }              
               $localstorage.setObject('order',order.data);
             },
             responseError: function (data) {
@@ -195,6 +202,7 @@ angular.module('bitely.controllers')
               //   }
               // });
               $rootScope.order = order.data;
+              $rootScope.order.appTotal = order.data.total;
               $localstorage.setObject('order',order.data);
             },
             responseError: function (data) {

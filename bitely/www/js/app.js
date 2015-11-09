@@ -11,12 +11,26 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   
   //ngFB.init({appId: '1397986197168446'});
 
+  Ionic.io();
+  var user = Ionic.User.current();
 
   $window.Stripe.setPublishableKey('pk_test_knVqvEMFxZsgserDdUhovk24');
 
   $rootScope.globals = $localstorage.getObject('globals') || {};
   $rootScope.order   = $localstorage.getObject('order') || {};
   $rootScope.creditcard   = $localstorage.getObject('creditcard') || {};
+
+  if ($rootScope.globals.currentUser) {
+    Ionic.User.load($rootScope.globals.currentUser.nickname).then(
+      function(loadedUser){
+        Ionic.User.current(loadedUser);
+        user = Ionic.User.current();
+      }, 
+      function(error){
+        console.log('something went wrong: ',error);
+      });
+  }
+
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
     // SI NO ESTA EN EL SPLASH Y NO ESTA LOGGEADO
     if ($location.path() !== '/splash' && !$rootScope.globals.currentUser) {

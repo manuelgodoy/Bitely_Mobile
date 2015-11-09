@@ -3,10 +3,10 @@
   <div class="buttons">
    <a ng-click="goHome()" class="button button-icon button-clear icon-left ion-ios-arrow-left"></a>
   </div>
-  <h1 class="title titlemargin" ng-class="{'titlemargintiene' : (order.total>0 && !order.is_paid)}">{{venue.name}}</h1>
+  <h1 class="title titlemargin" ng-class="{'titlemargintiene' : (order.appTotal>0 && !order.is_paid)}">{{venue.name}}</h1>
   <div class="buttons">
-    <button ng-click="goToOrder()" ng-if="order.total>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-      ${{order.total | number:2}}
+    <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+      ${{order.appTotal | number:2}}
     </button>    
     <button class="button button-icon icon ion-android-more-horizontal" ng-click="popover.show($event)"></button>
   </div>
@@ -15,8 +15,8 @@
 <div class="lassections">
     <a 
           ng-repeat="section in menu.sections"
-          ng-click="activarSection(section)"
-          ng-class="{active: isSectionShown(section)}">
+          ng-click="activarSection(post)"
+          ng-class="{active: isSectionShown(post)}">
     {{section.section_name || 'Section '+$index}}
     </a>
   </div>
