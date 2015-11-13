@@ -724,8 +724,8 @@ ul.rating li i {
   	transition: 0.200s all ease-out;
   	overflow: hidden;
   	/*opacity: 0;*/
-    transform: translateY(-100%);
-    -webkit-transform: translateY(-100%);
+    transform: translate3d(0,-250%, 0);
+    -webkit-transform: translate3d(0, -250%, 0);
 }
 .titlemargintiene {
 	margin-right: 65px !important;

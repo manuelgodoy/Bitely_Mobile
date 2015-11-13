@@ -48,6 +48,9 @@ angular.module('bitely.controllers')
       
       function onScroll(e) {
         var scrollTop = e.detail.scrollTop;
+          y = 0;
+          opa = 1;
+          otroFade = 0;
 
         // console.log($rootScope)
 
