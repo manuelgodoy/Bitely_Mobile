@@ -8,15 +8,16 @@
     <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
       ${{order.appTotal | number:2}}
     </button>    
-    <button class="button button-icon icon ion-android-more-horizontal" ng-click="popover.show($event)"></button>
+    <button class="button button-icon icon ion-android-more-horizontal" ng-if="menus.length>1"  ng-click="popover.show($event)">
+    </button>
   </div>
 </ion-header-bar>	
 <ion-scroll zooming="false" direction="x" style="width:100%;" scrollbar-x="false" has-bouncing="false" class="secmenu" delegate-handle="submenu">
 <div class="lassections">
     <a 
           ng-repeat="section in menu.sections"
-          ng-click="activarSection(post)"
-          ng-class="{active: isSectionShown(post)}">
+          ng-click="activarSection(section)"
+          ng-class="{active: isSectionShown(section)}">
     {{section.section_name || 'Section '+$index}}
     </a>
   </div>
@@ -24,7 +25,6 @@
 	<ion-pane class="loader" ng-if="!loaded">
 	  	<ion-spinner></ion-spinner>
 	</ion-pane>
-
   <ion-content scrollbar-y="false" class="noheaderpad viewbg" delegate-handle="venueContent" has-bouncing="false" fade-image scroll-event-interval="5" id="venuecontent">
   <div class="error padding" ng-if="error">
   	<h2>{{error.data.message}}</h2>
@@ -44,12 +44,6 @@
     </header>    
   	  <ion-list>
         <div>
-<!--           <ion-item class="item-light item-icon-right"
-                    ng-click="toggleGroup(menu,$index)"
-                    ng-class="{active: isGroupShown(menu)}">
-            <i class="icon" ng-class="isGroupShown(menu) ? 'ion-ios-close-empty' : 'ion-ios-arrow-down'"></i>
-            {{menu.menu_name || 'Menu '+$index}}
-          </ion-item> -->
           <div ng-show="isGroupShown(menu)" class="item-accordion" style="min-height:{{todoAlto-44}}px" >
             <div style="padding-top:10px;"></div>
 				<div>
@@ -64,7 +58,6 @@
                   <div class="item item-image venueimage" ng-style="plateImage">
                     <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
                     <div class="degradacion"></div>
-                   <!--  <a class="button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"><img src="img/add_order.png" alt=""></a> -->
                    <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"></a>
                     <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
                   </div>

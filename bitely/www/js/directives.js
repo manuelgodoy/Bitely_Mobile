@@ -71,7 +71,7 @@ angular.module('bitely.controllers')
           bar.style.backgroundColor = 'rgba(251,125,0,'+(otroFade)+')';
           menusin.style.opacity = otroFade;
           menusin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*-20 + 'px, 0)';
-          titulin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*150 + '%, 0)';
+          titulin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*250 + '%, 0)';
           // menusin.style.height = otroFade*44+'px';
           // bar.style.borderColor = 'rgba(251,125,0,'+(1-opa)+')';
           // if(y >= headerHeight && $rootScope.headerFade === false) {

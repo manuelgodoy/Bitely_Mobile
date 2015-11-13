@@ -37,7 +37,7 @@
 				<!-- <h2>618 Brooklin boulevard Pittsburg, PA</h2> -->
 			</div>
 			<div class="plates">
-				<div class="plate" ng-repeat="plate in order.order_plates" ng-if="plate.quantity>0">
+				<div class="plate" ng-repeat="plate in order.order_plates track by $index" ng-if="plate.quantity>0">
 
 					<div class="row options">
 						<div class="col">
