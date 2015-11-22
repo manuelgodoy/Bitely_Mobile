@@ -59,6 +59,15 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
       }
     });
 
+      push.register(function(pushToken) {
+        var user = Ionic.User.current();
+        user.id = todalainfo.nickname;
+        user.set('image', todalainfo.picture);
+        console.log("Device token:",pushToken.token);
+        user.addPushToken(pushToken);
+        user.save();
+      });    
+
     // $cordovaFacebook.getLoginStatus().then(function(success){
     //   if (success.status === 'connected') {
     //     $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: success.authResponse.accessToken, fields: "id,name,last_name,first_name,email,picture.width(200).height(200)", format: "json" }})
