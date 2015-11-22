@@ -51,8 +51,8 @@
 						</div>
 						<div class="col order_price">
 							<span ng-if="!plate.is_posted">
-								<a class="button button-icon ion-minus-circled royal" ng-click="removeItem(plate.menu_item, order.restaurant, $index)"></a>
-								<a class="button button-icon ion-plus-circled royal" ng-click="addItem(plate.menu_item, order.restaurant, $index)"></a>
+								<a class="button button-icon ion-minus-circled royal" ng-click="removeItem(plate, order.restaurant, $index)"></a>
+								<a class="button button-icon ion-plus-circled royal" ng-click="addItem(plate, order.restaurant, $index)"></a>
 							</span>
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 
-						<div class="row optionrow" ng-repeat="option in plate.menu_item.options" ng-if="option.name">
+						<div class="row optionrow" ng-repeat="option in plate.options" ng-if="option.name">
 							<div class="col col-10">
 								
 							</div>
@@ -87,7 +87,7 @@
 						Subtotal
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.total | number:2}}
+						${{order.appTotal | number:2}}
 					</div>
 				</div>
 				<div class="row">
@@ -103,7 +103,7 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{order.total*(1+order.tax_rate) | number:2}}</strong>
+						<strong>${{order.appTotal*(1+order.tax_rate) | number:2}}</strong>
 					</div>
 				</div>
 			</div>

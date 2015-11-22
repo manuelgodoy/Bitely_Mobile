@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
 
-.run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window) {
+.run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
   // 1646690858946373
   // cookie: session
   
@@ -39,6 +39,25 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   });
 
   $ionicPlatform.ready(function() {
+
+    //PUSH
+    var push = new Ionic.Push({
+      // "debug": true,
+      onNotification: function(notification){
+        $state.go('app.order.success');
+        console.log(notification);
+      },
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "sound": true
+        },
+        "android": {
+          "iconColor": "#fb7d00",
+          "icon": "bitely_ic"
+        }
+      }
+    });
 
     // $cordovaFacebook.getLoginStatus().then(function(success){
     //   if (success.status === 'connected') {

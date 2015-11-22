@@ -44,15 +44,40 @@ angular.module('bitely.controllers')
   }
 }])
 
-.factory('Auth', function($localstorage, $rootScope, $cookies, $http){
+.factory('Auth', function($localstorage, $rootScope, $cookies, $http, $location, $state){
   var service = {};
 
   service.setCredentials = function(todalainfo){
-      Ionic.io();
-      var user = Ionic.User.current();
-      user.id = todalainfo.nickname;
-      user.set('image', todalainfo.picture);
-      user.save();
+
+    Ionic.io();
+    var push = new Ionic.Push({
+      // "debug": true,
+      onNotification: function(notification){
+        // alert('hey!');
+        $state.go('app.order.success');
+        console.log(notification);
+      },
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "sound": true
+        },
+        "android": {
+          "iconColor": "#fb7d00",
+          "icon": "bitely_ic"
+        }
+      }
+    });
+
+      push.register(function(pushToken) {
+        var user = Ionic.User.current();
+        user.id = todalainfo.nickname;
+        user.set('image', todalainfo.picture);
+        console.log("Device token:",pushToken.token);
+        user.addPushToken(pushToken);
+        user.save();
+      });
+
       $rootScope.globals = {
           currentUser: todalainfo
       };
@@ -60,6 +85,13 @@ angular.module('bitely.controllers')
   }
 
   service.clearCredentials = function(){
+      Ionic.io();
+      var push = new Ionic.Push({
+        "debug": true
+      });      
+      var user = Ionic.User.current();
+      // user.removePushToken(pushToken);
+
       $rootScope.globals = {};
       $http.get('https://www.bitely.io/logout_app');
       $localstorage.setObject('globals',{});

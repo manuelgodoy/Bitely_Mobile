@@ -503,7 +503,9 @@ span.circle.checked{
 	padding: 0;
 }
 ul.rating{
-	padding-top: 10px
+	/*padding-top: 10px*/
+
+	padding-top: 0px
 }
 ul.rating li {
   display: inline;
@@ -726,9 +728,10 @@ ul.rating li i {
   	/*opacity: 0;*/
     transform: translate3d(0,-250%, 0);
     -webkit-transform: translate3d(0, -250%, 0);
+	margin-right: 50px !important;
 }
 .titlemargintiene {
-	margin-right: 65px !important;
+	margin-right: 120px !important;
 }
 .titlemargin.opaci1 {
 	/*opacity: 1;*/

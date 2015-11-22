@@ -5,7 +5,7 @@
 		</div>
 	</ion-nav-title>
 	  <ion-nav-buttons side="right">
-	    <button class="button button-icon button-clear icon-right ion-android-close fuente-total" ng-click="goHome()">
+	    <button class="button button-icon button-clear icon-right ion-android-close fuente-total" ng-click="goHomeRate()">
 	    </button>
 	  </ion-nav-buttons>		
 	<ion-content>
@@ -15,7 +15,6 @@
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Confirm</div>
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Payment</div>
 		</div>
-
 		<header class="title padding">
 			<h1>Success</h1>
 			<h2>Thanks for using Bitely<h2>
@@ -37,15 +36,7 @@
 							<span ng-if="plate.menu_item.price">${{plate.menu_item.price | number:2}}</span>
 						</div>
 					</div>
-					<div class="row ratepay" ng-controller="rateController">
-						<div class="col col-10"></div>
-						<div class="col">
-							<rating ng-model="rate" max="5" ng-change="hechanged(plate.menu_item.key)"></rating>
-						</div>
-					</div>
-
-
-						<div class="row optionrow" ng-repeat="option in plate.menu_item.options" ng-if="option.name">
+						<div class="row optionrow" ng-repeat="option in plate.options" ng-if="option.name">
 							<div class="col col-80">
 								<div class="row">
 									<div class="col col-10">
@@ -60,6 +51,12 @@
 								<span ng-if="option.price">${{option.price | number:2}}</span>
 							</div>
 						</div>
+					<div class="row ratepay" ng-controller="rateController">
+						<div class="col col-10"></div>
+						<div class="col">
+							<rating ng-model="rate" max="5" ng-change="hechanged(plate.menu_item.key)"></rating>
+						</div>
+					</div>						
 				</div>
 			</div>
 			<div class="totals">
@@ -96,5 +93,6 @@
 					</div>
 				</div>
 			</div>
+			<pre>{{rating | json}}</pre>
 	</ion-content>
 </ion-view>
