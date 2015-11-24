@@ -1,0 +1,63 @@
+<ion-view view-title="Personal">
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+	</ion-nav-title>
+	  <ion-nav-buttons side="left">
+	    <button class="button button-icon button-clear icon-right ion-ios-arrow-left fuente-total" ng-click="goMenu()">
+	    </button>
+	  </ion-nav-buttons>
+	  <ion-nav-buttons side="right">
+	    <button side="right" class="button button-icon button-clear icon-right ion-ios-arrow-right fuente-total" ng-click="globals.currentUser.isguest || goCard()" ng-class="{'opa50': (globals.currentUser.isguest)}">
+	    </button>
+	  </ion-nav-buttons>	
+	<ion-content>
+		<div class="row pasos">
+			<div class="col-25 col"><span class="circle active">1</span>Personal</div>
+			<div class="col-25 col"><span class="circle">2</span>Card</div>
+			<div class="col-25 col"><span class="circle">3</span>Confirm</div>
+			<div class="col-25 col"><span class="circle">4</span>Payment</div>
+		</div>
+
+		<header class="title padding">
+			<h1>Tell Us About Yourself</h1>
+			<h2>Enter your details below:</h2>
+		</header>
+		<div class="padding" ng-if="globals.currentUser.isguest">
+			You must be logged in to finish your order:
+			<p><a ng-click="login('order')" class="button button-royal button-outline icon-left ion-social-facebook"> Login with Facebook</a></p>
+		</div>
+		<div class="padding" ng-if="!globals.currentUser.isguest">
+			<h2>Welcome, {{globals.currentUser.name}}</h2>
+		</div>
+<!-- 			<form name="profile.editProfile" id="whitebg">
+			<div class="list">
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Name</span>
+			    <input type="text" ng-model="profile.data.name">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Address</span>
+			    <input type="text" ng-model="profile.data.address">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Address 2</span>
+			    <input type="text"ng-model="profile.data.address2">
+			  </label>  
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">Phone</span>
+			    <input type="tel" ng-model="profile.data.phone">
+			  </label>
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">State</span>
+			    <input type="text" ng-model="profile.data.state">
+			  </label> 
+			  <label class="item item-input item-stacked-label">
+			    <span class="input-label">City</span>
+			    <input type="text" ng-model="profile.data.city">
+			  </label>  
+			</div>
+		</form>	 -->	
+	</ion-content>
+</ion-view>

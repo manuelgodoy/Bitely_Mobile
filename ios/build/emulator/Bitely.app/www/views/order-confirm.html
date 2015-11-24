@@ -1,0 +1,126 @@
+<ion-view view-title="Payment" hide-back-button="true">
+	<ion-nav-title>
+		<div class="hlogo">
+			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
+		</div>
+	</ion-nav-title>
+	  <ion-nav-buttons side="left">
+	    <button class="button button-icon button-clear icon-right ion-ios-arrow-left fuente-total" ng-click="goMenu()">
+	    </button>
+	  </ion-nav-buttons>
+	  <ion-nav-buttons side="right">
+	    <button ng-if="order.restaurant.name" class="button button-icon button-clear icon-right ion-checkmark fuente-total" ng-click="doConfirm()">
+	    </button>
+	  </ion-nav-buttons>
+		<ion-pane class="loader" ng-if="!loaded">
+			<ion-spinner></ion-spinner>
+		</ion-pane>		  
+	<ion-content>
+	<div ng-if="loaded">
+		<div class="row pasos">
+			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Personal</div>
+			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Card</div>
+			<div class="col-25 col"><span class="circle active">3</span>Confirm</div>
+			<div class="col-25 col"><span class="circle">4</span>Payment</div>
+		</div>
+		<header class="title padding">
+			<h1>Confirm your order</h1>
+			<h2>You can add or remove plates</h2>
+		</header>		
+		<div class="emptyorder padding" ng-if="!order.restaurant.name">
+			<h1>Your Order is Empty</h1>
+          	<p><a class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p>
+		</div>
+		<div class="order" ng-if="order.restaurant.name">
+			<div class="restaurant padding">
+				<h1>{{order.restaurant.name}}</h1>
+				<!-- <h2>618 Brooklin boulevard Pittsburg, PA</h2> -->
+			</div>
+			<div class="plates">
+				<div class="plate" ng-repeat="plate in order.order_plates" ng-if="plate.quantity>0">
+
+					<div class="row options">
+						<div class="col col-80">
+							<div class="list">
+							  <label class="item item-input item-select_">
+							    <div class="input-label">
+							      Quantity: {{plate.quantity}}
+							    </div>
+<!-- 								<select ng-model="plate.quantity" ng-options="toInt(key) as value for (key,value) in myOptions" ng-change="changeItem(plate.menu_item, order.restaurant)">
+									<option value="">Select Value</option>
+								</select> -->
+							  </label>
+							</div>
+						</div>
+						<div class="col col-20 order_price">
+							<span ng-if="!plate.is_posted">
+								<i class='icon ion-minus-circled' ng-click="removeItem(plate.menu_item, order.restaurant, $index)" ng-click="removeItem(plate.menu_item, order.restaurant)"></i>
+								<i class='icon ion-plus-circled' ng-click="addItem(plate.menu_item, order.restaurant, $index)"></i>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-80">
+							{{plate.menu_item.name}}
+						</div>
+						<div class="col col-20 order_price_">
+							<span ng-if="plate.menu_item.price">${{plate.menu_item.price | number:2}}</span>
+						</div>
+					</div>
+
+						<div class="row" ng-repeat="option in plate.menu_item.options_array">
+							<div class="col col-80">
+								{{option.name}}
+							</div>
+							<div class="col col-20 order_price_">
+								<span ng-if="option.price">${{option.price | number:2}}</span>
+							</div>
+						</div>					
+				</div>
+			</div>
+			<div class="totals">
+				<div class="row">
+					<div class="col col-80">
+						Subtotal
+					</div>
+					<div class="col col-20 order_price_">
+						${{order.total | number:2}}
+					</div>
+				</div>
+<!-- 				<div class="row">
+					<div class="col col-80">
+						Delivery
+					</div>
+					<div class="col col-20 order_price">
+						$13.99
+					</div>
+				</div> -->
+				<div class="row">
+					<div class="col col-80">
+						Tax
+					</div>
+					<div class="col col-20 order_price_">
+						${{order.tax_rate*order.total || 0 | number:2}}
+					</div>
+				</div>
+<!-- 				<div class="row">
+					<div class="col col-80">
+						Tip
+					</div>
+					<div class="col col-20 order_price">
+						$
+					</div>
+				</div> -->
+				<div class="row">
+					<div class="col col-80">
+							Total
+					</div>
+					<div class="col col-20 order_price_">
+						<strong>${{order.total*(1+order.tax_rate) | number:2}}</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>		
+	</ion-content>
+</ion-view>
