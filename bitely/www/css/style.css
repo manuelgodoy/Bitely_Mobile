@@ -316,8 +316,9 @@ p.asguest a.button {
 	color: #fff;
 }
 .side-menu ion-content{
-	background: url('../img/side_bg.png');
-	background-size: cover;
+	/*background: url('../img/side_bg.png');*/
+	/*background-size: cover;*/
+	background: #000;
 }
 #menu .scroll{
 	background: none !important;
@@ -326,21 +327,27 @@ p.asguest a.button {
 	display: block;
 }
 .side-menu .avatar {
-	padding-top: 50px;
+	/*padding-top: 50px;*/
+	padding: 20px;
+	background: #222;
+	position: relative;
+	height: 90px;
 }
 .side-menu .avatar img {
 	display: block;
 	border-radius: 50%;
-	width: 150px;
-	height:150px;
-	margin: 0 auto 0;
+	width: 50px;
+	height:50px;
+	position: absolute;
+	top:20px;
+	left:20px;
 }
 .side-menu .avatar h1 {
-	color: #828282;
+	color: #fff;
 	font-family: 'sourcesans';
-	font-size: 27px;
-	text-align: center;
-	padding: 0 20px
+	font-size: 18px;
+	padding: 15px 0 0 60px;
+	margin: 0;
 }
 .boton-order-venue {
 	position: absolute;
@@ -801,4 +808,70 @@ ul.rating li i {
 }
 .platform-ios .secmenu {
 	top:64px;
+}
+.item-radio input:checked + .radio-content .item-content {
+/* style the item content when its checked */
+background: #f7f7f7; 
+
+}
+
+.item-radio input:checked + .radio-content .radio-icon {
+/* show the checkmark icon when its checked */
+visibility: visible;
+
+}
+
+.side-menu .item-avatar{
+	background: #333 !important;
+}
+.side-menu .item-avatar h2 {
+	color: #ffF
+}
+.side-menu .item, .side-menu .item a {
+	background: #000;
+	color: #fff;
+	border-color: #444 !important
+}
+.side-menu .item.activated, .side-menu .item a.activated{
+	background: #333 !important;
+	color: #fff !important;
+}
+
+.cardinput {
+	border: 1px solid #898989;
+	border-radius: 6px;
+	height: 44px;
+	margin: 10px;
+	position: relative;
+}
+.cardinput span {
+	position: absolute;
+	border-right: 1px solid #898989;
+	height: 42px;
+	color: #fb7d00;
+	font-size: 14px;
+	line-height: 44px;
+	padding: 0px;
+	top:0px;
+	left:1px;
+	width: 75px;
+	text-align: center;
+
+}
+.cardinput input {
+	position: absolute;
+	background: transparent;
+	padding: 0 10px 0 85px;
+	width: 100%;
+	height: 43px;
+}
+.cardinput input#month {
+	width: 50px;
+	padding: 0;
+	left: 85px;
+}
+.cardinput input#year {
+	width: 100px;
+	padding:0;
+	left:155px;
 }

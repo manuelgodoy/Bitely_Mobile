@@ -20,7 +20,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   $rootScope.order   = $localstorage.getObject('order') || {};
   $rootScope.creditcard   = $localstorage.getObject('creditcard') || {};
 
-  if ($rootScope.globals.currentUser) {
+  if ($rootScope.globals.currentUser && !$rootScope.globals.currentUser.isguest) {
     Ionic.User.load($rootScope.globals.currentUser.nickname).then(
       function(loadedUser){
         Ionic.User.current(loadedUser);
@@ -196,6 +196,16 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
       'appContent': {
         templateUrl : 'views/add-card.html',
         controller: 'CardCtrl'
+      }
+    }
+  })
+
+  .state('app.receipts',{
+    url:'/receipts',
+    views: {
+      'appContent': {
+        templateUrl: 'views/receipts.html',
+        controller: 'ReceiptsCtrl'
       }
     }
   })

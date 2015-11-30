@@ -11,17 +11,21 @@
 	  <ion-nav-buttons side="right">
 	    <button side="right" class="button button-icon button-clear icon-right ion-ios-arrow-right fuente-total" ng-click="globals.currentUser.isguest || goCard()" ng-class="{'opa50': (globals.currentUser.isguest)}">
 	    </button>
-	  </ion-nav-buttons>	
+	  </ion-nav-buttons>
+		<ion-pane class="loader" ng-if="!loaded">
+			<ion-spinner></ion-spinner>
+		</ion-pane>	
 	<ion-content>
+<div ng-if="loaded">
 		<div class="row pasos">
-			<div class="col-25 col"><span class="circle active">1</span>Personal</div>
-			<div class="col-25 col"><span class="circle">2</span>Card</div>
-			<div class="col-25 col"><span class="circle">3</span>Confirm</div>
+			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Personal</div>
+			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Card</div>
+			<div class="col-25 col"><span class="circle active">3</span>Confirm</div>
 			<div class="col-25 col"><span class="circle">4</span>Payment</div>
 		</div>
 		<header class="title padding">
 			<h1>Confirm your order</h1>
-			<h2>You can add or remove plates</h2>
+			<h2>You can add or remove plates<!-- <span ng-click="getHistory()">History</span> --></h2>
 		</header>
 		<div class="emptyorder padding" ng-if="!order.restaurant.name">
 			<h1>Your Order is Empty</h1>
@@ -33,42 +37,48 @@
 				<!-- <h2>618 Brooklin boulevard Pittsburg, PA</h2> -->
 			</div>
 			<div class="plates">
-				<div class="plate" ng-repeat="plate in order.order_plates" ng-if="plate.quantity>0">
+				<div class="plate" ng-repeat="plate in order.order_plates track by $index" ng-if="plate.quantity>0">
 
 					<div class="row options">
 						<div class="col">
 							<div class="list">
 							  <label class="item item-input item-select_">
 							    <div class="input-label">
-							      Quantity: {{plate.quantity}}
+							      <!-- Quantity: {{plate.quantity}} -->
 							    </div>
 							  </label>
 							</div>
 						</div>
 						<div class="col order_price">
 							<span ng-if="!plate.is_posted">
-								<i class='icon ion-minus-circled' ng-click="removeItem(plate.menu_item, order.restaurant, $index)" ng-click="removeItem(plate.menu_item, order.restaurant)"></i>
-								<i class='icon ion-plus-circled' ng-click="addItem(plate.menu_item, order.restaurant, $index)"></i>
+								<a class="button button-icon ion-minus-circled royal" ng-click="removeItem(plate, order.restaurant, $index)"></a>
+								<a class="button button-icon ion-plus-circled royal" ng-click="addItem(plate, order.restaurant, $index)"></a>
 							</span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col col-80">
-							{{plate.menu_item.name}}
+						<div class="col col-10">
+							{{plate.quantity}}x
+						</div>
+						<div class="col col platename">
+							<strong>{{plate.menu_item.name}}</strong>
 						</div>
 						<div class="col col-20 order_price_">
 							<span ng-if="plate.menu_item.price">${{plate.menu_item.price | number:2}}</span>
 						</div>
 					</div>
 
-						<div class="row" ng-repeat="option in plate.menu_item.options_array">
-							<div class="col col-80">
+						<div class="row optionrow" ng-repeat="option in plate.options" ng-if="option.name">
+							<div class="col col-10">
+								
+							</div>
+							<div class="col">
 								{{option.name}}
 							</div>
 							<div class="col col-20 order_price_">
 								<span ng-if="option.price">${{option.price | number:2}}</span>
 							</div>
-						</div>					
+						</div>
 				</div>
 			</div>
 			<div class="totals">
@@ -77,7 +87,7 @@
 						Subtotal
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.total | number:2}}
+						${{order.appTotal | number:2}}
 					</div>
 				</div>
 				<div class="row">
@@ -93,11 +103,12 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{order.total*(1+order.tax_rate) | number:2}}</strong>
+						<strong>${{order.appTotal*(1+order.tax_rate) | number:2}}</strong>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>	
 		<hr>
 
 		<div class="padding centradito" ng-if="globals.currentUser.isguest">

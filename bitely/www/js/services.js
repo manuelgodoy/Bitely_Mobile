@@ -49,38 +49,45 @@ angular.module('bitely.controllers')
 
   service.setCredentials = function(todalainfo){
 
-    Ionic.io();
-    var push = new Ionic.Push({
-      // "debug": true,
-      onNotification: function(notification){
-        // alert('hey!');
-        $state.go('app.order.success');
-        console.log(notification);
-      },
-      "pluginConfig": {
-        "ios": {
-          "badge": true,
-          "sound": true
-        },
-        "android": {
-          "iconColor": "#fb7d00",
-          "icon": "bitely_ic"
-        }
-      }
-    });
+      console.log(todalainfo)
 
-      push.register(function(pushToken) {
-        var user = Ionic.User.current();
-        user.id = todalainfo.nickname;
-        user.set('image', todalainfo.picture);
-        console.log("Device token:",pushToken.token);
-        user.addPushToken(pushToken);
-        user.save();
-      });
+      if (!todalainfo.isguest) {
+
+        Ionic.io();
+        var push = new Ionic.Push({
+          // "debug": true,
+          onNotification: function(notification){
+            // alert('hey!');
+            $state.go('app.order.success');
+            console.log(notification);
+          },
+          "pluginConfig": {
+            "ios": {
+              "badge": true,
+              "sound": true
+            },
+            "android": {
+              "iconColor": "#fb7d00",
+              "icon": "bitely_ic"
+            }
+          }
+        });
+
+        push.register(function(pushToken) {
+          var user = Ionic.User.current();
+          user.id = todalainfo.nickname;
+          user.set('image', todalainfo.picture);
+          console.log("Device token:",pushToken.token);
+          user.addPushToken(pushToken);
+          user.save();
+        });
+
+      }
 
       $rootScope.globals = {
           currentUser: todalainfo
       };
+
       $localstorage.setObject('globals',{currentUser:todalainfo});
   }
 
@@ -153,6 +160,10 @@ angular.module('bitely.controllers')
 // })
 .factory('Pay', function($resource){
   return $resource(urlBase+'pay');
+})
+
+.factory('Orders', function($resource){
+  return $resource(urlBase+'orders');
 })
 
 .factory('gLocation', function($resource){

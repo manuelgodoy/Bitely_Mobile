@@ -18,7 +18,7 @@
       </li>
     </ul>
     <div class="list" ng-if="group.type==='OPTION_CHOOSE'">
-      <ion-radio ng-model="addModal.item.choosed[group.text]" ng-value="item2"  ng-repeat="item2 in group.options">{{item2.name}} <span class="item-note" ng-if="item2.price">${{item2.price | number:2}}</span></ion-radio>
+      <ion-radio-fix ng-model="addModal.item.choosed[group.text]" ng-value="item2"  ng-repeat="item2 in group.options">{{item2.name}} <span class="item-note" ng-if="item2.price">${{item2.price | number:2}}</span></ion-radio-fix>
     </div>
   </div>
   </ion-content>

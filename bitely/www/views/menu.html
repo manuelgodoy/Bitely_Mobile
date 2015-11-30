@@ -17,30 +17,45 @@
 
   <ion-side-menu side="left" class="side-menu">
     <ion-content>
-      <div class="avatar">
-        <img ng-src="{{globals.currentUser.picture}}" alt="">
-        <h1>{{globals.currentUser.fullname}}</h1>
+
+      <ion-list>
+      <div class="item item-avatar">
+        <img ng-src="{{globals.currentUser.picture}}">
+        <h2>{{globals.currentUser.fullname}}</h2>
+        <p></p>
       </div>
-      <div class="padding menuside">
         <div class="logfb" ng-if="globals.currentUser.isguest">
-          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p> -->
-          <p><a menu-close class="button button-stable button-clear button-full">Search</a></p>
-          <p><a ng-if="order.appTotal>0 && !order.is_paid" menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
-          <p><a class="button button-stable button-clear button-full" ng-click="login('menu')">Login with Facebook</a></p>
+          <ion-item menu-close ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid">
+            Order
+          </ion-item>
+          <ion-item menu-close ng-click="login('menu')">
+            Login with Facebook
+          </ion-item>
         </div>
-        <div class="logout" ng-if="!globals.currentUser.isguest">
-          <p><a menu-close class="button button-stable button-clear button-full" href="#/app/add-card">Profile</a></p>
-          <p><a menu-close class="button button-stable button-clear button-full">Search</a></p>
-          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/home">Places Near Me</a></p> -->
-          <p><a ng-if="order.appTotal>0 && !order.is_paid" menu-close class="button button-stable button-clear button-full" ng-click="goToOrder()">Order</a></p>
-          <p><a menu-close class="button button-stable button-clear button-full">Receipts</a></p>
-          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/edit-profile">Edit Profile</a></p> -->
-          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/add-card">Add Credit Card</a></p> -->
-          <!-- <p><a menu-close class="button button-royal button-outline" href="#/app/order/payment">View Order</a></p> -->
-          <p><a menu-close class="button button-stable button-clear button-full" ng-click="logout()">Logout</a></p>
-          <p><a href="#/app/debug" menu-close class="button button-stable button-clear button-full">DEBUG</a></p>
-        </div>
-      </div>
+
+        <div ng-if="!globals.currentUser.isguest">
+          <ion-item menu-close href="#/app/add-card">
+            Profile
+          </ion-item>
+          <ion-item menu-close >
+            Search
+          </ion-item>
+          <ion-item menu-close href="#/app/receipts">
+            Receipt
+          </ion-item>
+          <ion-item menu-close ng-if="order.appTotal>0 && !order.is_paid" ng-click="goToOrder()">
+            Order
+          </ion-item>
+          <ion-item menu-close ng-click="logout()">
+            Logout
+          </ion-item> 
+        </div>   
+          <ion-item menu-close href="#/app/debug">
+            DEBUG
+          </ion-item>
+
+      </ion-list>
+
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
