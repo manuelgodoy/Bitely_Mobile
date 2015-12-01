@@ -605,8 +605,9 @@ ul.rating li i {
 	font-family: 'sourcesans';
 	margin-right: 16px !important;
 	/*color: rgb(68,68,68)*/
-	color: #fff;
+	/*color: #fff;*/
 	display: inline-block;
+	color: #fb7d00;
 }
 .menu-list .item-stable {
 	font-size: 18px;
@@ -636,18 +637,19 @@ ul.rating li i {
 	padding-left: 16px;
 	white-space: nowrap;
 	height: 43px;
+	background: #fff;
 }
 .lassections a.active {
 	font-weight: bold;
-	border-bottom: 4px solid #fff;
-	line-height: 40px;
+	border-bottom: 4px solid #fb7d00;;
+	line-height: 39px;
 }
 .secmenu {
-	background: #fb7d00;
+	background: #fff;
 	z-index: 1;
 	top:44px;
-	height:44px;
-	/*border-bottom: 1px solid #d26900;*/
+	height:43px;
+	border-bottom: 1px solid #d26900;
 }
 .secmenu.activado-add{
   	transition: 0.15s all ease-in;
