@@ -830,11 +830,16 @@ visibility: visible;
 .side-menu .item, .side-menu .item a {
 	background: #000;
 	color: #fff;
-	border-color: #444 !important
+	border-color: #444 !important;
+	text-transform: uppercase;
+	font-size: 13px;
 }
 .side-menu .item.activated, .side-menu .item a.activated{
 	background: #333 !important;
 	color: #fff !important;
+}
+.side-menu .item h2 {
+	text-transform: none;
 }
 
 .cardinput {

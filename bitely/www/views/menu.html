@@ -40,19 +40,17 @@
           <ion-item menu-close >
             Search
           </ion-item>
-          <ion-item menu-close href="#/app/receipts">
-            Receipt
-          </ion-item>
           <ion-item menu-close ng-if="order.appTotal>0 && !order.is_paid" ng-click="goToOrder()">
             Order
+          </ion-item>
+          <ion-item menu-close href="#/app/receipts">
+            Order History
           </ion-item>
           <ion-item menu-close ng-click="logout()">
             Logout
           </ion-item> 
         </div>   
-          <ion-item menu-close href="#/app/debug">
-            DEBUG
-          </ion-item>
+          <!-- <ion-item menu-close href="#/app/debug">DEBUG</ion-item> -->
 
       </ion-list>
 
