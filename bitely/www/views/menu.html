@@ -25,6 +25,9 @@
         <p></p>
       </div>
         <div class="logfb" ng-if="globals.currentUser.isguest">
+          <ion-item menu-close href="#/app/home">
+            Home
+          </ion-item>
           <ion-item menu-close ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid">
             Order
           </ion-item>
@@ -34,6 +37,9 @@
         </div>
 
         <div ng-if="!globals.currentUser.isguest">
+          <ion-item menu-close href="#/app/home">
+            Home
+          </ion-item>
           <ion-item menu-close href="#/app/add-card">
             Profile
           </ion-item>

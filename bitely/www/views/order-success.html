@@ -65,7 +65,7 @@
 						Subtotal
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.total | number:2}}
+						${{order.sub_total | number:2}}
 					</div>
 				</div>
 				<div class="row">
@@ -73,7 +73,7 @@
 						Tax
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.tax_rate*order.total || 0 | number:2}}
+						${{order.tax || 0 | number:2}}
 					</div>
 				</div>
  				<div class="row">
@@ -81,7 +81,7 @@
 						Tip
 					</div>
 					<div class="col col-20 order_price_">
-						${{tip.tip || 0 | number:2}}
+						${{order.tip || 0 | number:2}}
 					</div>
 				</div> 
 				<div class="row">
@@ -89,7 +89,7 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{tip.tip+(order.total*(1+order.tax_rate)) | number:2}}</strong>
+						<strong>${{order.total_paid | number:2}}</strong>
 					</div>
 				</div>
 			</div>

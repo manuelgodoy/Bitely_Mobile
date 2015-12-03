@@ -66,7 +66,7 @@ angular.module('bitely.controllers',[])
 
     $scope.fakebook = function(from){
 
-    	Login.save({access_token:"CAAT3dgau4T4BAEEdLSkD5YuzkJcpuBQ41YEWGlDJL4k7J08UAZCR1dzZCuPurmxKUrQvcfpDZAcUEBQCYLZBoSlGPOQeFeh4SOKlbEae2ig7p0PZCWNvOgK6RISZCoR3IdPaZCWDGP1s95LZA4kQJdaVRyWyQewZByxJF69ZCKi5TxsoOciC40tGXOGoNTYjMG2v1oKfQTQcKG0M7GCJKGQZAXv73w8b2UzSa8ZD"}
+    	Login.save({access_token:"CAAT3dgau4T4BANWfl8SPn440AeTINFwasSyOXNtFQjABVpkUK5qSNG4qJZCQIFegNjDn8AeNn02F6CZAAktdSyPv2poZBL1DUwRgkHWvg2yYeAIWZCijxJAkehJzRkSjPtBEpK3UL29iGiQccbeZB9wwax06vWmdZB9hapogzlVvTeN7J1im44DluoDRCZAFqSCAunv5Rvl02tEsfOiIdEbi2YE8NHH7QwZD"}
 		).$promise.then(function(res){
     		// console.log(res);
     		if (res.user!==null){
@@ -733,7 +733,7 @@ angular.module('bitely.controllers',[])
 		).$promise.then(function(user){
 			console.log(user);
  			// User.get().$promise.then(function(user){
- 				Auth.setCredentials(user.user);
+ 				Auth.setCredentials(user);
         		// $rootScope.creditcard = data.user;
         		// $localstorage.setObject('creditcard',data.user);
  			// });
