@@ -210,6 +210,16 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
     }
   })
 
+  .state('app.orderid',{
+    url:'/orderid/:id',
+    views: {
+      'appContent': {
+        templateUrl: 'views/orderid.html',
+        controller: 'OrderIdCtrl'
+      }
+    }
+  })  
+
   .state('app.order', {
     url:'/order',
     abstract:true,

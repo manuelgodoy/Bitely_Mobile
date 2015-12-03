@@ -12,13 +12,16 @@
         <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
           ${{order.appTotal | number:2}}
         </button>
-      </ion-nav-buttons>      
-	<ion-content  class="viewbg">
-		<div class="padding" style="padding-bottom:20px">
-			<h1>User</h1>
-			<pre>{{debug.user | json}}</pre>
-			<h1>Order</h1>
-			<pre>{{debug.order | json}}</pre>
-		</div>
+      </ion-nav-buttons>
+		<ion-pane class="loader" ng-if="!loaded">
+			<ion-spinner></ion-spinner>
+		</ion-pane>	      
+	<ion-content  class="viewbg_">
+		<ul class="list" ng-if="loaded">
+    		<a class="item item-avatar_" ng-repeat="order in orders" href="#/app/orderid/{{order.key}}">
+      			<h2>{{order.restaurant.name}}</h2>
+      			<p>{{order.time_paid | date:'medium'}}</p>
+    		</a>
+		</ul>
 	</ion-content>
 </ion-view>

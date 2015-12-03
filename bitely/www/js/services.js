@@ -183,6 +183,10 @@ angular.module('bitely.controllers')
 })
 .factory('Order', function($resource, $localstorage, $rootScope){
   return $resource(urlBase+'order', null, {
+        'getSingle': {
+          method: 'GET',
+        },
+
         'update': { 
           method:'PUT',
           interceptor: {

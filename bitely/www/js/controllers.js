@@ -66,7 +66,7 @@ angular.module('bitely.controllers',[])
 
     $scope.fakebook = function(from){
 
-    	Login.save({access_token:"CAAT3dgau4T4BAGkYyUpO5i3fjqraDjWDSq8oQkmZCu0oHx1mqysZCX8l88SXjQJo2uqCmzT4ViWMfFo9ZBZCQ6MmsNUsPVFmDqfJUqkxJajPO0Xpol32SpWZA6UCF6B1YQqrBlRIK48YwTMPxkgU3BqZCgLxOHIieZC5eRd42Jz2ExZCKKFI2n1lwpqdIeuRudHz2omB39yYMHZChs9nZBm3Vl803Hqai22h8ZD"}
+    	Login.save({access_token:"CAAT3dgau4T4BAEEdLSkD5YuzkJcpuBQ41YEWGlDJL4k7J08UAZCR1dzZCuPurmxKUrQvcfpDZAcUEBQCYLZBoSlGPOQeFeh4SOKlbEae2ig7p0PZCWNvOgK6RISZCoR3IdPaZCWDGP1s95LZA4kQJdaVRyWyQewZByxJF69ZCKi5TxsoOciC40tGXOGoNTYjMG2v1oKfQTQcKG0M7GCJKGQZAXv73w8b2UzSa8ZD"}
 		).$promise.then(function(res){
     		// console.log(res);
     		if (res.user!==null){
@@ -657,12 +657,30 @@ angular.module('bitely.controllers',[])
 
 .controller('ReceiptsCtrl', function($scope, Orders){
 
+	$scope.loaded = false;
+	$scope.orders = {}
+
+
 	Orders.get(function(results){
-		console.log(results);
+		$scope.orders = results.orders;
+		$scope.loaded = true;
+	})
+})
+
+.controller('OrderIdCtrl', function($scope, Order, $stateParams){
+
+	$scope.loaded = false;
+	$scope.orders = {};
+
+	Order.getSingle({
+		orderkey : $stateParams.id
+	}, function(order){
+		$scope.orders = order;
+		$scope.loaded = true;
 	})
 
-
 })
+
 
 .controller('CardCtrl', function(Auth, $cordovaToast,$scope, $timeout, User, $rootScope, $localstorage, $ionicLoading, $ionicPopup){
 	$scope.card = {};
@@ -788,6 +806,7 @@ angular.module('bitely.controllers',[])
 		if($scope.rating) {
 			Rating.save($scope.rating);
 		}
+		Order.query();
 	}
 
 

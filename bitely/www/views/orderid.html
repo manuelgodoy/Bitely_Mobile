@@ -4,10 +4,10 @@
 			<a href="#/app/home"><img src="img/logo_header.png" alt=""></a>
 		</div>
 	</ion-nav-title>
-	  <ion-nav-buttons side="right">
-	    <button class="button button-icon button-clear icon-right ion-android-close fuente-total" ng-click="goHomeRate()">
-	    </button>
-	  </ion-nav-buttons>		
+      <ion-nav-buttons side="left">
+        <a href="#/app/receipts" class="button button-icon button-clear icon-right ion-ios-arrow-left">
+        </a>
+      </ion-nav-buttons>
 	<ion-content>
 		<div class="row pasos">
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Personal</div>
@@ -15,16 +15,13 @@
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Confirm</div>
 			<div class="col-25 col"><span class="circle checked"><i class="icon ion-checkmark"></i></span>Payment</div>
 		</div>
-		<header class="title padding">
-			<h1>Success</h1>
-			<h2>Thanks for using Bitely<h2>
-		</header>
-		<div class="order" ng-if="order.restaurant.name">
+
+		<div class="order" ng-if="orders.restaurant.name">
 			<div class="restaurant padding">
-				<h1>{{order.restaurant.name}}</h1>
+				<h1>{{orders.restaurant.name}}</h1>
 			</div>
 			<div class="plates">
-				<div class="plate" ng-repeat="plate in order.order_plates track by $index" ng-if="plate.quantity>0">
+				<div class="plate" ng-repeat="plate in orders.order_plates track by $index" ng-if="plate.quantity>0">
 					<div class="row">
 						<div class="col col-10">
 							{{plate.quantity}}x
@@ -51,12 +48,6 @@
 								<span ng-if="option.price">${{option.price | number:2}}</span>
 							</div>
 						</div>
-					<div class="row ratepay" ng-controller="rateController">
-						<div class="col col-10"></div>
-						<div class="col">
-							<rating ng-model="rate" max="5" ng-change="hechanged(plate.menu_item.key)"></rating>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="totals">
@@ -65,7 +56,7 @@
 						Subtotal
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.total | number:2}}
+						${{orders.sub_total | number:2}}
 					</div>
 				</div>
 				<div class="row">
@@ -73,7 +64,7 @@
 						Tax
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.tax_rate*order.total || 0 | number:2}}
+						${{orders.tax || 0 | number:2}}
 					</div>
 				</div>
  				<div class="row">
@@ -81,7 +72,7 @@
 						Tip
 					</div>
 					<div class="col col-20 order_price_">
-						${{tip.tip || 0 | number:2}}
+						${{orders.tip || 0 | number:2}}
 					</div>
 				</div> 
 				<div class="row">
@@ -89,7 +80,7 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{tip.tip+(order.total*(1+order.tax_rate)) | number:2}}</strong>
+						<strong>${{orders.total | number:2}}</strong>
 					</div>
 				</div>
 			</div>

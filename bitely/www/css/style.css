@@ -825,8 +825,17 @@ visibility: visible;
 
 .side-menu .item-avatar{
 	/*background: #333 !important;*/
+	height: 112px;
+	padding-left: 110px;
+}
+
+.side-menu .item-avatar img{
+	max-width: 80px !important;
+	max-height: 80px !important;
 }
 .side-menu .item-avatar h2 {
+	padding-top: 10px;
+	font-size: 21px;
 	/*color: #ffF*/
 }
 .side-menu .item, .side-menu .item a {
