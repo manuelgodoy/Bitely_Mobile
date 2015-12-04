@@ -49,7 +49,7 @@ angular.module('bitely.controllers')
 
   service.setCredentials = function(todalainfo){
 
-      console.log(todalainfo)
+      // console.log(todalainfo)
 
       if (!todalainfo.isguest) {
 
@@ -94,7 +94,7 @@ angular.module('bitely.controllers')
   service.clearCredentials = function(){
       Ionic.io();
       var push = new Ionic.Push({
-        "debug": true
+        // "debug": true
       });      
       var user = Ionic.User.current();
       // user.removePushToken(pushToken);

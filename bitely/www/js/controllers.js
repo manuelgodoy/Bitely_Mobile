@@ -19,6 +19,7 @@ angular.module('bitely.controllers',[])
 	$scope.getHistory = function(){
 		// console.log($ionicHistory.viewHistory());
 	}
+
 	$scope.login = function(from){
 	$ionicBackdrop.retain();
     $cordovaFacebook.login(["email","user_friends"])
@@ -925,7 +926,7 @@ angular.module('bitely.controllers',[])
  			// User.get().$promise.then(function(user){
         		// $rootScope.creditcard = data.user;
         		// $localstorage.setObject('creditcard',data.user);
-        		Auth.setCredentials(user.user);
+        		Auth.setCredentials(user);
  			// });
 	   		document.getElementById('cvc').value = "";
 	   		document.getElementById('month').value = "";
