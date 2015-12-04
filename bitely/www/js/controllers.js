@@ -201,7 +201,7 @@ angular.module('bitely.controllers',[])
 	$scope.user_loc = test_location;
 
 
-	var posOptions = {timeout: 10000, enableHighAccuracy: false};
+	var posOptions = {timeout: 10000, enableHighAccuracy: true};
 
 
 	$scope.places = {};
@@ -248,7 +248,7 @@ angular.module('bitely.controllers',[])
       	$cordovaGeolocation.getCurrentPosition(posOptions)
     	.then(function (position) {
 			$scope.user_loc = {
-	      		lat  : position.coords.latitude, lon : position.coords.longitude, rad : 500
+	      		lat  : position.coords.latitude, lon : position.coords.longitude, rad : 200
 	  		}
   			gLocation.update({latitude:position.coords.latitude, longitude:position.coords.longitude});
 	  		Venues.get($scope.user_loc)
