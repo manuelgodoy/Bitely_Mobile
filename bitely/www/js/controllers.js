@@ -188,7 +188,7 @@ angular.module('bitely.controllers',[])
 	$scope.moreDataCanBeLoaded = false;
 
 	$scope.loaded = false;
-
+	$scope.error = false;
 	$scope.getlocation = false;
 
 	$scope.user_loc = {};
@@ -201,37 +201,40 @@ angular.module('bitely.controllers',[])
 	$scope.user_loc = test_location;
 
 
-	var posOptions = {timeout: 10000, enableHighAccuracy: true};
+	var posOptions = {timeout: 7000, enableHighAccuracy: true};
 
 
 	$scope.places = {};
 
-  	
-
 	ionic.Platform.ready(function(){
+
+		console.log('plataform ready');
+
   	  	$cordovaGeolocation.getCurrentPosition(posOptions)
 	    .then(function (position) {
+
 			$scope.user_loc = {
 	      		lat  : position.coords.latitude, 
 	      		lon : position.coords.longitude, 
 	      		rad : 200
 	  		}
+
 	  		gLocation.update({latitude:position.coords.latitude, longitude:position.coords.longitude});
+
 	  		$scope.getlocation = true;
+
 	  		Venues.get($scope.user_loc)
 	  		.$promise.then(function(data) {
 	    		$scope.places = data.venue_list;
 				$scope.loaded = true;
 	  		}, function(){
-	  			$cordovaToast.show('Using test locations (server error 500)', 'short', 'bottom');
-	  			Venues.get(test_location)
-	  			.$promise.then(function(data) {
-	    			$scope.places = data.venue_list;
-					$scope.loaded = true;
-				})
+	  			$cordovaToast.show('No restaurants found in this location', 'short', 'bottom');
+				$scope.loaded = true;
+				// $scope.error = true;
 	  		});
+
 	    }, function(err) {
-	  		$cordovaToast.show('No geolocation found, pull to refresh', 'short', 'bottom');
+	  		$cordovaToast.show("No location services are on! Please activate Wireless or GPS location services in 'Settings'", 'short', 'bottom');
 	  			Venues.get(test_location)
 	  			.$promise.then(function(data) {
 	    			$scope.places = data.venue_list;
@@ -258,7 +261,7 @@ angular.module('bitely.controllers',[])
 	  			$scope.$broadcast('scroll.refreshComplete');
 	  		});	  		
     	}, function(err) {
-  			$cordovaToast.show('No geolocation found', 'short', 'bottom');
+  			$cordovaToast.show("No location services are on! Please activate Wireless or GPS location services in 'Settings'", 'short', 'bottom');
   			$scope.$broadcast('scroll.refreshComplete');
     	});
 	};
