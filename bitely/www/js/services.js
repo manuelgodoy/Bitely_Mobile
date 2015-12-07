@@ -201,7 +201,7 @@ angular.module('bitely.controllers')
               $rootScope.order.is_posted = order.data.is_posted;
               $rootScope.order.is_paid = order.data.is_paid;
               // if (!$rootScope.order.total) $rootScope.order.total = order.data.total;
-              $rootScope.order.appTotal = order.data.total;
+              $rootScope.order.appTotal = order.data.sub_total;
               $rootScope.order.tax_rate = order.data.tax_rate;
               $rootScope.order.restaurant = order.data.restaurant;
               $localstorage.setObject('order',$rootScope.order);
@@ -223,7 +223,7 @@ angular.module('bitely.controllers')
               //   }
               // });
               $rootScope.order = order.data;
-              $rootScope.order.appTotal = order.data.total;
+              $rootScope.order.appTotal = order.data.sub_total;
               if (order.data.is_paid) {
                 $rootScope.order.appTotal = 0;
                 // order.data.total = 0;
@@ -249,7 +249,7 @@ angular.module('bitely.controllers')
               //   }
               // });
               $rootScope.order = order.data;
-              $rootScope.order.appTotal = order.data.total;
+              $rootScope.order.appTotal = order.data.sub_total;
               $localstorage.setObject('order',order.data);
             },
             responseError: function (data) {
