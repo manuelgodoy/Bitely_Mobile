@@ -67,7 +67,7 @@ angular.module('bitely.controllers',[])
 
     $scope.fakebook = function(from){
 
-    	Login.save({access_token:"CAAT3dgau4T4BANWfl8SPn440AeTINFwasSyOXNtFQjABVpkUK5qSNG4qJZCQIFegNjDn8AeNn02F6CZAAktdSyPv2poZBL1DUwRgkHWvg2yYeAIWZCijxJAkehJzRkSjPtBEpK3UL29iGiQccbeZB9wwax06vWmdZB9hapogzlVvTeN7J1im44DluoDRCZAFqSCAunv5Rvl02tEsfOiIdEbi2YE8NHH7QwZD"}
+    	Login.save({access_token:"CAAT3dgau4T4BACDTMsdS4jXtDzKojF4h3oxAfLv0I0a03QG6dcQsdMYnij0Gvp1DpgaKmKBYsdLGFbNaLMfqRKLU5tPmC5WaJEw7ZC6lm0hACztQOcvwozjsuo7cpsV3vZAqe6BV82V3iV1buK7c8lBPY3oDv2q8ASfiKkqsLwMj6LJ4F5zS2V17X9sGqoFQFoUENNY1WHm55wClEfMR6A9CYZANo8ZD"}
 		).$promise.then(function(res){
     		// console.log(res);
     		if (res.user!==null){
