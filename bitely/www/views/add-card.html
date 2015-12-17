@@ -20,7 +20,7 @@
 			<h2 ng-if="!globals.currentUser.has_customertoken">Enter your debit or credit card details below:</h2>
 		</header>
 		<form stripe-form="stripeCallback" name="card.checkoutForm" id="elform">
-
+			<pre>{{card | json}}</pre>
 			<div class="cardinput">
 				<span>Card No</span>
 			    <input type="tel" ng-model="number"  payments-format="card" payments-validate="card" required placeholder="{{globals.currentUser.stripe_data.sources.data[0].last4 || ''}}" id="number" pattern="[0-9]*">

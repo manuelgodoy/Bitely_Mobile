@@ -64,7 +64,7 @@
                   <div class="item itemmenospadding">{{plate.name || plate.text}}
                   </div>
                   <div class="item itemvenue">
-                    <img ng-src="img/rating{{(plate.rating_average|number:0) ||'none' }}.png" class="ratingimg">
+                    <img ng-src="img/rating{{ Math.round(plate.rating_average*2)*5 ||'none' }}.png" class="ratingimg">
                   </div>
                 </div>
               </div>

@@ -305,7 +305,9 @@ body {
 }
 p.asguest {
 	position: relative;
-
+}
+.centered {
+	text-align: center;
 }
 p.asguest a.button {
 	color: #fff;

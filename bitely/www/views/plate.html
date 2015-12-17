@@ -28,7 +28,9 @@
 	  			</div>
 	  			<div class="col col-25 ratingplate">
 					<h3><span ng-if="plate.price">${{plate.price | number:2}}</span></h3>
-					<rating ng-model="plate.rating_average" max="5" readonly="true"></rating>
+                  <div >
+                    <img style="float:right" ng-src="img/rating{{ Math.round(plate.rating_average*2)*5 ||'none' }}.png" class="ratingimg">
+                  </div>
 	  			</div>
 	  		</div>
 	  	</header>

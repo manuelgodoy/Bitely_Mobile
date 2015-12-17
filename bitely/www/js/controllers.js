@@ -1,7 +1,8 @@
 angular.module('bitely.controllers',[])
 .controller('AppCtrl', 
-	function(returnToState, Login, Order, $ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, 
-		$http, $localstorage, $rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, $cordovaFacebook, $ionicHistory) {
+	function(returnToState, Login, Order, EmailSignUp, EmailLogin, $ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, 
+		$http, $localstorage, $rootScope, $scope, $location, $ionicLoading, $timeout, $ionicPopup, 
+		$cordovaFacebook, $ionicHistory, $ionicModal) {
 
 	//ALTO DE LA CARD
 	$rootScope.todoAlto = $window.innerHeight;
@@ -14,6 +15,128 @@ angular.module('bitely.controllers',[])
 	$rootScope.venueImageInner = {height:($window.innerWidth)*174/250+'px', width:$window.innerWidth+'px'}
 	// $rootScope.plateImage = {height:$window.innerWidth*.4+'px', width:$window.innerWidth*.4+'px'}
 	$rootScope.plateImage = {height:(($window.innerWidth)*.5*800/800)-25+'px'}
+
+	$ionicModal.fromTemplateUrl('views/loginmodal.html', {
+		scope: $scope,
+    	animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.loginModal = modal;
+		$scope.loginModal.form = {boton: 'Log In', loading:false};
+
+	});
+	$ionicModal.fromTemplateUrl('views/signupmodal.html', {
+		scope: $scope,
+    	animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.signupModal = modal;
+		$scope.signupModal.form = {boton: 'Sign Up', loading:false};
+
+	});	
+
+	$scope.emailSignUp = function(from){
+		$scope.signupModal.form.from = from;
+		$scope.signupModal.form.boton = 'Sign Up';
+		$scope.signupModal.form.loading = false;
+		$scope.signupModal.form.error = false;
+		$scope.signupModal.show();
+	}
+
+	$scope.closeSignupModal = function(){
+		$scope.signupModal.hide();
+	}
+
+	$scope.emailSignupSubmit = function(){
+		$scope.signupModal.form.boton = 'Signing in...';
+		$scope.signupModal.form.loading = true;
+		$scope.signupModal.form.error = false;
+		EmailSignUp.save({
+			email: $scope.signupModal.form.email,
+			password: $scope.signupModal.form.password,
+			first_name: $scope.signupModal.form.fname,
+			last_name: $scope.signupModal.form.lname
+		}).$promise.then(
+		function(res) {
+			if (res.user!==null) {
+				Auth.setCredentials(res.user);
+				Order.query();
+				$scope.signupModal.form.boton = 'Sign Un';
+				$scope.signupModal.form.loading = false;
+		 		if  ($scope.signupModal.form.from==='home') {
+					$location.path('/app/home');
+		 		}
+
+		 		if  ($scope.signupModal.form.from==='order') {
+		 			if (!$rootScope.globals.currentUser.has_customertoken) {
+		 				$location.path('/app/order/card');
+		 			} else {
+		 				$location.path('/app/order/confirm');
+		 			}
+		 		}
+				$scope.signupModal.hide();
+	 		} else {
+				$scope.signupModal.form.boton = 'Sign Un';
+				$scope.signupModal.form.loading = false;
+				$scope.signupModal.form.error = "Sign Up Error";
+	 		}
+		}, function(error){
+			$scope.signupModal.form.boton = 'Sign Un';
+			$scope.signupModal.form.loading = false;
+			$scope.signupModal.form.error = "Sign Up Error";
+			console.log(error);
+		});		
+	}
+
+	$scope.emailLogin = function(from){
+		$scope.loginModal.form.from = from;
+		$scope.loginModal.form.boton = 'Log In';
+		$scope.loginModal.form.loading = false;
+		$scope.loginModal.form.error = false;
+		$scope.loginModal.show();
+	}
+
+	$scope.closeLoginModal = function(){
+		$scope.loginModal.hide();
+	}
+
+	$scope.emailLoginSubmit = function(){
+		$scope.loginModal.form.boton = 'Logging in...';
+		$scope.loginModal.form.loading = true;
+		$scope.loginModal.form.error = false;
+		EmailLogin.save({
+			email: $scope.loginModal.form.email,
+			password: $scope.loginModal.form.password
+		}).$promise.then(
+		function(res) {
+			if (res.user!==null) {
+				Auth.setCredentials(res.user);
+				Order.query();
+				$scope.loginModal.form.boton = 'Log In';
+				$scope.loginModal.form.loading = false;
+		 		if  ($scope.loginModal.form.from==='home') {
+					$location.path('/app/home');
+		 		}
+
+		 		if  ($scope.loginModal.form.from==='order') {
+		 			if (!$rootScope.globals.currentUser.has_customertoken) {
+		 				$location.path('/app/order/card');
+		 			} else {
+		 				$location.path('/app/order/confirm');
+		 			}
+		 		}
+				$scope.loginModal.hide();
+	 		} else {
+				$scope.loginModal.form.boton = 'Login';
+				$scope.loginModal.form.loading = false;
+				$scope.loginModal.form.error = "Login Error";
+	 		}
+		}, function(error){
+			$scope.loginModal.form.boton = 'Login';
+			$scope.loginModal.form.loading = false;
+			$scope.loginModal.form.error = "Login Error";
+			console.log(error);
+		});		
+	}
+
 
 
 	$scope.getHistory = function(){
@@ -67,7 +190,7 @@ angular.module('bitely.controllers',[])
 
     $scope.fakebook = function(from){
 
-    	Login.save({access_token:"CAAT3dgau4T4BADJztkphjxkGYKm0RWfGj0ZBx86ZBybGuJPnU5VFRNOWuHDZCP52s6v6mW2pg95o8CzmoPkS01WmMODqZCn9qCoc6AuBomIlwxFJpDCSwF1nVepd6DJP6IjWnQpVKXLpNJiUGC9ABgJHjUAJy9nzu4dcCZBpxWwICq99AZBQ4tsVickQZCRq0wdczJb6Y5o3FiZCbCU22QOZBMk83ImTuQXUZD"}
+    	Login.save({access_token:"CAAT3dgau4T4BAFLoP94ZA4uRgzRZBPLUy3LoZAk196SV2NQPR6egh6Su8PKGylLa1XZBJZAOJs6Wra9pxFZAfDxiJ2kEUvgxszZCZCQVhP0ToWek6FZCG4u3Dc5Qa2DMZBHChoeY1A4FUDEX90bIbg4CUwnnDdnOiSyPTnN8PChFkOzBZAirZCejdC2OhEzKSKTO7fLA99quD2pH00JYldKs9ypJ"}
 		).$promise.then(function(res){
     		// console.log(res);
     		if (res.user!==null){
@@ -277,6 +400,8 @@ angular.module('bitely.controllers',[])
  //  	};      
 })
 .controller('VenueCtrl', function( $window, $ionicPopover, $ionicScrollDelegate, $ionicPlatform, $location, $cordovaToast, $scope, $stateParams, $rootScope, $timeout, $ionicModal, $http, Venue, Menu, Order){
+
+	$scope.Math = window.Math;
 
     $ionicPlatform.registerBackButtonAction(
         function () {
@@ -522,6 +647,7 @@ angular.module('bitely.controllers',[])
 .controller('PlateCtrl', function( $ionicHistory, Item, Order, $location, $ionicPlatform, $rootScope, $stateParams, $scope, $timeout, $http, $ionicModal, $cordovaToast) {
 
 	$scope.plate = {};
+	$scope.Math = window.Math;
 
 	$scope.loaded = false;
 

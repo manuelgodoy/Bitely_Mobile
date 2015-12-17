@@ -1,0 +1,28 @@
+<ion-view view-title="Email Login">
+  <ion-header-bar class="bar-royal">
+  <div class="h1 title">Sign Up</div>
+  <button class="button button-icon button-clear icon-right ion-close" ng-click="closeSignupModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+  		<p class="padding centered" ng-if="signupModal.form.error">{{signupModal.form.error}}</p>
+		<form style="" name="signupForm" ng-submit="emailSignupSubmit()">
+			<div class="list list-inset">
+				<label class="item item-input">
+					<input type="text" placeholder="First Name" ng-model="signupModal.form.fname" required>
+				</label>
+				<label class="item item-input">
+					<input type="text" placeholder="Last Name" ng-model="signupModal.form.lname" required>
+				</label>
+				<label class="item item-input">
+					<input type="email" placeholder="Email" ng-model="signupModal.form.email" required>
+				</label>
+				<label class="item item-input">
+					<input type="password" placeholder="Password" ng-model="signupModal.form.password" required>
+				</label>		
+			<button class="button button-block button-royal" ng-disabled="signupForm.$invalid || signupModal.form.loading">
+				{{signupModal.form.boton}}
+			</button>
+			</div>
+		</form>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,22 @@
+<ion-view view-title="Email Login">
+  <ion-header-bar class="bar-royal">
+  <div class="h1 title">Email Login</div>
+  <button class="button button-icon button-clear icon-right ion-close" ng-click="closeLoginModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+  		<p class="padding centered" ng-if="loginModal.form.error">{{loginModal.form.error}}</p>
+		<form style="" name="loginForm" ng-submit="emailLoginSubmit()">
+			<div class="list list-inset">
+				<label class="item item-input">
+					<input type="email" placeholder="Email" ng-model="loginModal.form.email" required>
+				</label>
+				<label class="item item-input">
+					<input type="password" placeholder="Password" ng-model="loginModal.form.password" required>
+				</label>		
+			<button class="button button-block button-royal" ng-disabled="loginForm.$invalid || loginModal.form.loading">
+				{{loginModal.form.boton}}
+			</button>
+			</div>
+		</form>
+  </ion-content>
+</ion-view>

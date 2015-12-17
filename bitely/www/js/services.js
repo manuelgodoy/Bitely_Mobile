@@ -115,7 +115,12 @@ angular.module('bitely.controllers')
 .factory('Login', function($resource){
   return $resource('https://www.bitely.io/facebook_login_app');
 })
-
+.factory('EmailLogin', function($resource){
+  return $resource('https://www.bitely.io/generic_login_app');
+})
+.factory('EmailSignUp', function($resource){
+  return $resource('https://www.bitely.io/generic_signup_app');
+})
 .factory('Venues', function($resource){
   return $resource(urlBase+'venue_list');
 })
