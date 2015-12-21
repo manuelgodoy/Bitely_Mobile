@@ -91,11 +91,19 @@ angular.module('bitely.controllers')
       var titulin = $document[0].body.querySelector('.titlemargin');
       var menusin = $document[0].body.querySelector('.secmenu');
       
-      function onScroll(e) {
-        var scrollTop = e.detail.scrollTop;
-          y = 0;
-          opa = 1;
-          otroFade = 0;
+      element.bind('scroll', function(e) {
+        var scrollTop = null;
+        y = 0;
+        opa = 1;
+        otroFade = 0;        
+        if(e.detail){
+          scrollTop = e.detail.scrollTop;
+        } else if(e.target){
+          scrollTop = e.target.scrollTop;
+        }
+
+      // function onScroll(e) {
+      //   var scrollTop = e.detail.scrollTop;
 
         // console.log($rootScope)
 
@@ -108,38 +116,17 @@ angular.module('bitely.controllers')
           opa = 1;
           otroFade = 0;
         }
-        // console.log(otroFade);
-
         ionic.requestAnimationFrame(function() {
-
-          // console.log(scrollTop-headerHeight);
-
-          // header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
           header.style.opacity = opa;
           bar.style.backgroundColor = 'rgba(251,125,0,'+(otroFade)+')';
           menusin.style.opacity = otroFade;
           menusin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*-20 + 'px, 0)';
           titulin.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + (otroFade-1)*250 + '%, 0)';
-          // menusin.style.height = otroFade*44+'px';
-          // bar.style.borderColor = 'rgba(251,125,0,'+(1-opa)+')';
-          // if(y >= headerHeight && $rootScope.headerFade === false) {
-          //   // console.log('kl;ajsldk');
-          //   $rootScope.headerFade = true;
-          //   $rootScope.$apply();
-          // } 
-          // if(y < headerHeight && $rootScope.headerFade === true) {
-          //   $rootScope.headerFade = false;
-          //   $rootScope.$apply();
-          // }
-          // for(var i = 0, j = header.children.length; i < j; i++) {
-          //   header.children[i].style.opacity = fadeAmt;
-          // }
+
         });
 
         prevY = scrollTop;
-      }
-
-      element.bind('scroll', onScroll);
+      })
     }
   }
 });

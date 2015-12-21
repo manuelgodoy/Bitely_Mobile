@@ -462,7 +462,7 @@ angular.module('bitely.controllers',[])
   $scope.activarSection = function(section){
   	$scope.loadsection = true;
   	$timeout(function(){
-  		$ionicScrollDelegate.$getByHandle('venueContent').scrollTo(0,-43-44+($window.innerWidth)*174/250);
+  		$ionicScrollDelegate.$getByHandle('venueContent').scrollTo(0,-42-44+($window.innerWidth)*174/250);
   		$scope.loadsection = false;
   		$scope.shownGroup.section = section;
   		$ionicScrollDelegate.$getByHandle('venueContent').resize();
@@ -475,7 +475,7 @@ angular.module('bitely.controllers',[])
   	$scope.shownGroup = menu;
   	$scope.shownGroup.section = menu.sections[0];
   	$ionicScrollDelegate.$getByHandle('submenu').scrollTo(0,0);
-  	$ionicScrollDelegate.$getByHandle('venueContent').scrollTo(0,-43-44+($window.innerWidth)*174/250);
+  	$ionicScrollDelegate.$getByHandle('venueContent').scrollTo(0,-42-44+($window.innerWidth)*174/250);
   	
   	$scope.popover.hide();
   }
