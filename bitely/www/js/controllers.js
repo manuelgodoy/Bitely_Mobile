@@ -62,6 +62,10 @@ angular.module('bitely.controllers',[])
 				$scope.signupModal.form.boton = 'Sign Un';
 				$scope.signupModal.form.loading = false;
 		 		if  ($scope.signupModal.form.from==='home') {
+		 			$ionicHistory.nextViewOptions({
+					    disableAnimate: true,
+					    disableBack: true
+					});
 					$location.path('/app/home');
 		 		}
 
@@ -113,6 +117,10 @@ angular.module('bitely.controllers',[])
 				$scope.loginModal.form.boton = 'Log In';
 				$scope.loginModal.form.loading = false;
 		 		if  ($scope.loginModal.form.from==='home') {
+		 			$ionicHistory.nextViewOptions({
+					    disableAnimate: true,
+					    disableBack: true
+					});
 					$location.path('/app/home');
 		 		}
 
@@ -154,6 +162,10 @@ angular.module('bitely.controllers',[])
 			Order.query();
 			$ionicBackdrop.release();
 	 		if  (from==='home') {
+	 			$ionicHistory.nextViewOptions({
+				    disableAnimate: true,
+				    disableBack: true
+				});
 				$location.path('/app/home');
 	 		}
 
@@ -199,6 +211,10 @@ angular.module('bitely.controllers',[])
 			Order.query();
 			$ionicBackdrop.release();
 	 		if  (from==='home') {
+	 			$ionicHistory.nextViewOptions({
+				    disableAnimate: true,
+				    disableBack: true
+				});
 				$location.path('/app/home');
 	 		}
 
@@ -249,6 +265,10 @@ angular.module('bitely.controllers',[])
    		confirmPopup.then(function(res) {
      	if(res) {
      		Auth.clearCredentials();
+ 			$ionicHistory.nextViewOptions({
+			    disableAnimate: true,
+			    disableBack: true
+			});
 			$location.path('/splash');
      	}
    		});
@@ -302,11 +322,11 @@ angular.module('bitely.controllers',[])
 })
 .controller('HomeCtrl', function($ionicPlatform,$cordovaToast, $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
 
-    $ionicPlatform.registerBackButtonAction(
-        function () {
-           ionic.Platform.exitApp();
-        }, 100
-	);
+ //    $ionicPlatform.registerBackButtonAction(
+ //        function () {
+ //           ionic.Platform.exitApp();
+ //        }, 100
+	// );
 
 	$scope.moreDataCanBeLoaded = false;
 
@@ -403,11 +423,11 @@ angular.module('bitely.controllers',[])
 
 	$scope.Math = window.Math;
 
-    $ionicPlatform.registerBackButtonAction(
-        function () {
-            $location.path('/app/home');
-        }, 100
-	)
+ //    $ionicPlatform.registerBackButtonAction(
+ //        function () {
+ //            $location.path('/app/home');
+ //        }, 100
+	// )
 	$scope.opaopa = 1
    	$scope.escrolliando = function(){
    		ionic.requestAnimationFrame(function() {
@@ -657,11 +677,11 @@ angular.module('bitely.controllers',[])
 		$scope.plate = plate.item;
 		$scope.loaded =  true;
 
-	    $ionicPlatform.registerBackButtonAction(
-	        function () {
-	            $location.path('/app/menu/'+plate.item.restaurant.restaurant_id+'/'+plate.item.restaurant.name)
-	        }, 100
-		);
+	 //    $ionicPlatform.registerBackButtonAction(
+	 //        function () {
+	 //            $location.path('/app/menu/'+plate.item.restaurant.restaurant_id+'/'+plate.item.restaurant.name)
+	 //        }, 100
+		// );
 
 	});
 
@@ -911,7 +931,7 @@ angular.module('bitely.controllers',[])
 
 	}
 })
-.controller('OrderCtrl', function(Rating, returnToState, Auth, returnToState, $state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
+.controller('OrderCtrl', function(Rating, returnToState, Auth, returnToState, $ionicHistory, $state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay){
 	$scope.loaded = true;
 
 	// $scope.$on('$stateChangeSuccess', 
@@ -930,6 +950,10 @@ angular.module('bitely.controllers',[])
 
 
 	$scope.goHomeRate = function(){
+		$ionicHistory.nextViewOptions({
+		    disableAnimate: true,
+		    disableBack: true
+		});
 		returnToState('app.home', true);
 		$rootScope.scroll = 0;
 		// $location.path('/app/home');
@@ -940,11 +964,11 @@ angular.module('bitely.controllers',[])
 	}
 
 
-    $ionicPlatform.registerBackButtonAction(
-        function () {
-            $location.path('/app/menu/'+$rootScope.restaurant.restaurant_id+'/'+$rootScope.restaurant.name)
-        }, 100
-	);
+ //    $ionicPlatform.registerBackButtonAction(
+ //        function () {
+ //            $location.path('/app/menu/'+$rootScope.restaurant.restaurant_id+'/'+$rootScope.restaurant.name)
+ //        }, 100
+	// );
 
 	$scope.card = {};
 
@@ -1094,6 +1118,10 @@ angular.module('bitely.controllers',[])
 
 	$scope.goMenu = function(){
 
+		$ionicHistory.nextViewOptions({
+		    disableAnimate: true,
+		    disableBack: true
+		});
 		returnToState('app.venue');
 
 		// if ($rootScope.order.restaurant && $rootScope.order.restaurant.restaurant_id) {
