@@ -902,6 +902,9 @@ angular.module('bitely.controllers',[])
 })
 .controller('rateController', function($scope){
 	$scope.rate = {};
+	$scope.$parent.rating = {
+		ratings : []
+	};
 
 
 	$scope.hechanged = function(key){
@@ -1028,7 +1031,7 @@ angular.module('bitely.controllers',[])
 		Order.update(order);
 	}
 
-	$scope.tip = {};
+	$scope.tip = 0;
 	$scope.doPay = function(){
 		$ionicLoading.show({
       		template: '<ion-spinner class="color_white"></ion-spinner>'

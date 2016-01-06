@@ -14,7 +14,12 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   Ionic.io();
   var user = Ionic.User.current();
 
+  // DEV
   $window.Stripe.setPublishableKey('pk_test_knVqvEMFxZsgserDdUhovk24');
+
+  // PROD
+  // $window.Stripe.setPublishableKey('pk_live_2iaARh4PfVVs2hZCFPMGO8iG');
+
 
   $rootScope.globals = $localstorage.getObject('globals') || {};
   $rootScope.order   = $localstorage.getObject('order') || {};
@@ -223,6 +228,7 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
   .state('app.order', {
     url:'/order',
+    cache:false,
     abstract:true,
     views: {
       'appContent': {
@@ -253,7 +259,6 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   })
 
   .state('app.order.confirm', {
-    cache:false,
     url:'/confirm',
     views: {
       'orderContent': {
@@ -265,7 +270,6 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
   .state('app.order.payment', {
     url:'/payment',
-    cache:false,
     views: {
       'orderContent': {
         //controller: 'OrderCtrl',

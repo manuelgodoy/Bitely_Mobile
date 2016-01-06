@@ -1,4 +1,12 @@
-var urlBase = "https://www.bitely.io/bitely/api/v3.0/";
+
+//LIVE
+// var dominio = "www.bitely.io";
+
+//DEV
+var dominio = "www.bitely-test.appspot.com";
+
+
+var urlBase = "https://"+dominio+"/bitely/api/v3.0/";
 
 angular.module('bitely.controllers')
 
@@ -100,7 +108,7 @@ angular.module('bitely.controllers')
       // user.removePushToken(pushToken);
 
       $rootScope.globals = {};
-      $http.get('https://www.bitely.io/logout_app');
+      $http.get('https://'+dominio+'/logout_app');
       $localstorage.setObject('globals',{});
       $localstorage.remove('ionic_io_user_e739e0e8');
       $cookies.remove("session");
@@ -113,13 +121,13 @@ angular.module('bitely.controllers')
   return service;
 })
 .factory('Login', function($resource){
-  return $resource('https://www.bitely.io/facebook_login_app');
+  return $resource('https://'+dominio+'/facebook_login_app');
 })
 .factory('EmailLogin', function($resource){
-  return $resource('https://www.bitely.io/generic_login_app');
+  return $resource('https://'+dominio+'/generic_login_app');
 })
 .factory('EmailSignUp', function($resource){
-  return $resource('https://www.bitely.io/generic_signup_app');
+  return $resource('https://'+dominio+'/generic_signup_app');
 })
 .factory('Venues', function($resource){
   return $resource(urlBase+'venue_list');
