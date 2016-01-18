@@ -1,9 +1,9 @@
 
 //LIVE
-// var dominio = "www.bitely.io";
+// var dominio = "bitely.io";
 
 //DEV
-var dominio = "www.bitely-test.appspot.com";
+var dominio = "bitely-test.appspot.com";
 
 
 var urlBase = "https://"+dominio+"/bitely/api/v3.0/";
