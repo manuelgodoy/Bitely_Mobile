@@ -10,7 +10,7 @@
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.appTotal | number:2}}
+          {{order.appTotal | number:0}}
         </button>
       </ion-nav-buttons>      
 		<ion-pane class="loader" ng-if="!loaded">
@@ -27,11 +27,11 @@
 			<h2 class="titulo-near">Places near you <i class="icon ion-navigate color-naranja"></i></h2>
 
 			<div class="list card cardvenue"  ng-repeat="place in places">
-				<a class="item item-image" href="#/app{{place.menu_url}}" ng-style="venueImage">
+				<a class="item item-image" href="#/app{{place.menu_url}}" ng-style="venueImage" ion-track-tap="Tap Restaurant" ion-track-data="{ name: place.name, id: place.rest_id }">
 					<img ng-src="{{place.picture}}" err-src >
 				</a>
-				<a class="item" href="#/app{{place.menu_url}}">
-					<h2>{{place.name}}</h2>
+				<a class="item" href="#/app{{place.menu_url}}" ion-track-tap="Tap Restaurant" ion-track-data="{ name: place.name, id: place.rest_id }">
+					<h2>{{place.name}} <img src="img/closed.png" alt="" class="imgresponse" ng-if="!place.is_open"/></h2>
 					<div class="row">
 						<div class="col col-80">
 							{{place.street_address}}

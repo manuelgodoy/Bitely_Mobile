@@ -96,15 +96,24 @@
 						</div>
 				</div>
 			</div>
-			<div class="totals">			
-			<form name="">
-				<div class="list">
-				  <label class="item item-input item-stacked-label">
-				    <span class="input-label">Would you like to add tip:</span>
-				    <input type="number" ng-model="tip.tip">
-				  </label>
+			<div class="totals">
+				<div class="row">
+					<div class="col col-80">
+						Would you like to add tip:
+					</div>
+					<div class="col col-20 order_price_">
+						${{tip.tip | number:2}}
+					</div>
 				</div>
-			</form>			
+				<div class="row">
+					<div class="button-bar">
+						<a class="button" ng-click="addTip(0)" ng-class="{active: tip.porc === 0}">0%</a>
+						<a class="button" ng-click="addTip(15)" ng-class="{active: tip.porc === 15}">15%</a>
+						<a class="button" ng-click="addTip(18)" ng-class="{active: tip.porc === 18}">18%</a>
+						<a class="button" ng-click="addTip(20)" ng-class="{active: tip.porc === 20}">20%</a>
+					</div>
+				</div>
+			</div>		
 			<div class="totals">
 				<div class="row">
 					<div class="col col-80">

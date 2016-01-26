@@ -3,16 +3,16 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
+angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
 
-.run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
+.run(function($ionicAnalytics, $http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
+
+
   // 1646690858946373
   // cookie: session
   
   //ngFB.init({appId: '1397986197168446'});
 
-  Ionic.io();
-  var user = Ionic.User.current();
 
   // DEV
   $window.Stripe.setPublishableKey('pk_test_knVqvEMFxZsgserDdUhovk24');
@@ -45,12 +45,25 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
   $ionicPlatform.ready(function() {
 
+
+  Ionic.io();
+  var user = Ionic.User.current();
+
+    //ANALITYCS 
+
+    $ionicAnalytics.register({
+      // dryRun: true
+    });
+
+
     //PUSH
     var push = new Ionic.Push({
       // "debug": true,
       onNotification: function(notification){
-        $state.go('app.order.success');
-        console.log(notification);
+        
+        // $state.go('app.order.success');
+        $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
+        console.log('notilog',notification);
       },
       "pluginConfig": {
         "ios": {
@@ -109,8 +122,12 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   });
 })
 
-.config(function($stateProvider, $httpProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $httpProvider, $ionicConfigProvider, $ionicAutoTrackProvider) {
   
+
+ $ionicAutoTrackProvider.disableTracking('State Change');
+ $ionicAutoTrackProvider.disableTracking('Tap');
+
  $ionicConfigProvider.views.swipeBackEnabled(false);
  
 

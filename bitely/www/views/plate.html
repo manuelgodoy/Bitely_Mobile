@@ -10,7 +10,7 @@
       </ion-nav-buttons>    
       <ion-nav-buttons side="right">
         <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.appTotal | number:2}}
+          {{order.appTotal | number:0}}
         </button>
       </ion-nav-buttons> 
 	<ion-pane class="loader" ng-if="!loaded">
@@ -35,7 +35,7 @@
 	  		</div>
 	  	</header>
 	  	<p class="description">{{plate.description}}</p>
-	  	<a ng-click="sendOrder(plate,restaurant)" class="order"><img src="img/order_orange.png" alt=""></a>
+	  	<a ng-if="plate.restaurant.is_open" ng-click="sendOrder(plate,restaurant)" class="order"><img src="img/order_orange.png" alt=""></a>
 	  </div>
 	</div>
   </ion-content>

@@ -15,35 +15,56 @@
 			<h2>Enter your details below:</h2>
 		</header>
 
-
-		<a ng-click="orderFacebookLogin()">Login with Facebook</a>
-
 			<form name="profile.editProfile">
 			<div class="list">
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Name</span>
-			    <input type="text" ng-model="profile.data.name">
-			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Address</span>
-			    <input type="text" ng-model="profile.data.address">
-			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Address 2</span>
-			    <input type="text"ng-model="profile.data.address2">
-			  </label>  
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">Phone</span>
-			    <input type="tel" ng-model="profile.data.phone">
-			  </label>
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">State</span>
-			    <input type="text" ng-model="profile.data.state">
-			  </label> 
-			  <label class="item item-input item-stacked-label">
-			    <span class="input-label">City</span>
-			    <input type="text" ng-model="profile.data.city">
-			  </label>  
+				<div class="item item-divider">
+					Details
+				</div>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Full Name</span>
+					<input type="text" ng-model="profile.data.fullname">
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Date of Birthday</span>
+					<input type="date" ng-model="profile.data.dob">
+				</label>
+				<label class="item item-input item-select">
+					<div class="input-label">
+						Gender
+					</div>
+					<select ng-model="profile.data.gender">
+						<option value="">Not disclose</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+					</select>
+				</label>
+				<div class="item item-divider">
+					Preferences
+				</div>
+				<div>
+					<ion-checkbox class="checkbox-royal" ng-model="profile.data.preferences.vegetarian">Vegetarian</ion-checkbox>
+					<ion-checkbox class="checkbox-royal" ng-model="profile.data.preferences.gluteFree">Gluten-free</ion-checkbox>
+					<ion-checkbox class="checkbox-royal" ng-model="profile.data.preferences.dairyFree">Dairy-free</ion-checkbox>
+					<ion-checkbox class="checkbox-royal" ng-model="profile.data.preferences.vegan">Vegan</ion-checkbox>
+					<ion-checkbox class="checkbox-royal" ng-model="profile.data.preferences.nutsFree">Nuts-free</ion-checkbox>
+				</div>
+				<div class="item item-divider">
+					Credit Card
+				</div>
+				<div class="padding">
+					<div ng-if="globals.currentUser.has_customertoken">
+						<p>Card type: {{globals.currentUser.stripe_data.sources.data[0].brand}}</p>
+						<p>Card Number: **** **** **** {{globals.currentUser.stripe_data.sources.data[0].last4}}</p>
+						<a href="#app/add-card" class="button button-block button-royal">
+							Edit Credit Card
+						</a>
+					</div>	
+					<div ng-if="!globals.currentUser.has_customertoken">
+						<a href="#app/add-card" class="button button-block button-royal">
+							Add Credit Card
+						</a>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>

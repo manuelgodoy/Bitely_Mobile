@@ -893,3 +893,7 @@ visibility: visible;
 	padding:0;
 	left:155px;
 }
+.imgresponse {
+	max-height: 22px;
+	float: right;
+}

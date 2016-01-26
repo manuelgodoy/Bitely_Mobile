@@ -7,7 +7,7 @@
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <button  ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-          ${{order.appTotal | number:2}}
+          {{order.appTotal | number:0}}
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -46,7 +46,7 @@
           <ion-item menu-close href="#/app/home">
             Home
           </ion-item>
-          <ion-item menu-close href="#/app/add-card">
+          <ion-item menu-close href="#/app/edit-profile">
             Profile
           </ion-item>
           <ion-item menu-close >

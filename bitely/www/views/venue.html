@@ -6,7 +6,7 @@
   <h1 class="title titlemargin" ng-class="{'titlemargintiene' : (order.appTotal>0 && !order.is_paid)}">{{venue.name}}</h1>
   <div class="buttons">
     <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
-      ${{order.appTotal | number:2}}
+      {{order.appTotal | number:0}}
     </button>    
     <button class="button button-icon icon ion-android-more-horizontal" ng-if="menus.length>1"  ng-click="popover.show($event)">
     </button>
@@ -38,7 +38,7 @@
           <div class="degtop"></div>
           <div class="nombrerest">
             <h1>{{venue.name}}</h1>
-            <p class="address">{{venue.street_address}}</p>
+            <!-- <p class="address">{{venue.street_address}}</p> -->
           </div>
       </div>
     </header>    
@@ -54,11 +54,11 @@
             
               <div class="venuerowrow">
               <div class="venuecol" ng-repeat="plate in subsection.contents"   >
-                    <div class="card" ng-click="!plate.key || goPlate(plate.key)">
+                    <div class="card" ng-click="!plate.key || goPlate(plate.key)" ion-track-tap="Tap Plate" ion-track-data="{ plate: {name: plate.name, key: plate.key}, restaurant: {name: venue.name, id: venue.restaurant_id} }">
                   <div class="item item-image venueimage" ng-style="plateImage">
                     <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
                     <div class="degradacion"></div>
-                   <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="plate.key || plate.option_groups"></a>
+                   <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="venue.is_open && (plate.key || plate.option_groups)"></a>
                     <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
                   </div>
                   <div class="item itemmenospadding">{{plate.name || plate.text}}
