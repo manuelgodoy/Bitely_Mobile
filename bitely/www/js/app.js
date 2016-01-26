@@ -77,14 +77,14 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
       }
     });
 
-      // push.register(function(pushToken) {
-      //   var user = Ionic.User.current();
-      //   user.id = todalainfo.nickname;
-      //   user.set('image', todalainfo.picture);
-      //   console.log("Device token:",pushToken.token);
-      //   user.addPushToken(pushToken);
-      //   user.save();
-      // });    
+      push.register(function(pushToken) {
+        var user = Ionic.User.current();
+        user.id = todalainfo.nickname;
+        user.set('image', todalainfo.picture);
+        console.log("Device token:",pushToken.token);
+        user.addPushToken(pushToken);
+        user.save();
+      });    
 
     // $cordovaFacebook.getLoginStatus().then(function(success){
     //   if (success.status === 'connected') {
