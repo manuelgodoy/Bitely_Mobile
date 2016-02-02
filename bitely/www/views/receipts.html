@@ -21,7 +21,7 @@
         <a href="#/app/home" ng-if="orders.length < 1">You haven't ordered anything yet.</a>
     		<a class="item item-avatar_" ng-repeat="order in orders" href="#/app/orderid/{{order.key}}">
       			<h2>{{order.restaurant.name}}</h2>
-      			<p>{{order.time_paid | date:'medium'}}</p>
+      			<p>{{order.time_paid | date:'MMM d, y h:mm a'}}</p>
     		</a>
 		</ul>
 	</ion-content>

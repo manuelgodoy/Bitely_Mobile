@@ -36,19 +36,27 @@
 							<span ng-if="plate.menu_item.price">${{plate.menu_item.price | number:2}}</span>
 						</div>
 					</div>
-						<div class="row optionrow" ng-repeat="option in plate.options" ng-if="option.name">
-							<div class="col col-80">
-								<div class="row">
-									<div class="col col-10">
-										
-									</div>
-									<div class="col col-90">
-										{{option.name}}
-									</div>
+						<div  ng-repeat="option in plate.options">
+							<div ng-if="option.name" class="row optionrow">
+								<div class="col col-10">
+									
+								</div>
+								<div class="col">
+									{{option.name}}
+								</div>
+								<div class="col col-20 order_price_">
+									<span ng-if="option.price">${{option.price | number:2}}</span>
 								</div>
 							</div>
-							<div class="col col-20 order_price_">
-								<span ng-if="option.price">${{option.price | number:2}}</span>
+							<div ng-if="option.extra" class="row optionrow">
+								<div class="col col-10">
+									
+								</div>
+								<div class="col">
+									"{{option.extra}}"
+								</div>
+								<div class="col col-20 order_price_">
+								</div>
 							</div>
 						</div>
 					<div class="row ratepay" ng-controller="rateController">
@@ -60,20 +68,20 @@
 				</div>
 			</div>
 			<div class="totals" ng-if="order.tip == 0">
-				<div class="row">
+				<div class="row tipdiv">
 					<div class="col col-80">
 						Would you like to add tip:
 					</div>
 					<div class="col col-20 order_price_">
-						${{tip.tip | number:2}}
+						$<input type="number" ng-model="tip.tip" step="0.01" min="0">
 					</div>
 				</div>			
 				<div class="row">
 					<div class="button-bar">
-						<a class="button" ng-click="addTip(0)" ng-class="{active: tip.porc === 0}">0%</a>
-						<a class="button" ng-click="addTip(15)" ng-class="{active: tip.porc === 15}">15%</a>
-						<a class="button" ng-click="addTip(18)" ng-class="{active: tip.porc === 18}">18%</a>
-						<a class="button" ng-click="addTip(20)" ng-class="{active: tip.porc === 20}">20%</a>
+						<a class="button" ng-click="addTip(0)" ng-class="{active: tip.tip === 0}">0%</a>
+						<a class="button" ng-click="addTip(15)" ng-class="{active: tip.tip === order.sub_total*.15}">15%</a>
+						<a class="button" ng-click="addTip(20)" ng-class="{active: tip.tip === order.sub_total*.20}">20%</a>
+						<a class="button" ng-click="addTip(25)" ng-class="{active: tip.tip === order.sub_total*.25}">25%</a>
 					</div>
 				</div>
 			</div>				
@@ -94,12 +102,13 @@
 						${{order.tax || 0 | number:2}}
 					</div>
 				</div>
- 				<div class="row" ng-if="order.tip != 0">
+ 				<div class="row">
 					<div class="col col-80">
 						Tip
 					</div>
 					<div class="col col-20 order_price_">
-						${{order.tip || 0 | number:2}}
+						<span ng-if="order.tip!=0">${{order.tip || 0 | number:2}}</span>
+						<span ng-if="order.tip==0">${{tip.tip || 0 | number:2}}</span>
 					</div>
 				</div> 
 				<div class="row">
@@ -107,7 +116,7 @@
 							Total
 					</div>
 					<div class="col col-20 order_price_">
-						<strong>${{order.total_paid | number:2}}</strong>
+						<strong>${{(order.total_paid+tip.tip) | number:2}}</strong>
 					</div>
 				</div>
 			</div>

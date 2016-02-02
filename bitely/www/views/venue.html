@@ -12,7 +12,7 @@
     </button>
   </div>
 </ion-header-bar>	
-<ion-scroll zooming="false" direction="x" style="width:100%;" scrollbar-x="false" has-bouncing="false" class="secmenu" delegate-handle="submenu">
+<ion-scroll zooming="false" direction="x" style="width:100%;" scrollbar-x="false" scrollbar-y="false" has-bouncing="false" class="secmenu" delegate-handle="submenu">
 <div class="lassections">
     <a 
           ng-repeat="section in menu.sections"
@@ -61,7 +61,7 @@
                    <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="venue.is_open && (plate.key || plate.option_groups)"></a>
                     <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
                   </div>
-                  <div class="item itemmenospadding">{{plate.name || plate.text}}
+                  <div class="item itemmenospadding">{{plate.name || plate.text || '&nbsp;'}}
                   </div>
                   <div class="item itemvenue">
                     <img ng-src="img/rating{{ Math.round(plate.rating_average*2)*5 ||'none' }}.png" class="ratingimg">

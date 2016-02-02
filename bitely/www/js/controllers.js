@@ -318,7 +318,7 @@ angular.module('bitely.controllers',[])
 .controller('DebugCtrl', function(User, Order, $scope){
 	$scope.debug = {};
 	$scope.debug.user = User.get();
-	$scope.debug.order = Order.get();
+	$scope.debug.order = Order.query();
 })
 .controller('HomeCtrl', function($ionicPopup, $ionicPlatform,$cordovaToast, $scope, $timeout, $http, $cordovaGeolocation, Venues, gLocation) {
 
@@ -809,7 +809,7 @@ angular.module('bitely.controllers',[])
 	// $scope.profile = {};
 	// User.get()
 })
-.controller('ProfileCtrl', function($scope, User){
+.controller('ProfileCtrl', function($scope, User, $ionicBackdrop, $rootScope, $localstorage){
 
 	$scope.profile = {};
 
@@ -820,8 +820,7 @@ angular.module('bitely.controllers',[])
 
 
 	$scope.saveProfile = function() {
-		$cordovaToast.show('Details saved!', 'short', 'bottom');
-
+		$ionicBackdrop.retain();
 		User.save({
 			fullname: $scope.profile.data.fullname,
 			dob : $scope.profile.data.dob,
@@ -829,7 +828,14 @@ angular.module('bitely.controllers',[])
 			gender: $scope.profile.data.gender
 		}).$promise.then(
 			function(user){
+				$rootScope.globals = {
+					currentUser: user
+				};
+
+				$localstorage.setObject('globals',{currentUser:user});				
 				$scope.profile.data = user;
+				$ionicBackdrop.release();
+			  $cordovaToast.show('Details saved!', 'short', 'bottom');
 			})
 	};
 
@@ -855,7 +861,8 @@ angular.module('bitely.controllers',[])
 	Order.getSingle({
 		orderkey : $stateParams.id
 	}, function(order){
-		$scope.orders = order;
+		console.log(order);
+		$scope.orders = order.object.order;
 		$scope.loaded = true;
 	})
 
@@ -908,9 +915,7 @@ angular.module('bitely.controllers',[])
 })
 .controller('rateController', function($scope){
 	$scope.rate = {};
-	$scope.$parent.rating = {
-		ratings : []
-	};
+
 
 
 	$scope.hechanged = function(key){
@@ -921,10 +926,12 @@ angular.module('bitely.controllers',[])
 			if (rating.key === key ) {
 				rating.rating = $scope.rate;
 				found = true;
+				console.log('found'+key);
 			}
 		});
 
 		if (!found) {
+			console.log('not found'+key);
 			$scope.$parent.rating.ratings.push({key:key, rating:$scope.rate});
 		}
 
@@ -932,6 +939,10 @@ angular.module('bitely.controllers',[])
 })
 .controller('OrderCtrl', function(Rating, returnToState, Auth, returnToState, $ionicHistory, $state, $ionicPlatform,$ionicPopup, $cordovaToast,$localstorage, $rootScope, $scope, $timeout, $location, $rootScope, $ionicLoading, User, Order, Pay, Tip){
 	$scope.loaded = true;
+
+	$scope.$parent.rating = {
+		ratings : []
+	};
 
 	// $scope.$on('$stateChangeSuccess', 
 	// function(event, toState, toParams, fromState, fromParams){ 
@@ -1075,20 +1086,27 @@ angular.module('bitely.controllers',[])
 	}
 	
 	$scope.doConfirm = function(){
-		$ionicLoading.show({
-      		template: '<ion-spinner class="color_white"></ion-spinner>'
-    	});
-		Order.save().$promise.then(function(order){
-			$ionicLoading.hide();
-			$ionicPopup.alert({
-				title: 'Confirmed',
-				subTitle: 'Your order has been sent to the kitchen',
-				okText: 'OK',
-				okType: 'button-royal'
-			}).then(function(res) {
-				$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
+
+		if ($rootScope.order.is_posted) {
+
+			$location.path('/app/order/payment')
+
+		} else {
+			$ionicLoading.show({
+				template: '<ion-spinner class="color_white"></ion-spinner>'
 			});
-		})
+			Order.save().$promise.then(function(order){
+				$ionicLoading.hide();
+				$ionicPopup.alert({
+					title: 'Confirmed',
+					subTitle: 'Your order has been sent to the kitchen',
+					okText: 'OK',
+					okType: 'button-royal'
+				}).then(function(res) {
+					$location.path('/app/menu/'+$rootScope.order.restaurant.restaurant_id+'/'+$rootScope.order.restaurant.name);
+				});
+			})			
+		}
 	}
 
 	$scope.goMenu = function(){

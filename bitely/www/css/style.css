@@ -652,6 +652,7 @@ ul.rating li i {
 	top:44px;
 	height:43px;
 	border-bottom: 1px solid #d26900;
+    overflow-x: auto !important;
 }
 .secmenu.activado-add{
   	transition: 0.15s all ease-in;
@@ -896,4 +897,23 @@ visibility: visible;
 .imgresponse {
 	max-height: 22px;
 	float: right;
+}
+.tipdiv .col {
+	line-height: 34px;
+	padding-bottom: 20px;
+}
+.tipdiv input {
+	width: 80%;
+	float: right;
+	border-bottom: 1px solid #333;
+}
+.profileavatar {
+	padding: 15px;
+	text-align: center;
+}
+.profileavatar img{
+	width: 110px;
+	height:110px;
+	border-radius: 50%;
+	border: 1px solid #ccc;
 }

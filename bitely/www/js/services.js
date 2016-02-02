@@ -200,9 +200,9 @@ angular.module('bitely.controllers')
   });
 })
 .factory('Order', function($resource, $localstorage, $rootScope){
-  return $resource(urlBase+'order', null, {
+  return $resource(urlBase+'order_tmp', null, {
         'getSingle': {
-          method: 'GET',
+          method: 'GET'
         },
 
         'update': { 
@@ -210,21 +210,21 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order update:', order);
-              // angular.forEach( order.data.order_plates, function(value, key){
+              // angular.forEach( order.data.object.order.order_plates, function(value, key){
               //   if (value.menu_item.options) {
-              //     order.data.order_plates[key].menu_item.options_array = [];
-              //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+              //     order.data.object.order.order_plates[key].menu_item.options_array = [];
+              //     order.data.object.order.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
               //   }
               // });
-              $rootScope.order.is_posted = order.data.is_posted;
-              $rootScope.order.is_paid = order.data.is_paid;
-              // if (!$rootScope.order.total) $rootScope.order.total = order.data.total;
-              $rootScope.order.sub_total = order.data.sub_total;
-              $rootScope.order.tax = order.data.tax;
-              $rootScope.order.total = order.data.total;
-              $rootScope.order.appTotal = order.data.num_plates;
-              $rootScope.order.tax_rate = order.data.tax_rate;
-              $rootScope.order.restaurant = order.data.restaurant;
+              $rootScope.order.is_posted = order.data.object.order.is_posted;
+              $rootScope.order.is_paid = order.data.object.order.is_paid;
+              // if (!$rootScope.order.total) $rootScope.order.total = order.data.object.order.total;
+              $rootScope.order.sub_total = order.data.object.order.sub_total;
+              $rootScope.order.tax = order.data.object.order.tax;
+              $rootScope.order.total = order.data.object.order.total;
+              $rootScope.order.appTotal = order.data.object.order.num_plates;
+              $rootScope.order.tax_rate = order.data.object.order.tax_rate;
+              $rootScope.order.restaurant = order.data.object.order.restaurant;
               $localstorage.setObject('order',$rootScope.order);
             },
             responseError: function (data) {
@@ -237,24 +237,24 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order query:', order);
-              // angular.forEach( order.data.order_plates, function(value, key){
+              // angular.forEach( order.data.object.order.order_plates, function(value, key){
               //   if (value.menu_item.options) {
-              //     order.data.order_plates[key].menu_item.options_array = [];
-              //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+              //     order.data.object.order.order_plates[key].menu_item.options_array = [];
+              //     order.data.object.order.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
               //   }
               // });
-              $rootScope.order = order.data;
-              $rootScope.order.appTotal = order.data.num_plates;
-              if (order.data.is_paid) {
+              $rootScope.order = order.data.object.order;
+              $rootScope.order.appTotal = order.data.object.order.num_plates;
+              if (order.data.object.order.is_paid) {
                 $rootScope.order.appTotal = 0;
-                // order.data.total = 0;
-                // order.data.tax_rate = 0;
-                // order.data.order_plates = {};
+                // order.data.object.order.total = 0;
+                // order.data.object.order.tax_rate = 0;
+                // order.data.object.order.order_plates = {};
               }              
-              $localstorage.setObject('order',order.data);
+              $localstorage.setObject('order',order.data.object.order);
             },
             responseError: function (data) {
-              console.log('error in interceptor', order.data);
+              console.log('error in interceptor', order.data.object.order);
             }
           }
         },
@@ -263,18 +263,18 @@ angular.module('bitely.controllers')
           interceptor: {
             response: function(order){
               console.log('order save:', order);
-              // angular.forEach( order.data.order_plates, function(value, key){
+              // angular.forEach( order.data.object.order.order_plates, function(value, key){
               //   if (value.menu_item.options) {
-              //     order.data.order_plates[key].menu_item.options_array = [];
-              //     order.data.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
+              //     order.data.object.order.order_plates[key].menu_item.options_array = [];
+              //     order.data.object.order.order_plates[key].menu_item.options_array.push(JSON.parse(value.menu_item.options));
               //   }
               // });
-              $rootScope.order = order.data;
-              $rootScope.order.appTotal = order.data.num_plates;
-              $localstorage.setObject('order',order.data);
+              $rootScope.order = order.data.object.order;
+              $rootScope.order.appTotal = order.data.object.order.num_plates;
+              $localstorage.setObject('order',order.data.object.order);
             },
             responseError: function (data) {
-              console.log('error in interceptor', order.data);
+              console.log('error in interceptor', order.data.object.order);
             }
           }
         }        

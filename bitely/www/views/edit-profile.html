@@ -14,11 +14,13 @@
 			<h1>Tell Us About Yourself</h1>
 			<h2>Enter your details below:</h2>
 		</header>
-
 			<form name="profile.editProfile">
 			<div class="list">
 				<div class="item item-divider">
 					Details
+				</div>
+				<div class="profileavatar">
+					<img ng-src="{{globals.currentUser.picture || 'img/blank.gif'}}">
 				</div>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Full Name</span>
