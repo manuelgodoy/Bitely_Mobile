@@ -574,25 +574,25 @@ angular.module('bitely.controllers',[])
 
 		if (!error) {
 			$scope.data = {};
-			// var myPopup = $ionicPopup.show({
-			// 	template: '<textarea type="password" ng-model="data.wifi" style="height:100px"></textarea>',
-			// 	title: 'Any additional comments?',
-			// 	// subTitle: 'Any additional comments?',
-			// 	scope: $scope,
-			// 		buttons: [
-			// 		{ text: 'Cancel' },
-			// 		{
-			// 			text: '<b>Order</b>',
-			// 			type: 'button-royal',
-			// 			onTap: function(e) {
-			// 				return $scope.data.wifi;
-			// 			}
-			// 		}]
-			// });
+			var myPopup = $ionicPopup.show({
+				template: '<textarea type="password" ng-model="data.wifi" style="height:100px"></textarea>',
+				title: 'Any additional comments?',
+				// subTitle: 'Any additional comments?',
+				scope: $scope,
+					buttons: [
+					{ text: 'Cancel' },
+					{
+						text: '<b>Order</b>',
+						type: 'button-royal',
+						onTap: function(e) {
+							return $scope.data.wifi;
+						}
+					}]
+			});
 
-			// myPopup.then(function(res) {
+			myPopup.then(function(res) {
 				$cordovaToast.show('Plate Ordered!', 'short', 'center');
-				// losoptions.push({extra:res});
+				losoptions.push({extra:res});
 				order = {
 					action: 'add', 
 					itemkey: item.key, 
@@ -610,8 +610,7 @@ angular.module('bitely.controllers',[])
 						$scope.addModal.hide();
 	  					$cordovaToast.show(err.data.message, 'short', 'bottom');
 					});
-
-			// });
+			});
 		}
 
 	};	
@@ -632,28 +631,28 @@ angular.module('bitely.controllers',[])
 
 				$scope.data = {};
 
-				// var myPopup = $ionicPopup.show({
-				// 	template: '<textarea type="password" ng-model="data.wifi" style="height:100px"></textarea>',
-				// 	title: 'Any additional comments?',
-				// 	// subTitle: 'Any additional comments?',
-				// 	scope: $scope,
-				// 		buttons: [
-				// 		{ text: 'Cancel' },
-				// 		{
-				// 			text: '<b>Order</b>',
-				// 			type: 'button-royal',
-				// 			onTap: function(e) {
-				// 				return $scope.data.wifi;
-				// 			}
-				// 		}]
-				// });
+				var myPopup = $ionicPopup.show({
+					template: '<textarea type="password" ng-model="data.wifi" style="height:100px"></textarea>',
+					title: 'Any additional comments?',
+					// subTitle: 'Any additional comments?',
+					scope: $scope,
+						buttons: [
+						{ text: 'Cancel' },
+						{
+							text: '<b>Order</b>',
+							type: 'button-royal',
+							onTap: function(e) {
+								return $scope.data.wifi;
+							}
+						}]
+				});
 
-				// myPopup.then(function(res) {
+				myPopup.then(function(res) {
 					Order.update({
 						action: 'add', 
 						itemkey: item.key, 
 						itemprice: item.price,
-						// options: [{extra:res}],
+						options: [{extra:res}],
 						itemname: item.name || item.text, 
 						restname: $stateParams.name_id, 
 						restid: $stateParams.rest_id
@@ -663,8 +662,7 @@ angular.module('bitely.controllers',[])
 					}, function(err){
 	  					$cordovaToast.show(err.data.message, 'short', 'bottom');
 					});
-				// });
-				// }
+				});
 			}
 		}
 	}
