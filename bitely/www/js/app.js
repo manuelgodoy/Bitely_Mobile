@@ -60,10 +60,10 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
     var push = new Ionic.Push({
       // "debug": true,
       onNotification: function(notification){
-        
         // $state.go('app.order.success');
-        $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
-        console.log('notilog',notification);
+        if (!notification._raw.additionalData.foreground ) {
+          $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
+        }
       },
       "pluginConfig": {
         "ios": {
@@ -197,6 +197,16 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
       'appContent': {
         templateUrl : 'views/edit-profile.html',
         controller: 'ProfileCtrl'
+      }
+    }
+  })
+
+  .state('app.search', {
+    url: '/search',
+    views: {
+      'appContent':{
+        templateUrl: 'views/search.html',
+        controller: 'SearchCtrl'
       }
     }
   })

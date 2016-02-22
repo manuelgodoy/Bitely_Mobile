@@ -760,6 +760,11 @@ ul.rating li i {
 .venuerowrow {
 	padding:5px;
 }
+.venuecol_search {
+	width:50%;
+	float:left;
+	padding: 8px 5px;
+}
 .venuecol {
 	width:50%;
 	float:left;

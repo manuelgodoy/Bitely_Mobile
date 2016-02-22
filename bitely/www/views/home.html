@@ -12,11 +12,11 @@
         <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
           {{order.appTotal | number:0}}
         </button>
-      </ion-nav-buttons>      
+      </ion-nav-buttons>
 		<ion-pane class="loader" ng-if="!loaded">
 			<ion-spinner></ion-spinner>
 			<p ng-if="!getlocation">Getting Location...</p>
-		</ion-pane>	      
+		</ion-pane>
 	<ion-content  class="viewbg"  scrollbar-y="false">
 		<ion-refresher
 			spinner=""
