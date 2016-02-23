@@ -1,0 +1,59 @@
+<ion-header-bar class="bar bar-subheader item-input-inset fixed">
+  <label class="item-input-wrapper">
+    <i class="icon ion-android-search placeholder-icon"></i>
+    <input type="search" placeholder="Search Plates" ng-model="search.value" ng-keyup="goSearch()">
+  </label>
+  <button class="button button-clear" ng-click="cancel()">
+    Cancel
+  </button>
+</ion-header-bar>
+<ion-view>
+  <ion-nav-title>
+    <h1 class="title">Search {{venue.name}}</h1>
+
+    </ion-nav-title>
+      <ion-nav-buttons side="left">
+        <a ng-click="goHome()" class="button button-icon button-clear icon-right ion-ios-arrow-left">
+        </a>
+      </ion-nav-buttons>    
+      <ion-nav-buttons side="right">
+        <button ng-click="goToOrder()" ng-if="order.appTotal>0 && !order.is_paid" class="button button-icon button-clear icon-right ion-ios-cart fuente-total">
+          {{order.appTotal | number:0}}
+        </button>
+      </ion-nav-buttons> 
+<!-- 	<ion-pane class="loader" ng-if="!loaded">
+	  	<ion-spinner></ion-spinner>
+	</ion-pane> -->
+<!--   <div class="error padding" ng-if="error">
+  	<h2>{{error.data.message}}</h2>
+  </div> -->
+  <ion-content scrollbar-y="false">
+    <ion-list>
+      <div>
+        <div>
+          <div>
+            <div class="sectionani clearfix">
+              <div class="venuerowrow">
+                <div class="venuecol_search" ng-repeat="plate in plates" ng-if="plate.section!=''">
+                  <div class="card" ng-click="!plate.objectID || goPlate(plate.objectID)" ion-track-tap="Tap Plate" ion-track-data="{ plate: {name: plate.name, key: plate.objectID}, restaurant: {name: plate.restaurant, id: ''} }">
+                    <div class="item item-image venueimage" ng-style="plateImage">
+                      <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
+                      <div class="degradacion"></div>
+                      <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="(plate.objectID || plate.option_groups)"></a>
+                      <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
+                    </div>
+                    <div class="item itemmenospadding">{{plate.name || plate.text || '&nbsp;'}}
+                    </div>
+                    <div class="item itemvenue">
+                      <img ng-src="img/rating{{ Math.round(plate.rating_average*2)*5 ||'none' }}.png" class="ratingimg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

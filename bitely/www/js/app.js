@@ -169,6 +169,15 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
       }
     }
   })
+  .state('app.venueSearch', {
+    url: '/menusearch/:rest_id/:name_id',
+    views: {
+      'appContent': {
+        templateUrl: 'views/restsearch.html',
+        controller: 'VenueSearchCtrl'
+      }
+    }
+  })
 
   .state('app.plate', {
     url: '/plate/:id',
