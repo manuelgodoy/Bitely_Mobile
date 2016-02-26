@@ -37,6 +37,39 @@
 	  	<p class="description">{{plate.description}}</p>
 	  	<a ng-if="plate.restaurant.is_open" ng-click="sendOrder(plate,restaurant)" class="order"><img src="img/order_orange.png" alt=""></a>
 	  </div>
+
+        <ion-list ng-if="plate.pairings.length>0">
+          <div>
+            <div class="item-accordion" >
+              <div style="padding-top:10px;"></div>
+              <div>
+                <div class="sectionani clearfix" class="" ng-animate-children>
+                  <div class="item item-divider">
+                    You should also try
+                  </div>
+                  <div class="venuerowrow">
+                    <div class="venuecol" ng-repeat="plate in plate.pairings">
+                      <div class="card" ng-click="!plate.key || goPlate(plate.key)" ion-track-tap="Tap Plate" ion-track-data="{ plate: {name: plate.name, key: plate.key}, restaurant: {name: venue.name, id: venue.restaurant_id} }">
+                        <div class="item item-image venueimage" ng-style="plateImage">
+                          <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
+                          <div class="degradacion"></div>
+                          <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="venue.is_open && (plate.key || plate.option_groups)"></a>
+                          <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
+                        </div>
+                        <div class="item itemmenospadding">{{plate.name || plate.text || '&nbsp;'}}
+                        </div>
+                        <div class="item itemvenue">
+                          <img ng-src="img/rating{{ Math.round(plate.rating_average*2)*5 ||'none' }}.png" class="ratingimg">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+
 	</div>
   </ion-content>
 </ion-view>
