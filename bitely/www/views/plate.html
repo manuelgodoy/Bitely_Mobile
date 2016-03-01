@@ -48,18 +48,18 @@
                     You should also try
                   </div>
                   <div class="venuerowrow">
-                    <div class="venuecol" ng-repeat="plate in plate.pairings">
-                      <div class="card" ng-click="!plate.key || goPlate(plate.key)" ion-track-tap="Tap Plate" ion-track-data="{ plate: {name: plate.name, key: plate.key}, restaurant: {name: venue.name, id: venue.restaurant_id} }">
+                    <div class="venuecol" ng-repeat="pairing in plate.pairings">
+                      <div class="card" ng-click="!pairing.key || goPlate(pairing.key)" ion-track-tap="Tap Plate" ion-track-data="{ plate: {name: pairing.name, key: pairing.key}, restaurant: {name: pairing.restaurant.name, id: pairing.restaurant.restaurant_id} }">
                         <div class="item item-image venueimage" ng-style="plateImage">
-                          <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
+                          <img ng-src="{{pairing.picture || 'img/no_image.jpg'}}" err-src>
                           <div class="degradacion"></div>
-                          <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="venue.is_open && (plate.key || plate.option_groups)"></a>
-                          <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
+                          <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(pairing, $event)" ng-if="pairing.restaurant.is_open && (pairing.key || pairing.option_groups)"></a>
+                          <p class="price" ng-if="pairing.price">{{menu.currency_symbol}}{{pairing.price | number:2}}</p>
                         </div>
-                        <div class="item itemmenospadding">{{plate.name || plate.text || '&nbsp;'}}
+                        <div class="item itemmenospadding">{{pairing.name || pairing.text || '&nbsp;'}}
                         </div>
                         <div class="item itemvenue">
-                          <img ng-src="img/rating{{ Math.round(plate.rating_average*2)*5 ||'none' }}.png" class="ratingimg">
+                          <img ng-src="img/rating{{ Math.round(pairing.rating_average*2)*5 ||'none' }}.png" class="ratingimg">
                         </div>
                       </div>
                     </div>
