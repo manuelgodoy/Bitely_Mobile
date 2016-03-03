@@ -1563,7 +1563,7 @@ angular.module('bitely.controllers',[])
 	};
 
 	$scope.removeItem = function(item, restaurant, $index){
-		$cordovaToast.show('Plate removed!', 'short', 'bottom');
+		// $cordovaToast.show('Plate removed!', 'short', 'bottom');
 		var order = {
 			action: 'remove', 
 			itemkey: item.menu_item.key, 
