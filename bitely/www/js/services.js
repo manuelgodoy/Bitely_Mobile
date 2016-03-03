@@ -112,6 +112,8 @@ angular.module('bitely.controllers')
       $localstorage.setObject('globals',{});
       $localstorage.remove('ionic_io_user_e739e0e8');
       $cookies.remove("session");
+      $localstorage.remove('ionic_io_push_token');
+      $localstorage.remove('ionic_analytics_event_queue_e739e0e8');
       $rootScope.creditcard = {};
       $localstorage.setObject('creditcard',{});
       $rootScope.order = {};

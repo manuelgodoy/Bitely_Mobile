@@ -1,12 +1,8 @@
-// Ionic Starter App
+//'ionic.service.analytics',
+angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
-
-.run(function($ionicAnalytics, $http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
-
+//$ionicAnalytics
+.run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
 
   // 1646690858946373
   // cookie: session
@@ -25,16 +21,17 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
   $rootScope.order   = $localstorage.getObject('order') || {};
   $rootScope.creditcard   = $localstorage.getObject('creditcard') || {};
 
-  if ($rootScope.globals.currentUser && !$rootScope.globals.currentUser.isguest) {
-    Ionic.User.load($rootScope.globals.currentUser.nickname).then(
-      function(loadedUser){
-        Ionic.User.current(loadedUser);
-        user = Ionic.User.current();
-      }, 
-      function(error){
-        console.log('something went wrong: ',error);
-      });
-  }
+  // if ($rootScope.globals.currentUser && !$rootScope.globals.currentUser.isguest) {
+  //   Ionic.io();
+  //   Ionic.User.load($rootScope.globals.currentUser.nickname).then(
+  //     function(loadedUser){
+  //       Ionic.User.current(loadedUser);
+  //       user = Ionic.User.current();
+  //     }, 
+  //     function(error){
+  //       console.log('something went wrong: ',error);
+  //     });
+  // }
 
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
     // SI NO ESTA EN EL SPLASH Y NO ESTA LOGGEADO
@@ -46,14 +43,24 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
   $ionicPlatform.ready(function() {
 
 
-  Ionic.io();
-  var user = Ionic.User.current();
+  if ($rootScope.globals.currentUser && !$rootScope.globals.currentUser.isguest) {
+    $localstorage.remove('ionic_io_user_e739e0e8');
+    Ionic.io();
+    Ionic.User.load($rootScope.globals.currentUser.nickname).then(
+      function(loadedUser){
+        Ionic.User.current(loadedUser);
+        user = Ionic.User.current();
+      }, 
+      function(error){
+        console.log('something went wrong: ',error);
+      });
+
 
     //ANALITYCS 
 
-    $ionicAnalytics.register({
-      // dryRun: true
-    });
+    // $ionicAnalytics.register({
+    //   dryRun: true
+    // });
 
 
     //PUSH
@@ -78,13 +85,14 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
     });
 
       push.register(function(pushToken) {
-        var user = Ionic.User.current();
-        user.id = todalainfo.nickname;
-        user.set('image', todalainfo.picture);
-        console.log("Device token:",pushToken.token);
+        // var user = Ionic.User.current();
+        user.id = $rootScope.globals.currentUser.nickname;
+        user.set('image', $rootScope.globals.currentUser.picture);
         user.addPushToken(pushToken);
         user.save();
-      });    
+      });
+    }
+
 
     // $cordovaFacebook.getLoginStatus().then(function(success){
     //   if (success.status === 'connected') {
@@ -122,11 +130,12 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.service.analytics'
   });
 })
 
-.config(function($stateProvider, $httpProvider, $ionicConfigProvider, $ionicAutoTrackProvider) {
+//, $ionicAutoTrackProvider
+.config(function($stateProvider, $httpProvider, $ionicConfigProvider) {
   
 
- $ionicAutoTrackProvider.disableTracking('State Change');
- $ionicAutoTrackProvider.disableTracking('Tap');
+ // $ionicAutoTrackProvider.disableTracking('State Change');
+ // $ionicAutoTrackProvider.disableTracking('Tap');
 
  $ionicConfigProvider.views.swipeBackEnabled(false);
  
