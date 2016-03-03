@@ -1287,7 +1287,7 @@ angular.module('bitely.controllers',[])
 		if ($scope.search.value.length > 1) {
 		index.search($scope.search.value, {
   			aroundLatLng: $rootScope.position.lat+','+$rootScope.position.lon,
-  			aroundRadius: 1000 // 1km around
+  			aroundRadius: 1000 ,// 1km around
 			facets: 'is_alive, show_in_menu',
 			// hitsPerPage: 50,
 			facetFilters: [
