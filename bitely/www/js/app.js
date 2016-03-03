@@ -42,9 +42,11 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
   $ionicPlatform.ready(function() {
 
+  var user;
 
   if ($rootScope.globals.currentUser && !$rootScope.globals.currentUser.isguest) {
     $localstorage.remove('ionic_io_user_e739e0e8');
+    $localstorage.remove('ionic_io_push_token');
     Ionic.io();
     Ionic.User.load($rootScope.globals.currentUser.nickname).then(
       function(loadedUser){
@@ -86,8 +88,9 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 
       push.register(function(pushToken) {
         // var user = Ionic.User.current();
-        user.id = $rootScope.globals.currentUser.nickname;
-        user.set('image', $rootScope.globals.currentUser.picture);
+        // console.log(user);
+        // user.id = $rootScope.globals.currentUser.nickname;
+        // user.set('image', $rootScope.globals.currentUser.picture);
         user.addPushToken(pushToken);
         user.save();
       });

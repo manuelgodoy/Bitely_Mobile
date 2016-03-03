@@ -40,7 +40,7 @@
                     <div class="item item-image venueimage" ng-style="plateImage">
                       <img ng-src="{{plate.picture || 'img/no_image.jpg'}}" err-src>
                       <div class="degradacion"></div>
-                      <div class="distaciaa"><i class="icon ion-navigate color-naranja"></i>{{distanceTo(plate.coordinates)}}m</div>
+                      <div class="distaciaa"><i class="icon ion-navigate color-naranja"></i>{{plate._rankingInfo.geoDistance}}m</div>
                       <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(plate, $event)" ng-if="(plate.objectID || plate.option_groups)"></a>
                       <p class="price" ng-if="plate.price">{{menu.currency_symbol}}{{plate.price | number:2}}</p>
                     </div>

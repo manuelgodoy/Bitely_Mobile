@@ -337,7 +337,7 @@ angular.module('bitely.controllers',[])
 
 		var d = R * c;
 
-		return d.toFixed();
+		return d.toFixed(2);
  	};
 })
 .controller('DebugCtrl', function(User, Order, $scope){
@@ -1286,8 +1286,9 @@ angular.module('bitely.controllers',[])
 	$scope.goSearch = function(){
 		if ($scope.search.value.length > 1) {
 		index.search($scope.search.value, {
-  			aroundLatLng: $rootScope.position.lat+','+$rootScope.position.lon,
-  			aroundRadius: 1000 ,// 1km around
+  			aroundLatLng: $rootScope.position.lat+','+$rootScope.position.lon,//'25.732661199999999,-80.368063300000017',
+  			// aroundRadius: 10000 ,// 1km around
+  			getRankingInfo:1,
 			facets: 'is_alive, show_in_menu',
 			// hitsPerPage: 50,
 			facetFilters: [
