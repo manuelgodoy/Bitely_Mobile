@@ -115,9 +115,9 @@
 				<div class="row">
 					<div class="button-bar">
 						<a class="button" ng-click="addTip(0)" ng-class="{active: tip.tip === 0}">0%</a>
-						<a class="button" ng-click="addTip(15)" ng-class="{active: tip.tip === order.sub_total*.15}">15%</a>
-						<a class="button" ng-click="addTip(20)" ng-class="{active: tip.tip === order.sub_total*.20}">20%</a>
-						<a class="button" ng-click="addTip(25)" ng-class="{active: tip.tip === order.sub_total*.25}">25%</a>
+						<a class="button" ng-click="addTip(15)" ng-class="{active: tip.porc === 15}">15%</a>
+						<a class="button" ng-click="addTip(20)" ng-class="{active: tip.porc === 20}">20%</a>
+						<a class="button" ng-click="addTip(25)" ng-class="{active: tip.porc === 25}">25%</a>
 					</div>
 					</div>
 				</div>

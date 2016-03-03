@@ -5,7 +5,7 @@
 		</div>
     </ion-nav-title>
       <ion-nav-buttons side="left">
-        <a ng-click="plateBack()" class="button button-icon button-clear icon-right ion-ios-arrow-left">
+        <a href="#/app/menu/{{plate.restaurant.restaurant_id}}/{{plate.restaurant.name}}" class="button button-icon button-clear icon-right ion-ios-arrow-left">
         </a>
       </ion-nav-buttons>    
       <ion-nav-buttons side="right">
@@ -53,7 +53,7 @@
                         <div class="item item-image venueimage" ng-style="plateImage">
                           <img ng-src="{{pairing.picture || 'img/no_image.jpg'}}" err-src>
                           <div class="degradacion"></div>
-                          <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(pairing, $event)" ng-if="pairing.restaurant.is_open && (pairing.key || pairing.option_groups)"></a>
+                          <a class="button button-icon ion-ios-plus-outline royal button_ boton-order-venue" ng-click="sendOrder(pairing, $event)" ng-if="plate.restaurant.is_open && (pairing.key || pairing.option_groups)"></a>
                           <p class="price" ng-if="pairing.price">{{menu.currency_symbol}}{{pairing.price | number:2}}</p>
                         </div>
                         <div class="item itemmenospadding">{{pairing.name || pairing.text || '&nbsp;'}}

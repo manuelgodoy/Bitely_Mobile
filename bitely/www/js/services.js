@@ -208,7 +208,7 @@ angular.module('bitely.controllers')
           method:'PUT',
           interceptor: {
             response: function(order){
-              console.log('order update:', order);
+              // console.log('order update:', order);
               // angular.forEach( order.data.object.order.order_plates, function(value, key){
               //   if (value.menu_item.options) {
               //     order.data.object.order.order_plates[key].menu_item.options_array = [];
@@ -225,6 +225,7 @@ angular.module('bitely.controllers')
               $rootScope.order.tax_rate = order.data.object.order.tax_rate;
               $rootScope.order.restaurant = order.data.object.order.restaurant;
               $localstorage.setObject('order',$rootScope.order);
+              return order;
             },
             responseError: function (data) {
               console.log('error in interceptor', data);
