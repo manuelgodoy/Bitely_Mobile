@@ -1,14 +1,10 @@
-//'ionic.service.analytics',
-angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
+var ionicPass = "Akn8bJs7mRGbJp9kPW!";
 
-//$ionicAnalytics
-.run(function($http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
+//
+angular.module('bitely', ['ionic.service.analytics','ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
 
-  // 1646690858946373
-  // cookie: session
-  
-  //ngFB.init({appId: '1397986197168446'});
-
+//$ionicAnalytics,
+.run(function($ionicAnalytics, $http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
 
   // DEV
   $window.Stripe.setPublishableKey('pk_test_knVqvEMFxZsgserDdUhovk24');
@@ -45,55 +41,91 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
   var user;
 
   if ($rootScope.globals.currentUser && !$rootScope.globals.currentUser.isguest) {
-    $localstorage.remove('ionic_io_user_e739e0e8');
-    $localstorage.remove('ionic_io_push_token');
     Ionic.io();
-    Ionic.User.load($rootScope.globals.currentUser.nickname).then(
-      function(loadedUser){
-        Ionic.User.current(loadedUser);
-        user = Ionic.User.current();
-      }, 
-      function(error){
-        console.log('something went wrong: ',error);
-      });
+    user = Ionic.User.current();
+    if (user.isAuthenticated()) {
+      // console.log('is auth');
+      // hacerTokenPush();
+    } else {
+        var details = {
+          email: $rootScope.globals.currentUser.email,
+          password: ionicPass
+        };
+        Ionic.Auth.login('basic', { remember: true }, details).then(
+          function(userlogged){
+            hacerTokenPush();
+            // console.log('logged',userlogged)
+          },function(err){
+              if (err.response.body.meta.status === 401) {
+                // console.log('do reg');
+                Ionic.Auth.signup(details).then(
+                  function(registerused){
+                    Ionic.Auth.login('basic', { remember: true }, details).then(
+                      function(finaluser){
+                        // console.log(finaluser);
+                        user = Ionic.User.current();
+                        hacerTokenPush();
+                      }, function(err){
+                        console.log('error: ', err);
+                      })
+                  }, function(err){
+                      console.log('error: ', err);
+                  });
+              }
+          });
+    }
+
+    // Ionic.User.load($rootScope.globals.currentUser.nickname).then(
+    //   function(loadedUser){
+    //     Ionic.User.current(loadedUser);
+    //     user = Ionic.User.current();
+    //   }, 
+    //   function(error){
+    //     console.log('something went wrong: ',error);
+    //   });
 
 
     //ANALITYCS 
 
-    // $ionicAnalytics.register({
-    //   dryRun: true
-    // });
-
-
-    //PUSH
-    var push = new Ionic.Push({
-      // "debug": true,
-      onNotification: function(notification){
-        // $state.go('app.order.success');
-        if (!notification._raw.additionalData.foreground ) {
-          $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
-        }
-      },
-      "pluginConfig": {
-        "ios": {
-          "badge": true,
-          "sound": true
-        },
-        "android": {
-          "iconColor": "#fb7d00",
-          "icon": "bitely_ic"
-        }
-      }
+    $ionicAnalytics.register({
+      // dryRun: true
     });
 
-      push.register(function(pushToken) {
-        // var user = Ionic.User.current();
-        // console.log(user);
-        // user.id = $rootScope.globals.currentUser.nickname;
-        // user.set('image', $rootScope.globals.currentUser.picture);
-        user.addPushToken(pushToken);
-        user.save();
+    function hacerTokenPush() {
+      var push = new Ionic.Push({
+        // "debug": true,
+        onNotification: function(notification){
+          // $state.go('app.order.success');
+          if (!notification._raw.additionalData.foreground ) {
+            $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
+          }
+        },
+        "pluginConfig": {
+          "ios": {
+            "badge": true,
+            "sound": true
+          },
+          "android": {
+            "iconColor": "#fb7d00",
+            "icon": "bitely_ic"
+          }
+        }
       });
+        push.register(function(token) {
+          push.saveToken(token);
+        });      
+    }
+    //PUSH
+
+
+      // push.register(function(pushToken) {
+      //   var user = Ionic.User.current();
+      //   console.log(user);
+      //   user.id = $rootScope.globals.currentUser.nickname;
+      //   user.set('image', $rootScope.globals.currentUser.picture);
+      //   user.addPushToken(pushToken);
+      //   user.save();
+      // });
     }
 
 
@@ -134,11 +166,11 @@ angular.module('bitely', ['ionic','ionic.service.core','ionic.rating','bitely.co
 })
 
 //, $ionicAutoTrackProvider
-.config(function($stateProvider, $httpProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $httpProvider, $ionicConfigProvider, $ionicAutoTrackProvider) {
   
 
- // $ionicAutoTrackProvider.disableTracking('State Change');
- // $ionicAutoTrackProvider.disableTracking('Tap');
+ $ionicAutoTrackProvider.disableTracking('State Change');
+ $ionicAutoTrackProvider.disableTracking('Tap');
 
  $ionicConfigProvider.views.swipeBackEnabled(false);
  

@@ -1,3 +1,4 @@
+var ionicPass = "Akn8bJs7mRGbJp9kPW!";
 
 //LIVE
 // var dominio = "www.bitely.io";
@@ -61,34 +62,73 @@ angular.module('bitely.controllers')
 
       if (!todalainfo.isguest) {
 
+        var user;
         Ionic.io();
-        var push = new Ionic.Push({
-          // "debug": true,
-          onNotification: function(notification){
-            if (!notification._raw.additionalData.foreground ) {
-              $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
-            }
-          },
-          "pluginConfig": {
-            "ios": {
-              "badge": true,
-              "sound": true
-            },
-            "android": {
-              "iconColor": "#fb7d00",
-              "icon": "bitely_ic"
-            }
-          }
-        });
+        user = Ionic.User.current();
 
-        push.register(function(pushToken) {
-          var user = Ionic.User.current();
-          user.id = todalainfo.nickname;
-          user.set('image', todalainfo.picture);
-          console.log("Device token:",pushToken.token);
-          user.addPushToken(pushToken);
-          user.save();
-        });
+
+        var details = {
+          email: todalainfo.email,
+          password: ionicPass
+        };
+
+        Ionic.Auth.login('basic', { remember: true }, details).then(
+          function(userlogged){
+            hacerTokenPush()
+          },function(err){
+              if (err.response.body.meta.status === 401) {
+                // console.log('do reg');
+                Ionic.Auth.signup(details).then(
+                  function(registerused){
+                    Ionic.Auth.login('basic', { remember: true }, details).then(
+                      function(finaluser){
+                        // console.log(finaluser);
+                        user = Ionic.User.current();
+                        hacerTokenPush()
+                      }, function(err){
+                        console.log('error: ', err);
+                      })
+                  }, function(err){
+                      console.log('error: ', err);
+                  });
+              }
+          });
+
+        function hacerTokenPush() {
+        var push = new Ionic.Push({
+            // "debug": true,
+            onNotification: function(notification){
+              if (!notification._raw.additionalData.foreground ) {
+                $state.go(notification._payload.state, JSON.parse(notification._payload.stateParams));
+              }
+            },
+            "pluginConfig": {
+              "ios": {
+                "badge": true,
+                "sound": true
+              },
+              "android": {
+                "iconColor": "#fb7d00",
+                "icon": "bitely_ic"
+              }
+            }
+          });
+
+        push.register(function(token) {
+          push.saveToken(token);
+        });          
+        }
+
+  
+
+        // push.register(function(pushToken) {
+        //   var user = Ionic.User.current();
+        //   user.id = todalainfo.nickname;
+        //   user.set('image', todalainfo.picture);
+        //   console.log("Device token:",pushToken.token);
+        //   user.addPushToken(pushToken);
+        //   user.save();
+        // });
 
       }
 
@@ -104,9 +144,9 @@ angular.module('bitely.controllers')
       var push = new Ionic.Push({
         // "debug": true
       });      
-      var user = Ionic.User.current();
+      // var user = Ionic.User.current();
       // user.removePushToken(pushToken);
-
+      Ionic.Auth.logout();
       $rootScope.globals = {};
       $http.get('https://'+dominio+'/logout_app');
       $localstorage.setObject('globals',{});

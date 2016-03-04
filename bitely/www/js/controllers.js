@@ -1,3 +1,5 @@
+var ionicPass = "Akn8bJs7mRGbJp9kPW!";
+
 angular.module('bitely.controllers',[])
 .controller('AppCtrl', 
 	function(returnToState, Login, Order, EmailSignUp, EmailLogin, $ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, 
@@ -200,51 +202,6 @@ angular.module('bitely.controllers',[])
     });
 		
 	};
-
-    $scope.fakebook = function(from){
-
-    	Login.save({access_token:"CAAT3dgau4T4BAFLoP94ZA4uRgzRZBPLUy3LoZAk196SV2NQPR6egh6Su8PKGylLa1XZBJZAOJs6Wra9pxFZAfDxiJ2kEUvgxszZCZCQVhP0ToWek6FZCG4u3Dc5Qa2DMZBHChoeY1A4FUDEX90bIbg4CUwnnDdnOiSyPTnN8PChFkOzBZAirZCejdC2OhEzKSKTO7fLA99quD2pH00JYldKs9ypJ"}
-		).$promise.then(
-		function(res){
-    		// console.log(res);
-    		if (res.user!==null){
-
-			Auth.setCredentials(res.user);
-			Order.query();
-			$ionicBackdrop.release();
-	 		if  (from==='home') {
-	 			$ionicHistory.nextViewOptions({
-				    disableAnimate: true,
-				    disableBack: true
-				});
-				$location.path('/app/home');
-	 		}
-
-	 		if  (from==='order') {
-	 			if (!$rootScope.globals.currentUser.has_customertoken) {
-	 				$location.path('/app/order/card');
-	 			} else {
-	 				$location.path('/app/order/confirm');
-	 			}
-	 		}
-	 		} else {
-	 			$ionicPopup.alert({
-					title: 'Error!',
-					template: 'Login Failed',
-					okType: 'button-royal'
-				});
-	 		}			
-    	}, function(error){
-          // console.log('get error:', error);
-          $ionicBackdrop.release();
-          $ionicPopup.alert({
-				title: 'Error!',
-				template: 'Login Failed',
-				okType: 'button-royal'
-			});
-        });
-    }
-
 
 	$scope.asGuest = function(){
 		//SIMULAR LOGIN
