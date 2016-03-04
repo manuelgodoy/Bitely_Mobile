@@ -1,5 +1,3 @@
-var ionicPass = "Akn8bJs7mRGbJp9kPW!";
-
 angular.module('bitely.controllers',[])
 .controller('AppCtrl', 
 	function(returnToState, Login, Order, EmailSignUp, EmailLogin, $ionicBackdrop, $cordovaToast, User, Auth, Order, $window, $cookies, 
