@@ -145,9 +145,9 @@ angular.module('bitely.controllers')
 
   service.clearCredentials = function(){
       Ionic.io();
-      var push = new Ionic.Push({
-        // "debug": true
-      });      
+      // var push = new Ionic.Push({
+      //   // "debug": true
+      // });      
       // var user = Ionic.User.current();
       // user.removePushToken(pushToken);
       Ionic.Auth.logout();
