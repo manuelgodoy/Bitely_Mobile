@@ -3,7 +3,7 @@ var MD5=function(s){function L(k,d){return(k<<d)|(k>>>(32-d))}function K(G,k){va
 angular.module('bitely', ['ionic.service.analytics','ionic','ionic.service.core','ionic.rating','bitely.controllers', 'ngCordova', 'ngResource', 'ngCookies', 'angularPayments', 'ngIOS9UIWebViewPatch'])
 
 //$ionicAnalytics,
-.run(function($ionicAnalytics, $http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
+.run(function(IdService, $ionicAnalytics, $http, $cordovaStatusbar, $cookies, $ionicPlatform, $rootScope, $location, $localstorage, $window, $state) {
 
   // DEV
   $window.Stripe.setPublishableKey('pk_test_knVqvEMFxZsgserDdUhovk24');
@@ -62,6 +62,7 @@ angular.module('bitely', ['ionic.service.analytics','ionic','ionic.service.core'
                   function(registerused){
                     Ionic.Auth.login('basic', { remember: true }, details).then(
                       function(finaluser){
+                        IdService.save({id:finaluser.uuid});
                         // console.log(finaluser);
                         user = Ionic.User.current();
                         if ($rootScope.globals.currentUser.picture) user.details.image = $rootScope.globals.currentUser.picture;

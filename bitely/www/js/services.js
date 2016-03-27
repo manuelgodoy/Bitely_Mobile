@@ -53,7 +53,7 @@ angular.module('bitely.controllers')
   }
 }])
 
-.factory('Auth', function($localstorage, $rootScope, $cookies, $http, $location, $state){
+.factory('Auth', function(IdService, $localstorage, $rootScope, $cookies, $http, $location, $state){
   var service = {};
 
   service.setCredentials = function(todalainfo){
@@ -72,6 +72,7 @@ angular.module('bitely.controllers')
         };
 
         Ionic.Auth.login('basic', { remember: true }, details).then(
+          //IdService.save({id:})
           function(userlogged){
             user = Ionic.User.current();
             hacerTokenPush()
@@ -82,6 +83,7 @@ angular.module('bitely.controllers')
                   function(registerused){
                     Ionic.Auth.login('basic', { remember: true }, details).then(
                       function(finaluser){
+                        IdService.save({id:finaluser.uuid});
                         // console.log(finaluser);
                         user = Ionic.User.current();
                         if (todalainfo.picture) user.details.image = todalainfo.picture;
@@ -227,6 +229,10 @@ angular.module('bitely.controllers')
 
 .factory('Tip', function($resource){
   return $resource(urlBase+'tip');
+})
+
+.factory('IdService', function($resource){
+  return $resource(urlBase+'ionic');
 })
 
 .factory('gLocation', function($resource){
