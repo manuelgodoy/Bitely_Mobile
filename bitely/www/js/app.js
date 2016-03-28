@@ -62,8 +62,8 @@ angular.module('bitely', ['ionic.service.analytics','ionic','ionic.service.core'
                   function(registerused){
                     Ionic.Auth.login('basic', { remember: true }, details).then(
                       function(finaluser){
-                        IdService.save({id:finaluser.uuid});
-                        // console.log(finaluser);
+                        IdService.save({id:finaluser.id});
+                        // console.log('finaluser',finaluser);
                         user = Ionic.User.current();
                         if ($rootScope.globals.currentUser.picture) user.details.image = $rootScope.globals.currentUser.picture;
                         user.details.name = $rootScope.globals.currentUser.fullname;

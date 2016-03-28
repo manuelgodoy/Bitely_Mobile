@@ -83,8 +83,8 @@ angular.module('bitely.controllers')
                   function(registerused){
                     Ionic.Auth.login('basic', { remember: true }, details).then(
                       function(finaluser){
-                        IdService.save({id:finaluser.uuid});
-                        // console.log(finaluser);
+                        IdService.save({id:finaluser.id});
+                        // console.log('finaluser',finaluser);
                         user = Ionic.User.current();
                         if (todalainfo.picture) user.details.image = todalainfo.picture;
                         user.details.name = todalainfo.fullname;
